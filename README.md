@@ -80,6 +80,10 @@ elixir.setup({
 
 ## Features
 
+### Root Path Detection
+
+`elixir.nvim` should be able to properly set the root directory for umbrella and non-umbrella apps. The nvim-lspconfig project's root detection doesn't properly account for umbrella projects.
+
 ### Run Tests
 
 ElixirLS provides a codelens to identify and run your tests. If you configure `enableTestLenses = true` in the settings table, you will see the codelens as virtual text in your editor and can run them with `vim.lsp.codelens.run()`.
