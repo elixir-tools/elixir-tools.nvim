@@ -95,3 +95,7 @@ ElixirLS provides a codelens to identify and run your tests. If you configure `e
 TODO: description
 
 TODO: gif
+
+### Debugger
+
+TODO: make it work
