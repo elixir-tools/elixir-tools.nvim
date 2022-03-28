@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+release_path="$1"
+
+mix local.hex --force
+mix local.rebar --force
+mix deps.get
+mix compile
+mix elixir_ls.release -o "$release_path"
