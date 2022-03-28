@@ -112,7 +112,7 @@ local function test(command)
 end
 
 local root_dir = function(fname)
-	-- local path = lsputil.path
+	local path = lsputil.path
 	local child_or_root_path = lsputil.root_pattern({ "mix.exs", ".git" })(fname)
 	local maybe_umbrella_path = lsputil.root_pattern({ "mix.exs" })(
 		uv.fs_realpath(path.join({ child_or_root_path, ".." }))
