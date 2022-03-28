@@ -15,12 +15,7 @@ use({ "mhanberg/elixir.nvim", requires = { "neovim/nvim-lspconfig", "nvim-lua/pl
 ### Minimal Setup
 
 ```lua
-local elixir = require("elixir")
-
-elixir.setup({
-  -- required option, reminder this is a table
-  cmd = { vim.fn.expand("path/to/language_server.sh") },
-})
+require("elixir").setup()
 ```
 
 ### Advanced Setup
@@ -45,7 +40,7 @@ elixir.setup({
     -- run the codelens under the cursor
     vim.keymap.set("n", "<space>r",  vim.lsp.codelens.run, map_opts)
     -- remove the pipe operator
-    vim.keymap.set("n", "<space>fp", elixir.from_pipe(client),map_opts)
+    vim.keymap.set("n", "<space>fp", elixir.from_pipe(client), map_opts)
     -- add the pipe operator
     vim.keymap.set("n", "<space>tp", elixir.to_pipe(client), map_opts)
 
