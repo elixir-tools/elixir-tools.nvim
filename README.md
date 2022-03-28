@@ -7,7 +7,7 @@
 ## Install
 
 ```lua
-use({"mhanberg/elixir.nvim", requires = { "neovim/nvim-lspconfig" }})
+use({ "mhanberg/elixir.nvim", requires = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" }})
 ```
 
 ## Getting Started
