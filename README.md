@@ -85,6 +85,8 @@ Caveat: This assumes you are developing your project locally (outside of somethi
 
 Caveat: This currently naively installs ElixirLS into the .elixir_ls directory for every project. Soon this will be stored in a central cache, but the naive approach is the minimum valuable product.
 
+![auto-install-elixirls](https://user-images.githubusercontent.com/5523984/160333851-94d448d9-5c80-458c-aa0d-4c81528dde8f.gif)
+
 ### Root Path Detection
 
 `elixir.nvim` should be able to properly set the root directory for umbrella and non-umbrella apps. The nvim-lspconfig project's root detection doesn't properly account for umbrella projects.
