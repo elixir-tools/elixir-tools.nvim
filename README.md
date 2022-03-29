@@ -94,9 +94,25 @@ ElixirLS provides a codelens to identify and run your tests. If you configure `e
 
 ### Manipulate Pipes
 
-TODO: description
+The LSP has the ability to convert the expression under the cursor form a normal function call to a "piped" function all (and vice versa).
 
-TODO: gif
+Here is an example of setting up a mapping and a user command to do so.
+
+```lua
+local elixir = require("elixir")
+elixir.setup({
+  -- ...
+  on_attach = function(client, bufnr)
+    vim.keymap.set("n", "<space>fp", elixir.from_pipe(client), { buffer = true, noremap = true })
+    vim.keymap.set("n", "<space>tp", elixir.to_pipe(client), { buffer = true, noremap = true })
+
+    vim.api.nvim_buf_add_user_command(bufnr, "ElixirFromPipe", elixir.from_pipe(client), {})
+    vim.api.nvim_buf_add_user_command(bufnr, "ElixirToPipe", elixir.to_pipe(client), {})
+  end
+})
+```
+
+![manipulate_pipes](https://user-images.githubusercontent.com/5523984/160508641-cedb6ebf-3ec4-4229-9708-aa360b15a2d5.gif)
 
 ### Debugger
 
