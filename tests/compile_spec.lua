@@ -11,7 +11,7 @@ end
 describe("compile", function()
 	before_each(function()
 		if not Path:new("tmp/clones/elixir-ls/mix.exs"):exists() then
-			Path:new("tmp/clones"):mkdir({ mode = 493 })
+			Path:new("tmp/clones"):mkdir({ mode = 493, parents = true })
 			vim.fn.system("git -C tmp/clones clone https://github.com/elixir-lsp/elixir-ls.git")
 		end
 	end)
