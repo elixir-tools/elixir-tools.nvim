@@ -39,7 +39,7 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.url }}-${{ hashFiles('todays-date') }}
 
       - name: Add Repositoy
-        if: matrix.manager == "sudo apt-get"
+        if: matrix.os == 'ubuntu-20.04'
         run: wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb && sudo dpkg -i erlang-solutions_2.0_all.deb
 
       - name: Prepare
