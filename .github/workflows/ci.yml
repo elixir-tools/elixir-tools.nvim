@@ -15,25 +15,21 @@ jobs:
           - os: ubuntu-20.04
             url: https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
             manager: sudo apt-get
-            packages: -y fd-find
+            packages: -y fd-find esl-erlang elixir
           - os: ubuntu-20.04
             url: https://github.com/neovim/neovim/releases/download/v0.6.0/nvim-linux64.tar.gz
             manager: sudo apt-get
-            packages: -y fd-find
+            packages: -y fd-find esl-erlang elixir
           - os: macos-10.15
             url: https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
             manager: brew
-            packages: fd
+            packages: fd elixir
           - os: macos-10.15
             url: https://github.com/neovim/neovim/releases/download/v0.6.0/nvim-macos.tar.gz
             manager: brew
-            packages: fd
+            packages: fd elixir
     steps:
       - uses: actions/checkout@v2
-      - uses: erlef/setup-beam@v1
-        with:
-          otp-version: 24.x
-          elixir-version: 1.13.x
 
       - run: date +%F > todays-date
       - name: Restore from todays cache
@@ -41,6 +37,10 @@ jobs:
         with:
           path: _neovim
           key: ${{ runner.os }}-${{ matrix.url }}-${{ hashFiles('todays-date') }}
+
+      - name: Add Repositoy
+        if: matrix.manager == "sudo apt-get"
+        run: wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb && sudo dpkg -i erlang-solutions_2.0_all.deb
 
       - name: Prepare
         run: |
