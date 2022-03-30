@@ -26,6 +26,10 @@ While the plugin works with a minimal setup, it is much more useful if you add s
 local elixir = require("elixir")
 
 elixir.setup({
+  -- specify a repository and branch
+  repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
+  branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch
+
   -- default settings, use the `settings` function to override settings
   settings = elixir.settings({
     dialyzerEnabled = true,
