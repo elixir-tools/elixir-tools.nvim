@@ -55,6 +55,14 @@ jobs:
           git clone --depth 1 https://github.com/neovim/nvim-lspconfig ~/.local/share/nvim/site/pack/vendor/start/nvim-lspconfig
           ln -s $(pwd) ~/.local/share/nvim/site/pack/vendor/start
 
+      - name: "Can run bin/compile"
+        run: |
+          mkdir workflow-tmp
+          git -C workflow-tmp clone https://github.com/elixir-lsp/elixir-ls
+          cd workflow-tmp/elixir-ls
+          ../../bin/compile release
+          ls release
+
       - name: Run tests
         run: |
           export PATH="${PWD}/_neovim/bin:${PATH}"
