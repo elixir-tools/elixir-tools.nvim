@@ -30,6 +30,11 @@ jobs:
             packages: fd
     steps:
       - uses: actions/checkout@v2
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 24.x
+          elixir-version: 1.13.x
+
       - run: date +%F > todays-date
       - name: Restore from todays cache
         uses: actions/cache@v2
