@@ -15,19 +15,19 @@ jobs:
           - os: ubuntu-20.04
             url: https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
             manager: sudo apt-get
-            packages: -y fd-find esl-erlang elixir
+            packages: -y fd-find esl-erlang elixir tree
           - os: ubuntu-20.04
             url: https://github.com/neovim/neovim/releases/download/v0.6.0/nvim-linux64.tar.gz
             manager: sudo apt-get
-            packages: -y fd-find esl-erlang elixir
+            packages: -y fd-find esl-erlang elixir tree
           - os: macos-10.15
             url: https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
             manager: brew
-            packages: fd elixir
+            packages: fd elixir tree
           - os: macos-10.15
             url: https://github.com/neovim/neovim/releases/download/v0.6.0/nvim-macos.tar.gz
             manager: brew
-            packages: fd elixir
+            packages: fd elixir tree
     steps:
       - uses: actions/checkout@v2
 
@@ -54,14 +54,6 @@ jobs:
           git clone --depth 1 https://github.com/nvim-lua/plenary.nvim ~/.local/share/nvim/site/pack/vendor/start/plenary.nvim
           git clone --depth 1 https://github.com/neovim/nvim-lspconfig ~/.local/share/nvim/site/pack/vendor/start/nvim-lspconfig
           ln -s $(pwd) ~/.local/share/nvim/site/pack/vendor/start
-
-      - name: "Can run bin/compile"
-        run: |
-          mkdir workflow-tmp
-          git -C workflow-tmp clone https://github.com/elixir-lsp/elixir-ls
-          cd workflow-tmp/elixir-ls
-          ../../bin/compile release
-          ls release
 
       - name: Run tests
         run: |

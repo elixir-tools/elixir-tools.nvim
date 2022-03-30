@@ -22,6 +22,10 @@ describe("compile", function()
 		local install_path = "tmp/installs"
 		local job = Compile.compile(source_path, install_path, { repo = "mhanberg/elixir-ls", sync = true })
 
+    local output = vim.fn.system("cd tmp/installs && tree && cd -")
+
+    io.stdout:write(output)
+
 		eq(job.code, 0)
 		assert.True(Path:new("tmp/installs/mhanberg_elixir-ls-HEAD/1.13.3-24/language_server.sh"):exists())
 	end)
