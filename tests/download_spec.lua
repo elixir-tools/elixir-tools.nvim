@@ -19,7 +19,6 @@ describe("download", function()
 
 		eq(result, "elixir-ls-0.9.0")
 
-		vim.notify(vim.fn.system("cd " .. download_dir .. " && tree"))
 		assert.True(Path:new(download_dir, "elixir-ls-0.9.0", "mix.exs"):exists())
 	end)
 
