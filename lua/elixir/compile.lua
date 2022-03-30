@@ -21,6 +21,8 @@ function M.compile(source_path, install_path, opts)
 			vim.api.nvim_buf_call(opts.bufnr, function()
 				vim.api.nvim_command("normal G")
 			end)
+		else
+			io.stdout:write(line)
 		end
 	end)
 
@@ -41,10 +43,10 @@ function M.compile(source_path, install_path, opts)
 					end)
 				end
 
-        vim.notify("Finished compiling ElixirLS!")
-        vim.notify("Reloading buffer")
+				vim.notify("Finished compiling ElixirLS!")
+				vim.notify("Reloading buffer")
 				vim.api.nvim_command("edit")
-        vim.notify("Restarting LSP client")
+				vim.notify("Restarting LSP client")
 				vim.api.nvim_command("LspRestart")
 			end
 		end),
