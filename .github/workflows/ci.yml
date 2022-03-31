@@ -8,8 +8,10 @@ jobs:
   unit_tests:
     name: unit tests
     runs-on: ${{ matrix.os }}
+
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true)
+
     strategy:
-      fail-fast: false
       matrix:
         include:
           - os: ubuntu-20.04
