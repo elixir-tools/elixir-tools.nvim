@@ -26,9 +26,16 @@ function M.stable(dir)
 	return "elixir-ls-0.9.0"
 end
 
+local prnt = function(thing)
+	io.stdout:write(vim.inspect(thing))
+	return thing
+end
+
 function M.clone(dir, opts)
 	opts = opts or {}
-	local dir_identifier = Utils.repo_path(opts.repo, opts.ref)
+	local r = opts.repo
+	local rr = Utils.safe_path(opts.ref or "HEAD")
+	local dir_identifier = Path:new(r, rr).filename
 
 	vim.notify(string.format("Cloning ref %s from repo %s", opts.ref or "default", opts.repo))
 
@@ -38,7 +45,7 @@ function M.clone(dir, opts)
 	local clone = Job:new({
 		command = "git",
 		args = { "-C", dir, "clone", string.format("https://github.com/%s.git", opts.repo), dir_identifier },
-    enable_recording = true
+		enable_recording = true,
 	})
 
 	clone:sync()

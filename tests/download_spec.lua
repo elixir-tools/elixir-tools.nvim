@@ -27,8 +27,8 @@ describe("download", function()
 
 		local result = Download.clone(download_dir, { repo = "elixir-lsp/elixir-ls" })
 
-		eq("elixir-lsp_elixir-ls-HEAD", result)
-		assert.True(Path:new(download_dir, "elixir-lsp_elixir-ls-HEAD", "mix.exs"):exists())
+		eq("elixir-lsp/elixir-ls/HEAD", result)
+		assert.True(Path:new(download_dir, "elixir-lsp/elixir-ls/HEAD", "mix.exs"):exists())
 	end)
 
 	it("can clone from a different repository", function()
@@ -36,8 +36,8 @@ describe("download", function()
 
 		local result = Download.clone(download_dir, { repo = "mhanberg/elixir-ls" })
 
-		eq("mhanberg_elixir-ls-HEAD", result)
-		assert.True(Path:new(download_dir, "mhanberg_elixir-ls-HEAD", "mix.exs"):exists())
+		eq("mhanberg/elixir-ls/HEAD", result)
+		assert.True(Path:new(download_dir, "mhanberg/elixir-ls/HEAD", "mix.exs"):exists())
 	end)
 
 	it("can checkout a different branch", function()
@@ -45,8 +45,8 @@ describe("download", function()
 
 		local result = Download.clone(download_dir, { repo = "mhanberg/elixir-ls", ref = "mh/all-workspace-symbols" })
 
-		eq("mhanberg_elixir-ls-mh_all-workspace-symbols", result)
-		assert.True(Path:new(download_dir, "mhanberg_elixir-ls-mh_all-workspace-symbols", "mix.exs"):exists())
+		eq("mhanberg/elixir-ls/mh_all-workspace-symbols", result)
+		assert.True(Path:new(download_dir, "mhanberg/elixir-ls/mh_all-workspace-symbols", "mix.exs"):exists())
 	end)
 
 	it("can checkout a different tag", function()
@@ -54,7 +54,7 @@ describe("download", function()
 
 		local result = Download.clone(download_dir, { repo = "elixir-lsp/elixir-ls", ref = "tags/v0.9.0" })
 
-		eq("elixir-lsp_elixir-ls-tags_v0.9.0", result)
-		assert.True(Path:new(download_dir, "elixir-lsp_elixir-ls-tags_v0.9.0", "mix.exs"):exists())
+		eq("elixir-lsp/elixir-ls/tags_v0.9.0", result)
+		assert.True(Path:new(download_dir, "elixir-lsp/elixir-ls/tags_v0.9.0", "mix.exs"):exists())
 	end)
 end)
