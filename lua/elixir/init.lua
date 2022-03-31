@@ -42,7 +42,7 @@ function M.open_floating_window()
 		minheight = height,
 		border = {},
 		padding = { 2, 2, 2, 2 },
-    zindex = 10
+		zindex = 10,
 	})
 
 	return bufnr
@@ -139,7 +139,7 @@ M.settings = function(opts)
 end
 
 function M.command(params)
-	local repo_path = Utils.repo_path(params.repo, params.branch)
+	local repo_path = Utils.repo_path(params.repo, params.ref)
 	local install_path = Path:new(params.path, repo_path, params.versions, "language_server.sh")
 
 	return install_path
@@ -160,9 +160,9 @@ local install_dir = cache_dir:joinpath("installs")
 local function install_elixir_ls(opts)
 	local download_opts = {
 		repo = opts.repo,
-		branch = opts.branch,
+		ref = opts.ref,
 	}
-	local downloader = (opts.repo or opts.branch) and "clone" or "stable"
+	local downloader = (opts.repo or opts.ref) and "clone" or "stable"
 	local source_path = Download[downloader](tostring(download_dir:absolute()), download_opts)
 	local bufnr = M.open_floating_window()
 
@@ -175,11 +175,18 @@ end
 
 local function make_opts(opts)
 	local repo = opts.repo or "elixir-lsp/elixir-ls"
-	local branch = opts.branch or nil
+	local ref
+	if opts.branch then
+		ref = opts.branch
+	elseif opts.tag then
+		ref = "tags/" .. opts.tag
+	else
+		ref = nil
+	end
 
 	return {
 		repo = repo,
-		branch = branch,
+		ref = ref,
 	}
 end
 
@@ -194,7 +201,7 @@ function M.setup(opts)
 			local cmd = M.command({
 				path = tostring(install_dir),
 				repo = opts.repo,
-				branch = opts.branch,
+				ref = opts.ref,
 				versions = Version.get(),
 			})
 

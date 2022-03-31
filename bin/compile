@@ -4,6 +4,7 @@ set -e
 
 release_path="$1"
 
+[ -f .tool-versions ] && rm .tool-versions
 mix local.hex --force
 mix local.rebar --force
 mix deps.get

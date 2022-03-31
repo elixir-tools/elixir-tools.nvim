@@ -28,9 +28,9 @@ end
 
 function M.clone(dir, opts)
 	opts = opts or {}
-	local dir_identifier = Utils.repo_path(opts.repo, opts.branch)
+	local dir_identifier = Utils.repo_path(opts.repo, opts.ref)
 
-	vim.notify(string.format("Cloning branch %s from repo %s", opts.branch or "default", opts.repo))
+	vim.notify(string.format("Cloning ref %s from repo %s", opts.ref or "default", opts.repo))
 
 	local made_path = Path:new(dir):mkdir({ parents = true, mode = 493 })
 	assert(made_path, "failed to make the path")
@@ -45,14 +45,14 @@ function M.clone(dir, opts)
 
 	assert(clone.code == 0, "Failed to clone")
 
-	if branch then
+	if opts.ref then
 		local checkout = Job:new({
 			command = "git",
-			args = { "-C", Path:new(dir, dir_identifier).filename, "checkout", branch },
+			args = { "-C", Path:new(dir, dir_identifier).filename, "checkout", opts.ref },
 		})
 		checkout:sync()
 
-		assert(checkout.code == 0, "Failed to checkout branch " .. branch)
+		assert(checkout.code == 0, "Failed to checkout ref " .. opts.ref)
 	end
 
 	vim.notify("Downloaded ElixirLS!")
