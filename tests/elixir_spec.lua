@@ -14,7 +14,7 @@ describe("elixir", function()
 			local result = elixir.command({
 				path = install_path,
 				repo = "foo",
-				branch = "bar/baz",
+				ref = "bar/baz",
 				versions = "foobarbaz",
 			})
 
@@ -30,7 +30,7 @@ describe("elixir", function()
 			local result = elixir.command({
 				path = install_path,
 				repo = "foo",
-				branch = "bar/baz",
+				ref = "bar/baz",
 				versions = "foobarbaz",
 			})
 
