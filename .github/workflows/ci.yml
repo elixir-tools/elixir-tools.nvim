@@ -22,11 +22,11 @@ jobs:
             url: https://github.com/neovim/neovim/releases/download/v0.6.0/nvim-linux64.tar.gz
             manager: sudo apt-get
             packages: -y fd-find esl-erlang elixir tree
-          - os: macos-10.15
+          - os: macos-11
             url: https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
             manager: brew
             packages: fd elixir tree
-          - os: macos-10.15
+          - os: macos-11
             url: https://github.com/neovim/neovim/releases/download/v0.6.0/nvim-macos.tar.gz
             manager: brew
             packages: fd elixir tree
