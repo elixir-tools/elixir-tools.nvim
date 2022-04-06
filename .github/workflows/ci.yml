@@ -62,6 +62,6 @@ jobs:
           export PATH="${PWD}/_neovim/bin:${PATH}"
           export VIM="${PWD}/_neovim/share/nvim/runtime"
           nvim --version
-          nvim --headless --noplugin -u support/minimal_init.vim -c "PlenaryBustedDirectory tests/ {minimal_init = 'support/minimal_init.vim', timeout = 180000}"
+          nvim --headless --noplugin -u support/minimal_init.vim -c "PlenaryBustedDirectory tests/ {minimal_init = 'support/minimal_init.vim'}"
 
 
