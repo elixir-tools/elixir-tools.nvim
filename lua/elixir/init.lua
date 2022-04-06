@@ -139,8 +139,13 @@ M.settings = function(opts)
 end
 
 function M.command(params)
-	local repo_path = Utils.repo_path(params.repo, params.ref)
-	local install_path = Path:new(params.path, repo_path, params.versions, "language_server.sh")
+	local install_path = Path:new(
+		params.path,
+		params.repo,
+		Utils.safe_path(params.ref),
+		params.versions,
+		"language_server.sh"
+	)
 
 	return install_path
 end
@@ -155,20 +160,18 @@ end
 
 local cache_dir = Path:new(vim.fn.getcwd(), ".elixir_ls", "elixir.nvim")
 local download_dir = cache_dir:joinpath("downloads")
-local install_dir = cache_dir:joinpath("installs")
+local install_dir = Path:new(vim.fn.expand("~/.cache/nvim/elixir.nvim/installs"))
 
 local function install_elixir_ls(opts)
-	local download_opts = {
-		repo = opts.repo,
-		ref = opts.ref,
-	}
 	local downloader = (opts.repo or opts.ref) and "clone" or "stable"
-	local source_path = Download[downloader](tostring(download_dir:absolute()), download_opts)
+	local source_path = Download[downloader](tostring(download_dir:absolute()), opts)
 	local bufnr = M.open_floating_window()
 
+	vim.notify(opts.install_path.filename)
+
 	local result = Compile.compile(
-		tostring(download_dir:joinpath(source_path):absolute()),
-		tostring(install_dir:absolute()),
+		download_dir:joinpath(source_path):absolute(),
+		opts.install_path:absolute(),
 		vim.tbl_extend("force", opts, { bufnr = bufnr })
 	)
 end
@@ -196,19 +199,19 @@ function M.setup(opts)
 			client.commands["elixir.lens.test.run"] = test
 		end),
 		on_new_config = function(new_config, new_root_dir)
-			opts = make_opts(opts)
+			new_opts = make_opts(opts)
 
 			local cmd = M.command({
 				path = tostring(install_dir),
-				repo = opts.repo,
-				ref = opts.ref,
+				repo = new_opts.repo,
+				ref = new_opts.ref,
 				versions = Version.get(),
 			})
 
 			if not cmd:exists() then
 				vim.ui.select({ "Yes", "No" }, { prompt = "Install ElixirLS" }, function(choice)
 					if choice == "Yes" then
-						install_elixir_ls(opts)
+						install_elixir_ls(vim.tbl_extend("force", new_opts, { install_path = cmd:parent() }))
 					end
 				end)
 

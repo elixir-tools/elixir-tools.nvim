@@ -3,7 +3,7 @@ local shell = vim.fn.system
 local Path = require("plenary.path")
 local Compile = require("elixir.compile")
 
-p = function(x)
+local p = function(x)
 	io.stdout:write(vim.inspect(x) .. "\n")
 	return x
 end
@@ -16,15 +16,18 @@ describe("compile", function()
 			Path:new("tmp/clones"):mkdir({ mode = 493, parents = true })
 			vim.fn.system("git -C tmp/clones clone https://github.com/elixir-lsp/elixir-ls.git")
 		end
+
+		vim.fn.system("rm -rf tmp/installs")
+		vim.fn.system("mkdir -p tmp/installs")
 	end)
 
 	it("can compile elixir ls", function()
-		print("compiling spec")
 		local source_path = "tmp/clones/elixir-ls"
-		local install_path = "tmp/installs"
-		local job = Compile.compile(source_path, install_path, { repo = "mhanberg/elixir-ls", sync = true })
+		local install_path = Path:new("tmp/installs/mhanberg/elixir-ls/HEAD", versions):absolute()
+		local job = Compile.compile(source_path, install_path, { sync = true })
 
 		eq(job.code, 0)
-		assert.True(Path:new("tmp/installs/mhanberg_elixir-ls-HEAD", versions, "language_server.sh"):exists())
+
+		assert.True(Path:new("tmp/installs/mhanberg/elixir-ls/HEAD", versions, "language_server.sh"):exists())
 	end)
 end)
