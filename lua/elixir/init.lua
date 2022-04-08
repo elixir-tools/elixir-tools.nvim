@@ -69,6 +69,17 @@ function M.to_pipe(client)
 	end
 end
 
+function M.restart(client)
+	return function()
+		client.request_sync("workspace/executeCommand", {
+			command = "restart:serverid",
+			arguments = {},
+		}, nil, 0)
+
+		vim.cmd([[w | edit]])
+	end
+end
+
 local nil_buf_id = 999999
 local term_buf_id = nil_buf_id
 

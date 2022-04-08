@@ -6,6 +6,8 @@
 
 ## Install
 
+Requires Nightly or v0.7.
+
 ```lua
 use({ "mhanberg/elixir.nvim", requires = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" }})
 ```
@@ -99,7 +101,7 @@ ElixirLS provides a codelens to identify and run your tests. If you configure `e
 
 ### Manipulate Pipes
 
-The LSP has the ability to convert the expression under the cursor form a normal function call to a "piped" function all (and vice versa).
+The LS has the ability to convert the expression under the cursor form a normal function call to a "piped" function all (and vice versa).
 
 Here is an example of setting up a mapping and a user command to do so.
 
@@ -118,6 +120,20 @@ elixir.setup({
 ```
 
 ![manipulate_pipes](https://user-images.githubusercontent.com/5523984/160508641-cedb6ebf-3ec4-4229-9708-aa360b15a2d5.gif)
+
+## Restart
+
+You can restart the LS by using the restart command. This is useful if you think the LS has gotten into a weird state. It will send the restart command and then save and reload your current buffer to re-attach the client.
+
+```lua
+local elixir = require("elixir")
+elixir.setup({
+  -- ...
+  on_attach = function(client, bufnr)
+    vim.api.nvim_buf_add_user_command(bufnr, "ElixirRestart", elixir.restart(client), {})
+  end
+})
+```
 
 ### Debugger
 
