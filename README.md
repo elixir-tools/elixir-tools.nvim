@@ -86,7 +86,7 @@ When a compatible installation of ELixirLS is not found, you will be prompted to
 
 Caveat: This assumes you are developing your project locally (outside of something like Docker) and they will be available.
 
-Caveat: This currently naively installs ElixirLS into the .elixir_ls directory for every project. Soon this will be stored in a central cache, but the naive approach is the minimum valuable product.
+Caveat: This currently downloads the language server into the `.elixir_ls` directory in your repository, but it does install it into `~/.cache` and will re-use it  when needed.
 
 ![auto-install-elixirls](https://user-images.githubusercontent.com/5523984/160333851-94d448d9-5c80-458c-aa0d-4c81528dde8f.gif)
 
