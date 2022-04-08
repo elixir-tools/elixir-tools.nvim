@@ -47,9 +47,10 @@ elixir.setup({
     -- run the codelens under the cursor
     vim.keymap.set("n", "<space>r",  vim.lsp.codelens.run, map_opts)
     -- remove the pipe operator
-    vim.keymap.set("n", "<space>fp", elixir.from_pipe(client), map_opts)
+    vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", map_opts)
     -- add the pipe operator
-    vim.keymap.set("n", "<space>tp", elixir.to_pipe(client), map_opts)
+    vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", map_opts)
+    vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", map_opts)
 
     -- standard lsp keybinds
     vim.keymap.set("n", "df", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<cr>", map_opts)
@@ -103,21 +104,8 @@ ElixirLS provides a codelens to identify and run your tests. If you configure `e
 
 The LS has the ability to convert the expression under the cursor form a normal function call to a "piped" function all (and vice versa).
 
-Here is an example of setting up a mapping and a user command to do so.
-
-```lua
-local elixir = require("elixir")
-elixir.setup({
-  -- ...
-  on_attach = function(client, bufnr)
-    vim.keymap.set("n", "<space>fp", elixir.from_pipe(client), { buffer = true, noremap = true })
-    vim.keymap.set("n", "<space>tp", elixir.to_pipe(client), { buffer = true, noremap = true })
-
-    vim.api.nvim_buf_add_user_command(bufnr, "ElixirFromPipe", elixir.from_pipe(client), {})
-    vim.api.nvim_buf_add_user_command(bufnr, "ElixirToPipe", elixir.to_pipe(client), {})
-  end
-})
-```
+`:ElixirFromPipe`
+`:ElixirToPipe`
 
 ![manipulate_pipes](https://user-images.githubusercontent.com/5523984/160508641-cedb6ebf-3ec4-4229-9708-aa360b15a2d5.gif)
 
@@ -125,15 +113,7 @@ elixir.setup({
 
 You can highlight a macro call in visual mode and "expand" the macro, opening a floating window with the results.
 
-```lua
-local elixir = require("elixir")
-elixir.setup({
-  -- ...
-  on_attach = function(client, bufnr)
-    vim.api.nvim_buf_add_user_command(bufnr, "ElixirExpandMacro", elixirls.expand_macro(client), { range = true })
-  end
-})
-```
+`:'<,'>ElixirExpandMacro`
 
 ![expand_macro](https://user-images.githubusercontent.com/5523984/162372669-4782baba-1889-4145-8a4f-e3bf13a6450d.gif)
 
@@ -141,15 +121,7 @@ elixir.setup({
 
 You can restart the LS by using the restart command. This is useful if you think the LS has gotten into a weird state. It will send the restart command and then save and reload your current buffer to re-attach the client.
 
-```lua
-local elixir = require("elixir")
-elixir.setup({
-  -- ...
-  on_attach = function(client, bufnr)
-    vim.api.nvim_buf_add_user_command(bufnr, "ElixirRestart", elixir.restart(client), {})
-  end
-})
-```
+`:ElixirRestart`
 
 ### Debugger
 

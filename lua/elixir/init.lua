@@ -108,7 +108,7 @@ function M.expand_macro(client)
 			table.insert(content, "Error")
 		end
 
-    -- not sure why i need this here
+		-- not sure why i need this here
 		vim.schedule(function()
 			vim.lsp.util.open_floating_preview(vim.lsp.util.trim_empty_lines(content), "elixir", {})
 		end)
@@ -197,11 +197,16 @@ function M.command(params)
 end
 
 local on_attach = function(client, bufnr)
+	local add_user_cmd = vim.api.nvim_buf_add_user_command
 	vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
 		buffer = bufnr,
 		callback = vim.lsp.codelens.refresh,
 	})
 	vim.lsp.codelens.refresh()
+	add_user_cmd(bufnr, "ElixirFromPipe", M.from_pipe(client), {})
+	add_user_cmd(bufnr, "ElixirToPipe", M.to_pipe(client), {})
+	add_user_cmd(bufnr, "ElixirRestart", M.restart(client), {})
+	add_user_cmd(bufnr, "ElixirExpandMacro", M.expand_macro(client), { range = true })
 end
 
 local cache_dir = Path:new(vim.fn.getcwd(), ".elixir_ls", "elixir.nvim")
