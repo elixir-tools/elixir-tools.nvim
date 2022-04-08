@@ -80,6 +80,41 @@ function M.restart(client)
 	end
 end
 
+function M.expand_macro(client)
+	return function()
+		local params = vim.lsp.util.make_given_range_params()
+
+		local text = vim.api.nvim_buf_get_text(
+			0,
+			params.range.start.line,
+			params.range.start.character,
+			params.range["end"].line,
+			params.range["end"].character,
+			{}
+		)
+
+		local resp = client.request_sync("workspace/executeCommand", {
+			command = "expandMacro:serverid",
+			arguments = { params.textDocument.uri, vim.fn.join(text, "\n"), params.range.start.line },
+		}, nil, 0)
+
+		local content = {}
+		if resp["result"] then
+			for k, v in pairs(resp.result) do
+				vim.list_extend(content, { "# " .. k, "" })
+				vim.list_extend(content, vim.split(v, "\n"))
+			end
+		else
+			table.insert(content, "Error")
+		end
+
+    -- not sure why i need this here
+		vim.schedule(function()
+			vim.lsp.util.open_floating_preview(vim.lsp.util.trim_empty_lines(content), "elixir", {})
+		end)
+	end
+end
+
 local nil_buf_id = 999999
 local term_buf_id = nil_buf_id
 

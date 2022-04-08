@@ -121,6 +121,22 @@ elixir.setup({
 
 ![manipulate_pipes](https://user-images.githubusercontent.com/5523984/160508641-cedb6ebf-3ec4-4229-9708-aa360b15a2d5.gif)
 
+### Expand Macro
+
+You can highlight a macro call in visual mode and "expand" the macro, opening a floating window with the results.
+
+```lua
+local elixir = require("elixir")
+elixir.setup({
+  -- ...
+  on_attach = function(client, bufnr)
+    vim.api.nvim_buf_add_user_command(bufnr, "ElixirExpandMacro", elixirls.expand_macro(client), { range = true })
+  end
+})
+```
+
+todo add gif
+
 ## Restart
 
 You can restart the LS by using the restart command. This is useful if you think the LS has gotten into a weird state. It will send the restart command and then save and reload your current buffer to re-attach the client.
