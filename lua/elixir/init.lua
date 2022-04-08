@@ -163,11 +163,8 @@ local download_dir = cache_dir:joinpath("downloads")
 local install_dir = Path:new(vim.fn.expand("~/.cache/nvim/elixir.nvim/installs"))
 
 local function install_elixir_ls(opts)
-	local downloader = (opts.repo or opts.ref) and "clone" or "stable"
-	local source_path = Download[downloader](tostring(download_dir:absolute()), opts)
+	local source_path = Download.clone(tostring(download_dir:absolute()), opts)
 	local bufnr = M.open_floating_window()
-
-	vim.notify(opts.install_path.filename)
 
 	local result = Compile.compile(
 		download_dir:joinpath(source_path):absolute(),
@@ -184,7 +181,11 @@ local function make_opts(opts)
 	elseif opts.tag then
 		ref = "tags/" .. opts.tag
 	else
-		ref = nil
+		if opts.repo then -- if we specified a repo in our conifg, then let's default to HEAD
+			ref = "HEAD"
+		else -- else, let's checkout the latest stable release
+			ref = "tags/v0.9.0"
+		end
 	end
 
 	return {
@@ -194,6 +195,7 @@ local function make_opts(opts)
 end
 
 function M.setup(opts)
+	opts = opts or {}
 	lspconfig.elixirls.setup(vim.tbl_extend("keep", {
 		on_init = lsputil.add_hook_after(default_config.on_init, function(client)
 			client.commands["elixir.lens.test.run"] = test

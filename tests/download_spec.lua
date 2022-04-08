@@ -12,20 +12,10 @@ describe("download", function()
 		assert(not Path:new("tmp/downloads"):exists(), "tmp/downloads was not deleted")
 	end)
 
-	it("can downloads the stable tarball of the source code", function()
-		local download_dir = "tmp/downloads"
-
-		local result = Download.stable(download_dir)
-
-		eq(result, "elixir-ls-0.9.0")
-
-		assert.True(Path:new(download_dir, "elixir-ls-0.9.0", "mix.exs"):exists())
-	end)
-
 	it("can git clone HEAD of the source code", function()
 		local download_dir = "tmp/downloads"
 
-		local result = Download.clone(download_dir, { repo = "elixir-lsp/elixir-ls" })
+		local result = Download.clone(download_dir, { repo = "elixir-lsp/elixir-ls", ref = "HEAD" })
 
 		eq("elixir-lsp/elixir-ls/HEAD", result)
 		assert.True(Path:new(download_dir, "elixir-lsp/elixir-ls/HEAD", "mix.exs"):exists())
@@ -34,7 +24,7 @@ describe("download", function()
 	it("can clone from a different repository", function()
 		local download_dir = "tmp/downloads"
 
-		local result = Download.clone(download_dir, { repo = "mhanberg/elixir-ls" })
+		local result = Download.clone(download_dir, { repo = "mhanberg/elixir-ls", ref = "HEAD" })
 
 		eq("mhanberg/elixir-ls/HEAD", result)
 		assert.True(Path:new(download_dir, "mhanberg/elixir-ls/HEAD", "mix.exs"):exists())
