@@ -135,7 +135,7 @@ elixir.setup({
 })
 ```
 
-todo add gif
+![expand_macro](https://user-images.githubusercontent.com/5523984/162372669-4782baba-1889-4145-8a4f-e3bf13a6450d.gif)
 
 ## Restart
 
