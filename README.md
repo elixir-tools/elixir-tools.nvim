@@ -6,7 +6,7 @@
 
 ## Install
 
-Requires Nightly or v0.7.
+Requires 0.7+.
 
 ```lua
 use({ "mhanberg/elixir.nvim", requires = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" }})

@@ -197,7 +197,7 @@ function M.command(params)
 end
 
 local on_attach = function(client, bufnr)
-	local add_user_cmd = vim.api.nvim_buf_add_user_command
+	local add_user_cmd = vim.api.nvim_buf_create_user_command
 	vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
 		buffer = bufnr,
 		callback = vim.lsp.codelens.refresh,
