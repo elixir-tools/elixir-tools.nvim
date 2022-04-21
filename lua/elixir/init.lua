@@ -196,7 +196,7 @@ function M.command(params)
 	return install_path
 end
 
-local on_attach = function(client, bufnr)
+M.on_attach = function(client, bufnr)
 	local add_user_cmd = vim.api.nvim_buf_create_user_command
 	vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
 		buffer = bufnr,
@@ -279,7 +279,7 @@ function M.setup(opts)
 		settings = opts.settings or settings,
 		capabilities = opts.capabilities or capabilities,
 		root_dir = opts.root_dir or root_dir,
-		on_attach = lsputil.add_hook_before(opts.on_attach, on_attach),
+		on_attach = lsputil.add_hook_before(opts.on_attach, M.on_attach),
 	}, opts))
 end
 
