@@ -235,7 +235,7 @@ local function make_opts(opts)
 		if opts.repo then -- if we specified a repo in our conifg, then let's default to HEAD
 			ref = "HEAD"
 		else -- else, let's checkout the latest stable release
-			ref = "tags/v0.9.0"
+			ref = "tags/v0.10.0"
 		end
 	end
 
