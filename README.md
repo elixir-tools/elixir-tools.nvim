@@ -9,7 +9,7 @@
 Requires 0.7+.
 
 ```lua
-use({ "mhanberg/elixir.nvim", requires = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" }})
+use({ "mhanberg/elixir.nvim", requires = { "nvim-lua/plenary.nvim" }})
 ```
 
 ## Getting Started
@@ -31,7 +31,7 @@ elixir.setup({
   -- specify a repository and branch
   repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
   branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
-  tag = "v0.9.0", -- defaults to nil, mutually exclusive with the `branch` option
+  tag = "v0.10.0", -- defaults to nil, mutually exclusive with the `branch` option
 
   -- default settings, use the `settings` function to override settings
   settings = elixir.settings({

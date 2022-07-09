@@ -1,8 +1,5 @@
 local uv = vim.loop
 
-local lspconfig = require("lspconfig")
-local lsputil = require("lspconfig.util")
-
 local Job = require("plenary.job")
 local Path = require("plenary.path")
 local popup = require("plenary.popup")
@@ -12,7 +9,6 @@ local Download = require("elixir.download")
 local Compile = require("elixir.compile")
 local Utils = require("elixir.utils")
 
-local default_config = require("lspconfig.server_configurations.elixirls").default_config
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
@@ -157,15 +153,14 @@ local function test(command)
 end
 
 local root_dir = function(fname)
-	local path = lsputil.path
-	local child_or_root_path = lsputil.root_pattern({ "mix.exs", ".git" })(fname)
-	local maybe_umbrella_path = lsputil.root_pattern({ "mix.exs" })(
-		uv.fs_realpath(path.join({ child_or_root_path, ".." }))
-	)
+	local child_or_root_path = vim.fs.dirname(vim.fs.find({ "mix.exs", ".git" }, { upward = true, path = fname })[1])
+	local maybe_umbrella_path =
+		vim.fs.dirname(vim.fs.find({ "mix.exs" }, { upward = true, path = child_or_root_path })[1])
 
-	local has_ancestral_mix_exs_path = vim.startswith(child_or_root_path, path.join({ maybe_umbrella_path, "apps" }))
-	if maybe_umbrella_path and not has_ancestral_mix_exs_path then
-		maybe_umbrella_path = nil
+	if maybe_umbrella_path then
+		if not vim.startswith(child_or_root_path, Path:joinpath(maybe_umbrella_path, "apps"):absolute()) then
+			maybe_umbrella_path = nil
+		end
 	end
 
 	local path = maybe_umbrella_path or child_or_root_path or vim.loop.os_homedir()
@@ -185,13 +180,8 @@ M.settings = function(opts)
 end
 
 function M.command(params)
-	local install_path = Path:new(
-		params.path,
-		params.repo,
-		Utils.safe_path(params.ref),
-		params.versions,
-		"language_server.sh"
-	)
+	local install_path =
+		Path:new(params.path, params.repo, Utils.safe_path(params.ref), params.versions, "language_server.sh")
 
 	return install_path
 end
@@ -247,40 +237,55 @@ end
 
 function M.setup(opts)
 	opts = opts or {}
-	lspconfig.elixirls.setup(vim.tbl_extend("keep", {
-		on_init = lsputil.add_hook_after(default_config.on_init, function(client)
-			client.commands["elixir.lens.test.run"] = test
-		end),
-		on_new_config = function(new_config, new_root_dir)
-			new_opts = make_opts(opts)
+	local elixir_group = vim.api.nvim_create_augroup("elixirnvim", { clear = true })
 
-			local cmd = M.command({
-				path = tostring(install_dir),
-				repo = new_opts.repo,
-				ref = new_opts.ref,
-				versions = Version.get(),
-			})
+	local start_elixir_ls = function(arg)
+		fname = Path.new(arg.file):absolute()
 
-			if not cmd:exists() then
-				vim.ui.select({ "Yes", "No" }, { prompt = "Install ElixirLS" }, function(choice)
-					if choice == "Yes" then
-						install_elixir_ls(vim.tbl_extend("force", new_opts, { install_path = cmd:parent() }))
+		local root_dir = opts.root_dir and opts.root_dir(fname) or root_dir(fname)
+		local new_opts = make_opts(opts)
+
+		local cmd = M.command({
+			path = tostring(install_dir),
+			repo = new_opts.repo,
+			ref = new_opts.ref,
+			versions = Version.get(),
+		})
+
+		if not cmd:exists() then
+			vim.ui.select({ "Yes", "No" }, { prompt = "Install ElixirLS" }, function(choice)
+				if choice == "Yes" then
+					install_elixir_ls(vim.tbl_extend("force", new_opts, { install_path = cmd:parent() }))
+				end
+			end)
+
+			return
+		elseif root_dir then
+			vim.lsp.start(vim.tbl_extend("keep", {
+				name = "ElixirLS",
+				cmd = { tostring(cmd) },
+				commands = {
+					["elixir.lens.test.run"] = test,
+				},
+				settings = opts.settings or settings,
+				capabilities = opts.capabilities or capabilities,
+				root_dir = root_dir,
+				on_attach = function(...)
+					if opts.on_attach then
+						opts.on_attach(...)
 					end
-				end)
 
-				return
-			else
-				local updated_config = new_config
-				updated_config.cmd = { tostring(cmd) }
+					M.on_attach(...)
+				end,
+			}, opts))
+		end
+	end
 
-				return updated_config
-			end
-		end,
-		settings = opts.settings or settings,
-		capabilities = opts.capabilities or capabilities,
-		root_dir = opts.root_dir or root_dir,
-		on_attach = lsputil.add_hook_before(opts.on_attach, M.on_attach),
-	}, opts))
+	vim.api.nvim_create_autocmd({ "FileType" }, {
+		group = elixir_group,
+		pattern = { "elixir" },
+		callback = start_elixir_ls,
+	})
 end
 
 return M
