@@ -26,7 +26,7 @@ local get_cursor_position = function()
 	return row, col
 end
 
-function M.open_floating_window()
+function M.open_floating_window(buf)
 	local columns = vim.o.columns
 	local lines = vim.o.lines
 	local width = math.ceil(columns * 0.8)
@@ -34,13 +34,14 @@ function M.open_floating_window()
 	-- local left = math.ceil((columns - width) * 0.5)
 	-- local top = math.ceil((lines - height) * 0.5 - 1)
 
-	local bufnr = vim.api.nvim_create_buf(false, true)
+	local bufnr = buf or vim.api.nvim_create_buf(false, true)
+
 	local win_id = popup.create(bufnr, {
 		line = 0,
 		col = 0,
 		minwidth = width,
 		minheight = height,
-		border = {},
+    border = {},
 		padding = { 2, 2, 2, 2 },
 		zindex = 10,
 	})
@@ -196,6 +197,28 @@ function M.command(params)
 	return install_path
 end
 
+function M.open_output_panel(opts)
+  local options = opts or { window = "split" }
+
+  local window = {
+    split = function()
+      vim.cmd("sp")
+      vim.api.nvim_win_set_buf(0, elixir_nvim_output_bufnr)
+      vim.api.nvim_win_set_height(0, 30)
+    end,
+    vsplit = function()
+      vim.cmd("vs")
+      vim.api.nvim_win_set_buf(0, elixir_nvim_output_bufnr)
+      vim.api.nvim_win_set_width(0, 80)
+    end,
+    float = function()
+      M.open_floating_window(elixir_nvim_output_bufnr)
+    end
+  }
+
+  window[options.window]()
+end
+
 M.on_attach = function(client, bufnr)
 	local add_user_cmd = vim.api.nvim_buf_create_user_command
 	vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
@@ -207,6 +230,7 @@ M.on_attach = function(client, bufnr)
 	add_user_cmd(bufnr, "ElixirToPipe", M.to_pipe(client), {})
 	add_user_cmd(bufnr, "ElixirRestart", M.restart(client), {})
 	add_user_cmd(bufnr, "ElixirExpandMacro", M.expand_macro(client), { range = true })
+	add_user_cmd(bufnr, "ElixirOutputPanel", function() M.open_output_panel() end, {})
 end
 
 local cache_dir = Path:new(vim.fn.getcwd(), ".elixir_ls", "elixir.nvim")
@@ -246,6 +270,11 @@ local function make_opts(opts)
 end
 
 function M.setup(opts)
+	if not elixir_nvim_output_bufnr then
+		elixir_nvim_output_bufnr = vim.api.nvim_create_buf(false, true)
+		vim.api.nvim_buf_set_name(elixir_nvim_output_bufnr, "ElixirLS Output Panel")
+	end
+
 	opts = opts or {}
 	lspconfig.elixirls.setup(vim.tbl_extend("keep", {
 		on_init = lsputil.add_hook_after(default_config.on_init, function(client)
@@ -276,6 +305,13 @@ function M.setup(opts)
 				return updated_config
 			end
 		end,
+		handlers = {
+      ["window/logMessage"] = function(err, result, ...)
+        message = vim.split("[" .. vim.lsp.protocol.MessageType[result.type] .. "] " .. result.message, "\n")
+
+        vim.api.nvim_buf_set_lines( elixir_nvim_output_bufnr, -1, -1, false, message)
+      end,
+		},
 		settings = opts.settings or settings,
 		capabilities = opts.capabilities or capabilities,
 		root_dir = opts.root_dir or root_dir,

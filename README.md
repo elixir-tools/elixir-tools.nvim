@@ -117,11 +117,23 @@ You can highlight a macro call in visual mode and "expand" the macro, opening a 
 
 ![expand_macro](https://user-images.githubusercontent.com/5523984/162372669-4782baba-1889-4145-8a4f-e3bf13a6450d.gif)
 
-## Restart
+### Restart
 
 You can restart the LS by using the restart command. This is useful if you think the LS has gotten into a weird state. It will send the restart command and then save and reload your current buffer to re-attach the client.
 
 `:ElixirRestart`
+
+### OutputPanel
+
+You can see the logs for ElixirLS via the output panel. By default opens the buffer in a horizontal split window.
+
+```
+:ElixirOutputPanel
+:lua require("elixir").open_output_panel()
+:lua require("elixir").open_output_panel({ window = "split" })
+:lua require("elixir").open_output_panel({ window = "vsplit" })
+:lua require("elixir").open_output_panel({ window = "float" })
+```
 
 ### Debugger
 
