@@ -1,7 +1,3 @@
-local lspconfig = require("lspconfig")
-local lsputil = require("lspconfig.util")
-
-local Job = require("plenary.job")
 local Path = require("plenary.path")
 local popup = require("plenary.popup")
 
@@ -10,9 +6,12 @@ local Download = require("elixir.language_server.download")
 local Compile = require("elixir.language_server.compile")
 local Utils = require("elixir.utils")
 
-local default_config = require("lspconfig.server_configurations.elixirls").default_config
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+local default_install_tag = "tags/v0.11.0"
+
+local elixir_nvim_output_bufnr
 
 local M = {}
 
@@ -29,12 +28,10 @@ function M.open_floating_window(buf)
   local lines = vim.o.lines
   local width = math.ceil(columns * 0.8)
   local height = math.ceil(lines * 0.8 - 4)
-  -- local left = math.ceil((columns - width) * 0.5)
-  -- local top = math.ceil((lines - height) * 0.5 - 1)
 
   local bufnr = buf or vim.api.nvim_create_buf(false, true)
 
-  local win_id = popup.create(bufnr, {
+  popup.create(bufnr, {
     line = 0,
     col = 0,
     minwidth = width,
@@ -118,9 +115,8 @@ local nil_buf_id = 999999
 local term_buf_id = nil_buf_id
 
 local function test(command)
-  local row, col = get_cursor_position()
+  local row, _col = get_cursor_position()
   local args = command.arguments[1]
-  local current_buf_id = vim.api.nvim_get_current_buf()
 
   -- delete the current buffer if it's still open
   if vim.api.nvim_buf_is_valid(term_buf_id) then
@@ -219,7 +215,7 @@ local function install_elixir_ls(opts)
   local source_path = Download.clone(tostring(download_dir:absolute()), opts)
   local bufnr = M.open_floating_window()
 
-  local result = Compile.compile(
+  Compile.compile(
     download_dir:joinpath(source_path):absolute(),
     opts.install_path:absolute(),
     vim.tbl_extend("force", opts, { bufnr = bufnr })
@@ -237,7 +233,7 @@ local function make_opts(opts)
     if opts.repo then -- if we specified a repo in our conifg, then let's default to HEAD
       ref = "HEAD"
     else -- else, let's checkout the latest stable release
-      ref = "tags/v0.10.0"
+      ref = default_install_tag
     end
   end
 
@@ -253,52 +249,63 @@ function M.setup(opts)
     vim.api.nvim_buf_set_name(elixir_nvim_output_bufnr, "ElixirLS Output Panel")
   end
 
-  opts = opts or {}
-  lspconfig.elixirls.setup(vim.tbl_extend("keep", {
-    filetypes = { "elixir", "eelixir", "heex", "surface" },
+  local elixir_group = vim.api.nvim_create_augroup("elixirnvim", { clear = true })
 
-    on_init = lsputil.add_hook_after(default_config.on_init, function(client)
-      client.commands["elixir.lens.test.run"] = test
-    end),
-    on_new_config = function(new_config, new_root_dir)
-      new_opts = make_opts(opts)
+  local start_elixir_ls = function(arg)
+    local fname = Path.new(arg.file):absolute()
 
-      if not opts["cmd"] then
-        local cmd = M.command {
-          path = tostring(install_dir),
-          repo = new_opts.repo,
-          ref = new_opts.ref,
-          versions = Version.get(),
-        }
+    local root_dir = opts.root_dir and opts.root_dir(fname) or Utils.root_dir(fname)
+    local new_opts = make_opts(opts)
 
-        if not cmd:exists() then
-          vim.ui.select({ "Yes", "No" }, { prompt = "Install ElixirLS" }, function(choice)
-            if choice == "Yes" then
-              install_elixir_ls(vim.tbl_extend("force", new_opts, { install_path = cmd:parent() }))
-            end
-          end)
+    local cmd = M.command {
+      path = tostring(install_dir),
+      repo = new_opts.repo,
+      ref = new_opts.ref,
+      versions = Version.get(),
+    }
 
-          return
-        else
-          local updated_config = new_config
-          updated_config.cmd = { tostring(cmd) }
-
-          return updated_config
+    if not cmd:exists() then
+      vim.ui.select({ "Yes", "No" }, { prompt = "Install ElixirLS" }, function(choice)
+        if choice == "Yes" then
+          install_elixir_ls(vim.tbl_extend("force", new_opts, { install_path = cmd:parent() }))
         end
-      end
-    end,
-    handlers = {
-      ["window/logMessage"] = function(err, result, ...)
-        message = vim.split("[" .. vim.lsp.protocol.MessageType[result.type] .. "] " .. result.message, "\n")
+      end)
 
-        vim.api.nvim_buf_set_lines(elixir_nvim_output_bufnr, -1, -1, false, message)
-      end,
-    },
-    settings = opts.settings or settings,
-    capabilities = opts.capabilities or capabilities,
-    root_dir = opts.root_dir or Utils.root_dir,
-    on_attach = lsputil.add_hook_before(opts.on_attach, M.on_attach),
-  }, opts))
+      return
+    elseif root_dir then
+      vim.lsp.start(vim.tbl_extend("keep", {
+        name = "ElixirLS",
+        cmd = { tostring(cmd) },
+        commands = {
+          ["elixir.lens.test.run"] = test,
+        },
+        settings = opts.settings or M.settings {},
+        capabilities = opts.capabilities or capabilities,
+        root_dir = root_dir,
+        handlers = {
+          ["window/logMessage"] = function(_err, result)
+            local message =
+              vim.split("[" .. vim.lsp.protocol.MessageType[result.type] .. "] " .. result.message, "\n")
+
+            vim.api.nvim_buf_set_lines(elixir_nvim_output_bufnr, -1, -1, false, message)
+          end,
+        },
+        on_attach = function(...)
+          if opts.on_attach then
+            opts.on_attach(...)
+          end
+
+          M.on_attach(...)
+        end,
+      }, opts))
+    end
+  end
+
+  vim.api.nvim_create_autocmd({ "FileType" }, {
+    group = elixir_group,
+    pattern = { "elixir", "eelixir", "heex", "surface" },
+    callback = start_elixir_ls,
+  })
 end
 
 return M

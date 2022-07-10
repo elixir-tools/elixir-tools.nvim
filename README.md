@@ -12,10 +12,10 @@
 
 ## Install
 
-Requires 0.7+.
+Requires 0.8.
 
 ```lua
-use({ "mhanberg/elixir.nvim", requires = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" }})
+use({ "mhanberg/elixir.nvim", requires = { "nvim-lua/plenary.nvim" }})
 ```
 
 ## Getting Started
@@ -30,6 +30,8 @@ require("elixir").setup()
 
 While the plugin works with a minimal setup, it is much more useful if you add some personal configuration.
 
+Note: Not specifying the `repo`, `branch`, or `tag` options will default to the latest release.
+
 ```lua
 local elixir = require("elixir")
 
@@ -37,7 +39,7 @@ elixir.setup({
   -- specify a repository and branch
   repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
   branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
-  tag = "v0.9.0", -- defaults to nil, mutually exclusive with the `branch` option
+  tag = "v0.11.0", -- defaults to nil, mutually exclusive with the `branch` option
 
   -- alternatively, point to an existing elixir-ls installation (optional)
   cmd = "/usr/local/bin/elixir-ls.sh",
