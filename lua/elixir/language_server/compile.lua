@@ -1,4 +1,4 @@
-local Version = require("elixir.version")
+local Version = require("elixir.language_server.version")
 local Path = require("plenary.path")
 local Job = require("plenary.job")
 local Utils = require("elixir.utils")
