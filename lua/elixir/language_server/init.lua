@@ -1,5 +1,3 @@
-local uv = vim.loop
-
 local lspconfig = require("lspconfig")
 local lsputil = require("lspconfig.util")
 
@@ -157,22 +155,6 @@ local function test(command)
 	vim.cmd([[wincmd p]])
 end
 
-local root_dir = function(fname)
-	local path = lsputil.path
-	local child_or_root_path = lsputil.root_pattern({ "mix.exs", ".git" })(fname)
-	local maybe_umbrella_path =
-		lsputil.root_pattern({ "mix.exs" })(uv.fs_realpath(path.join({ child_or_root_path, ".." })))
-
-	local has_ancestral_mix_exs_path = vim.startswith(child_or_root_path, path.join({ maybe_umbrella_path, "apps" }))
-	if maybe_umbrella_path and not has_ancestral_mix_exs_path then
-		maybe_umbrella_path = nil
-	end
-
-	local path = maybe_umbrella_path or child_or_root_path or vim.loop.os_homedir()
-
-	return path
-end
-
 M.settings = function(opts)
 	return {
 		elixirLS = vim.tbl_extend("force", {
@@ -310,7 +292,7 @@ function M.setup(opts)
 		},
 		settings = opts.settings or settings,
 		capabilities = opts.capabilities or capabilities,
-		root_dir = opts.root_dir or root_dir,
+		root_dir = opts.root_dir or Utils.root_dir,
 		on_attach = lsputil.add_hook_before(opts.on_attach, M.on_attach),
 	}, opts))
 end
