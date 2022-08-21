@@ -4,6 +4,12 @@
 
 > Note: This plugin does not provide autocompletion, I recommend using [nvim-cmp](https://github.com/hrsh7th/nvim-cmp).
 
+## Features
+
+- [ElixirLS](https://github.com/elixir-lsp/elixir-ls) installation and configuration (uses the Neovim built-in LSP client)
+- `:Mix` command with autocomplete
+- [vim-projectionist](https://github.com/tpope/vim-projectionist) support
+
 ## Install
 
 Requires 0.7+.
@@ -80,7 +86,9 @@ elixir.setup({
 
 ## Features
 
-### Automatic ElixirLS Installation
+### Language Server
+
+#### Automatic ElixirLS Installation
 
 When a compatible installation of ELixirLS is not found, you will be prompted to install it. The plugin will download the source code to the `.elixir_ls` directory and compile it using the Elixir and OTP versions used by your current project.
 
@@ -90,17 +98,17 @@ Caveat: This currently downloads the language server into the `.elixir_ls` direc
 
 ![auto-install-elixirls](https://user-images.githubusercontent.com/5523984/160333851-94d448d9-5c80-458c-aa0d-4c81528dde8f.gif)
 
-### Root Path Detection
+#### Root Path Detection
 
 `elixir.nvim` should be able to properly set the root directory for umbrella and non-umbrella apps. The nvim-lspconfig project's root detection doesn't properly account for umbrella projects.
 
-### Run Tests
+#### Run Tests
 
 ElixirLS provides a codelens to identify and run your tests. If you configure `enableTestLenses = true` in the settings table, you will see the codelens as virtual text in your editor and can run them with `vim.lsp.codelens.run()`.
 
 ![elixir-test-lens](https://user-images.githubusercontent.com/5523984/159722637-ef1586d5-9d47-4e1a-b68b-6a90ad744098.gif)
 
-### Manipulate Pipes
+#### Manipulate Pipes
 
 The LS has the ability to convert the expression under the cursor form a normal function call to a "piped" function all (and vice versa).
 
@@ -109,7 +117,7 @@ The LS has the ability to convert the expression under the cursor form a normal 
 
 ![manipulate_pipes](https://user-images.githubusercontent.com/5523984/160508641-cedb6ebf-3ec4-4229-9708-aa360b15a2d5.gif)
 
-### Expand Macro
+#### Expand Macro
 
 You can highlight a macro call in visual mode and "expand" the macro, opening a floating window with the results.
 
@@ -117,13 +125,13 @@ You can highlight a macro call in visual mode and "expand" the macro, opening a 
 
 ![expand_macro](https://user-images.githubusercontent.com/5523984/162372669-4782baba-1889-4145-8a4f-e3bf13a6450d.gif)
 
-### Restart
+#### Restart
 
 You can restart the LS by using the restart command. This is useful if you think the LS has gotten into a weird state. It will send the restart command and then save and reload your current buffer to re-attach the client.
 
 `:ElixirRestart`
 
-### OutputPanel
+#### OutputPanel
 
 You can see the logs for ElixirLS via the output panel. By default opens the buffer in a horizontal split window.
 
@@ -142,6 +150,16 @@ You can run any `mix` command in your project, complete with... autocomplete!
 `:Mix compile --force`
 
 ![elixir-nvim-mix-demo](https://user-images.githubusercontent.com/5523984/181859468-19d47a55-3f63-4af5-8698-4b5dd3459141.gif)
+
+### Projectionist
+
+[vim-projectionist](https://github.com/tpope/vim-projectionist) definitions are provided for:
+
+- Elixir files
+- Phoenix Views
+- Phoenix Controllers
+- Phoenix Channels
+- Wallaby/Hound Feature tests
 
 ### Debugger
 
