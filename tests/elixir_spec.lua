@@ -1,7 +1,7 @@
 local eq = assert.are.same
 local shell = vim.fn.system
 local curl = require("plenary.curl")
-local elixir = require("elixir")
+local elixir = require("elixir.language_server")
 
 describe("elixir", function()
 	describe("command", function()

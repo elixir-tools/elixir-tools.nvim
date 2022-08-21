@@ -135,6 +135,14 @@ You can see the logs for ElixirLS via the output panel. By default opens the buf
 :lua require("elixir").open_output_panel({ window = "float" })
 ```
 
+### Mix
+
+You can run any `mix` command in your project, complete with... autocomplete!
+
+`:Mix compile --force`
+
+![elixir-nvim-mix-demo](https://user-images.githubusercontent.com/5523984/181859468-19d47a55-3f63-4af5-8698-4b5dd3459141.gif)
+
 ### Debugger
 
 TODO: make it work

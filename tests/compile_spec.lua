@@ -1,14 +1,14 @@
 local eq = assert.are.same
 local shell = vim.fn.system
 local Path = require("plenary.path")
-local Compile = require("elixir.compile")
+local Compile = require("elixir.language_server.compile")
 
 local p = function(x)
 	io.stdout:write(vim.inspect(x) .. "\n")
 	return x
 end
 
-local versions = require("elixir.version").get()
+local versions = require("elixir.language_server.version").get()
 
 describe("compile", function()
 	before_each(function()

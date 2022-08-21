@@ -1,11 +1,11 @@
-local Version = require("elixir.version")
+local Version = require("elixir.language_server.version")
 local Path = require("plenary.path")
 local Job = require("plenary.job")
 local Utils = require("elixir.utils")
 
 local __file = Path:new(debug.getinfo(1, "S").source:match("@(.*)$"))
 assert(__file:exists())
-local bin_dir = __file:parent():parent():parent():joinpath("bin")
+local bin_dir = __file:parent():parent():parent():parent():joinpath("bin")
 local bin = { compile = tostring(bin_dir:joinpath("compile")) }
 
 local M = {}
