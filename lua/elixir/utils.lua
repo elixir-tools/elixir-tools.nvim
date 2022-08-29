@@ -16,9 +16,9 @@ function M.repo_path(repo, ref)
 end
 
 function M.root_dir(fname)
-  if not fname or fname == "" then
-    fname = vim.fn.getcwd()
-  end
+	if not fname or fname == "" then
+		fname = vim.fn.getcwd()
+	end
 
 	local path = lsputil.path
 	local child_or_root_path = lsputil.root_pattern({ "mix.exs", ".git" })(fname)

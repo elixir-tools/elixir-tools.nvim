@@ -33,7 +33,7 @@ function M.run(action, args)
 	local args_as_str = table.concat(args, " ")
 
 	local cd_cmd = ""
-	local mix_exs_path = utils.root_dir(vim.fn.expand("%"))
+	local mix_exs_path = utils.root_dir(vim.fn.expand("%:p"))
 
 	if mix_exs_path then
 		cd_cmd = table.concat({ "cd", mix_exs_path, "&&" }, " ")
