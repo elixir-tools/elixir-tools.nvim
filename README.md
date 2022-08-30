@@ -39,6 +39,9 @@ elixir.setup({
   branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
   tag = "v0.9.0", -- defaults to nil, mutually exclusive with the `branch` option
 
+  -- alternatively, point to an existing elixir-ls installation (optional)
+  cmd = "/usr/local/bin/elixir-ls.sh",
+
   -- default settings, use the `settings` function to override settings
   settings = elixir.settings({
     dialyzerEnabled = true,

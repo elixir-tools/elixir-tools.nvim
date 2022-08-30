@@ -261,26 +261,28 @@ function M.setup(opts)
 		on_new_config = function(new_config, new_root_dir)
 			new_opts = make_opts(opts)
 
-			local cmd = M.command({
-				path = tostring(install_dir),
-				repo = new_opts.repo,
-				ref = new_opts.ref,
-				versions = Version.get(),
-			})
+			if not opts["cmd"] then
+				local cmd = M.command({
+					path = tostring(install_dir),
+					repo = new_opts.repo,
+					ref = new_opts.ref,
+					versions = Version.get(),
+				})
 
-			if not cmd:exists() then
-				vim.ui.select({ "Yes", "No" }, { prompt = "Install ElixirLS" }, function(choice)
-					if choice == "Yes" then
-						install_elixir_ls(vim.tbl_extend("force", new_opts, { install_path = cmd:parent() }))
-					end
-				end)
+				if not cmd:exists() then
+					vim.ui.select({ "Yes", "No" }, { prompt = "Install ElixirLS" }, function(choice)
+						if choice == "Yes" then
+							install_elixir_ls(vim.tbl_extend("force", new_opts, { install_path = cmd:parent() }))
+						end
+					end)
 
-				return
-			else
-				local updated_config = new_config
-				updated_config.cmd = { tostring(cmd) }
+					return
+				else
+					local updated_config = new_config
+					updated_config.cmd = { tostring(cmd) }
 
-				return updated_config
+					return updated_config
+				end
 			end
 		end,
 		handlers = {
