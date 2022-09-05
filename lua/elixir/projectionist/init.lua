@@ -54,7 +54,7 @@ local config = {
 			type = "test",
 			template = {
 				"defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ChannelTest do",
-				"  use {dirname|camelcase|capitalize}.ChannelCase, async = true",
+				"  use {dirname|camelcase|capitalize}.ChannelCase, async: true",
 				"",
 				"  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Channel",
 				"end",
@@ -64,7 +64,7 @@ local config = {
 			type = "feature",
 			template = {
 				"defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Test do",
-				"  use {dirname|camelcase|capitalize}.FeatureCase, async = true",
+				"  use {dirname|camelcase|capitalize}.FeatureCase, async: true",
 				"end",
 			},
 		},
