@@ -255,6 +255,8 @@ function M.setup(opts)
 
 	opts = opts or {}
 	lspconfig.elixirls.setup(vim.tbl_extend("keep", {
+		filetypes = { "elixir", "eelixir", "heex", "surface" },
+
 		on_init = lsputil.add_hook_after(default_config.on_init, function(client)
 			client.commands["elixir.lens.test.run"] = test
 		end),
