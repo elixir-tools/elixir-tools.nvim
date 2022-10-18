@@ -7,39 +7,39 @@ local Utils = require("elixir.utils")
 local M = {}
 
 function M.clone(dir, opts)
-	opts = opts or {}
-	local r = opts.repo
-	local rr = Utils.safe_path(opts.ref or "HEAD")
-	local dir_identifier = Path:new(r, rr).filename
+  opts = opts or {}
+  local r = opts.repo
+  local rr = Utils.safe_path(opts.ref or "HEAD")
+  local dir_identifier = Path:new(r, rr).filename
 
-	vim.notify(string.format("Cloning ref %s from repo %s", opts.ref or "default", opts.repo))
+  vim.notify(string.format("Cloning ref %s from repo %s", opts.ref or "default", opts.repo))
 
-	local made_path = Path:new(dir):mkdir({ parents = true, mode = 493 })
-	assert(made_path, "failed to make the path")
+  local made_path = Path:new(dir):mkdir { parents = true, mode = 493 }
+  assert(made_path, "failed to make the path")
 
-	local clone = Job:new({
-		command = "git",
-		args = { "-C", dir, "clone", string.format("https://github.com/%s.git", opts.repo), dir_identifier },
-		enable_recording = true,
-	})
+  local clone = Job:new {
+    command = "git",
+    args = { "-C", dir, "clone", string.format("https://github.com/%s.git", opts.repo), dir_identifier },
+    enable_recording = true,
+  }
 
-	clone:sync()
+  clone:sync()
 
-	assert(clone.code == 0, "Failed to clone")
+  assert(clone.code == 0, "Failed to clone")
 
-	if opts.ref ~= "HEAD" then
-		local checkout = Job:new({
-			command = "git",
-			args = { "-C", Path:new(dir, dir_identifier).filename, "checkout", opts.ref },
-		})
-		checkout:sync()
+  if opts.ref ~= "HEAD" then
+    local checkout = Job:new {
+      command = "git",
+      args = { "-C", Path:new(dir, dir_identifier).filename, "checkout", opts.ref },
+    }
+    checkout:sync()
 
-		assert(checkout.code == 0, "Failed to checkout ref " .. opts.ref)
-	end
+    assert(checkout.code == 0, "Failed to checkout ref " .. opts.ref)
+  end
 
-	vim.notify("Downloaded ElixirLS!")
+  vim.notify("Downloaded ElixirLS!")
 
-	return dir_identifier
+  return dir_identifier
 end
 
 return M
