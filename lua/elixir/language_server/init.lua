@@ -222,7 +222,7 @@ local function install_elixir_ls(opts)
   )
 end
 
-local function make_opts(opts)
+local function repo_opts(opts)
   local repo = opts.repo or "elixir-lsp/elixir-ls"
   local ref
   if opts.branch then
@@ -243,6 +243,14 @@ local function make_opts(opts)
   }
 end
 
+local function wrap_in_table(maybe_string)
+  if type(maybe_string) == "string" then
+    return { maybe_string }
+  else
+    return maybe_string
+  end
+end
+
 function M.setup(opts)
   if not elixir_nvim_output_bufnr then
     elixir_nvim_output_bufnr = vim.api.nvim_create_buf(false, true)
@@ -255,27 +263,29 @@ function M.setup(opts)
     local fname = Path.new(arg.file):absolute()
 
     local root_dir = opts.root_dir and opts.root_dir(fname) or Utils.root_dir(fname)
-    local new_opts = make_opts(opts)
+    local repo_options = repo_opts(opts)
 
     local cmd = M.command {
       path = tostring(install_dir),
-      repo = new_opts.repo,
-      ref = new_opts.ref,
+      repo = repo_options.repo,
+      ref = repo_options.ref,
       versions = Version.get(),
     }
 
-    if not cmd:exists() then
+    if not opts.cmd and not cmd:exists() then
       vim.ui.select({ "Yes", "No" }, { prompt = "Install ElixirLS" }, function(choice)
         if choice == "Yes" then
-          install_elixir_ls(vim.tbl_extend("force", new_opts, { install_path = cmd:parent() }))
+          install_elixir_ls(vim.tbl_extend("force", repo_options, { install_path = cmd:parent() }))
         end
       end)
 
       return
-    elseif root_dir then
+    end
+
+    if root_dir then
       vim.lsp.start(vim.tbl_extend("keep", {
         name = "ElixirLS",
-        cmd = { tostring(cmd) },
+        cmd = opts.cmd and wrap_in_table(opts.cmd) or { tostring(cmd) },
         commands = {
           ["elixir.lens.test.run"] = test,
         },
