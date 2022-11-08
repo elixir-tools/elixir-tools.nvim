@@ -42,6 +42,7 @@ elixir.setup({
   tag = "v0.11.0", -- defaults to nil, mutually exclusive with the `branch` option
 
   -- alternatively, point to an existing elixir-ls installation (optional)
+  -- not currently supported by elixirls, but can be a table if you wish to pass other args `{"path/to/elixirls", "--foo"}`
   cmd = "/usr/local/bin/elixir-ls.sh",
 
   -- default settings, use the `settings` function to override settings
