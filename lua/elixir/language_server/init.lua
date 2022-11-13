@@ -252,6 +252,8 @@ local function wrap_in_table(maybe_string)
 end
 
 function M.setup(opts)
+  opts = opts or {}
+
   if not elixir_nvim_output_bufnr then
     elixir_nvim_output_bufnr = vim.api.nvim_create_buf(false, true)
     vim.api.nvim_buf_set_name(elixir_nvim_output_bufnr, "ElixirLS Output Panel")
