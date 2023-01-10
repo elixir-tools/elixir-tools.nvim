@@ -12,8 +12,8 @@ local config = {
       },
     },
     ["test/**/views/*_view_test.exs"] = {
-      alternate = "lib/{dirname}/views/{basename}_view.ex",
       type = "test",
+      alternate = "lib/{dirname}/views/{basename}_view.ex",
       template = {
         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ViewTest do",
         "  use ExUnit.Case, async: true",
@@ -32,8 +32,8 @@ local config = {
       },
     },
     ["test/**/controllers/*_controller_test.exs"] = {
-      alternate = "lib/{dirname}/controllers/{basename}_controller.ex",
       type = "test",
+      alternate = "lib/{dirname}/controllers/{basename}_controller.ex",
       template = {
         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ControllerTest do",
         "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
@@ -68,8 +68,8 @@ local config = {
       },
     },
     ["test/**/channels/*_channel_test.exs"] = {
-      alternate = "lib/{dirname}/channels/{basename}_channel.ex",
       type = "test",
+      alternate = "lib/{dirname}/channels/{basename}_channel.ex",
       template = {
         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ChannelTest do",
         "  use {dirname|camelcase|capitalize}.ChannelCase, async: true",
@@ -87,13 +87,13 @@ local config = {
       },
     },
     ["lib/*.ex"] = {
-      alternate = "test/{}_test.exs",
       type = "source",
+      alternate = "test/{}_test.exs",
       template = { "defmodule {camelcase|capitalize|dot} do", "end" },
     },
     ["test/*_test.exs"] = {
-      alternate = "lib/{}.ex",
       type = "test",
+      alternate = "lib/{}.ex",
       template = {
         "defmodule {camelcase|capitalize|dot}Test do",
         "  use ExUnit.Case, async: true",
