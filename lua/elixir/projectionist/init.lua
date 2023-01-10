@@ -40,6 +40,24 @@ local config = {
         "end",
       },
     },
+    ["lib/**/live/*_live.ex"] = {
+      type = "liveview",
+      alternate = "test/{dirname}/live/{basename}_live.exs",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Live do",
+        "  use {dirname|camelcase|capitalize}, :live_view",
+        "end",
+      },
+    },
+    ["test/**/live/*_live.exs"] = {
+      type = "test",
+      alternate = "lib/{dirname}/live/{basename}_live.ex",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}LiveTest do",
+        "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
+        "end",
+      },
+    },
     ["lib/**/channels/*_channel.ex"] = {
       type = "channel",
       alternate = "test/{dirname}/channels/{basename}_channel_test.exs",
