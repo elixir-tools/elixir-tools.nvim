@@ -40,65 +40,21 @@ local config = {
         "end",
       },
     },
-    ["lib/**/controllers/*_html.ex"] = {
-      type = "html",
-      alternate = "test/{dirname}/controllers/{basename}_html_test.exs",
-      template = {
-        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}HTML do",
-        "  use {dirname|camelcase|capitalize}, :html",
-        "",
-        [[  embed_templates "{basename|snakecase}_html/*"]],
-        "end",
-      },
-    },
-    ["test/**/controllers/*_html_test.exs"] = {
-      type = "test",
-      alternate = "lib/{dirname}/controllers/{basename}_html.ex",
-      template = {
-        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}HTMLTest do",
-        "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
-        "",
-        "  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}HTML",
-        "end",
-      },
-    },
-    ["lib/**/components/*.ex"] = {
-      type = "component",
-      alternate = "test/{dirname}/components/{basename}_test.exs",
-      template = {
-        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize} do",
-        "  use Phoenix.Component",
-        "end",
-      },
-    },
-    ["test/**/components/*_test.exs"] = {
-      type = "test",
-      alternate = "lib/{dirname}/components/{basename}.ex",
-      template = {
-        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Test do",
-        "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
-        "",
-        "  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}",
-        "end",
-      },
-    },
     ["lib/**/live/*_live.ex"] = {
       type = "liveview",
-      alternate = "test/{dirname}/live/{basename}_live_test.exs",
+      alternate = "test/{dirname}/live/{basename}_live.exs",
       template = {
         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Live do",
         "  use {dirname|camelcase|capitalize}, :live_view",
         "end",
       },
     },
-    ["test/**/live/*_live_test.exs"] = {
+    ["test/**/live/*_live.exs"] = {
       type = "test",
       alternate = "lib/{dirname}/live/{basename}_live.ex",
       template = {
         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}LiveTest do",
-        "  use {dirname|camelcase|capitalize}.ConnCase",
-        "",
-        "  import Phoenix.LiveViewTest",
+        "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
         "end",
       },
     },
