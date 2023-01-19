@@ -39,7 +39,7 @@ elixir.setup({
   -- specify a repository and branch
   repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
   branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
-  tag = "v0.12.0", -- defaults to nil, mutually exclusive with the `branch` option
+  tag = "v0.13.0", -- defaults to nil, mutually exclusive with the `branch` option
 
   -- alternatively, point to an existing elixir-ls installation (optional)
   -- not currently supported by elixirls, but can be a table if you wish to pass other args `{"path/to/elixirls", "--foo"}`
