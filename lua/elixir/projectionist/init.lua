@@ -42,7 +42,7 @@ local config = {
     },
     ["lib/**/live/*_live.ex"] = {
       type = "liveview",
-      alternate = "test/{dirname}/live/{basename}_live.exs",
+      alternate = "test/{dirname}/live/{basename}_live_test.exs",
       template = {
         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Live do",
         "  use {dirname|camelcase|capitalize}, :live_view",
