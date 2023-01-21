@@ -49,7 +49,7 @@ local config = {
         "end",
       },
     },
-    ["test/**/live/*_live.exs"] = {
+    ["test/**/live/*_live_test.exs"] = {
       type = "test",
       alternate = "lib/{dirname}/live/{basename}_live.ex",
       template = {
