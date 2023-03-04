@@ -24,7 +24,7 @@ Requires 0.8.
     local elixir = require("elixir")
 
     elixir.setup {
-      settings = elixirls.settings {
+      settings = elixir.settings {
         dialyzerEnabled = false,
         enableTestLenses = false,
       },
