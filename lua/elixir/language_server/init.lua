@@ -275,11 +275,15 @@ function M.setup(opts)
     }
 
     if not opts.cmd and not cmd:exists() then
-      vim.ui.select({ "Yes", "No" }, { prompt = "Install ElixirLS" }, function(choice)
-        if choice == "Yes" then
-          install_elixir_ls(vim.tbl_extend("force", repo_options, { install_path = cmd:parent() }))
-        end
-      end)
+      if vim.g.elixirnvim_has_prompted_for_install ~= true then
+        vim.ui.select({ "Yes", "No" }, { prompt = "Install ElixirLS" }, function(choice)
+          if choice == "Yes" then
+            install_elixir_ls(vim.tbl_extend("force", repo_options, { install_path = cmd:parent() }))
+          end
+
+          vim.g.elixirnvim_has_prompted_for_install = true
+        end)
+      end
 
       return
     end
