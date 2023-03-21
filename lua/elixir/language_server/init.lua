@@ -303,7 +303,7 @@ function M.setup(opts)
             local message =
               vim.split("[" .. vim.lsp.protocol.MessageType[result.type] .. "] " .. result.message, "\n")
 
-            vim.api.nvim_buf_set_lines(elixir_nvim_output_bufnr, -1, -1, false, message)
+            pcall(vim.api.nvim_buf_set_lines, elixir_nvim_output_bufnr, -1, -1, false, message)
           end,
         },
         on_attach = function(...)
