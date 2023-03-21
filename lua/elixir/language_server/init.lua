@@ -36,7 +36,7 @@ function M.open_floating_window(buf)
     col = 0,
     minwidth = width,
     minheight = height,
-    border = {},
+    border = false,
     padding = { 2, 2, 2, 2 },
     zindex = 10,
   })
@@ -218,7 +218,33 @@ local function install_elixir_ls(opts)
   Compile.compile(
     download_dir:joinpath(source_path):absolute(),
     opts.install_path:absolute(),
-    vim.tbl_extend("force", opts, { bufnr = bufnr })
+    vim.tbl_extend("force", opts, {
+      bufnr = bufnr,
+      on_exit = function(_, compile_code)
+        if compile_code == 0 then
+          if bufnr then
+            vim.api.nvim_buf_call(bufnr, function()
+              vim.api.nvim_command("quit")
+            end)
+          end
+
+          vim.notify("Finished compiling ElixirLS!")
+          vim.notify("Reloading buffer")
+          vim.api.nvim_command("edit")
+          vim.notify("Restarting LSP client")
+          vim.api.nvim_command("LspRestart")
+          vim.fn.jobstart({ "rm", "-rf", download_dir:absolute() }, {
+            on_exit = vim.schedule_wrap(function(_, rm_code)
+              if rm_code == 0 then
+                vim.notify("Cleaned up elixir.nvim download directory")
+              else
+                vim.api.nvim_err_writeln("Failed to clean up elixir.nivm download directory")
+              end
+            end),
+          })
+        end
+      end,
+    })
   )
 end
 

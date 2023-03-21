@@ -1,4 +1,3 @@
-local curl = require("plenary.curl")
 local Path = require("plenary.path")
 local Job = require("plenary.job")
 
