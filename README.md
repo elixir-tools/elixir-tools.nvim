@@ -1,5 +1,7 @@
 # elixir.nvim
 
+[![Discord](https://img.shields.io/badge/Discord-5865F3?style=flat&logo=discord&logoColor=white&link=https://discord.gg/nNDMwTJ8)](https://discord.gg/nNDMwTJ8)
+
 `elixir.nvim` provides a nice experience for writing Elixir applications with [Neovim](https://github.com/neovim/neovim).
 
 > Note: This plugin does not provide autocompletion, I recommend using [nvim-cmp](https://github.com/hrsh7th/nvim-cmp).
