@@ -17,6 +17,10 @@ jobs:
             manager: sudo apt-get
             packages: -y fd-find esl-erlang elixir
           - os: ubuntu-20.04
+            url: https://github.com/neovim/neovim/releases/download/v0.9.0/nvim-linux64.tar.gz
+            manager: sudo apt-get
+            packages: -y fd-find esl-erlang elixir
+          - os: ubuntu-20.04
             url: https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-linux64.tar.gz
             manager: sudo apt-get
             packages: -y fd-find esl-erlang elixir
@@ -52,7 +56,7 @@ jobs:
           }
           mkdir -p ~/.local/share/nvim/site/pack/vendor/start
           git clone --depth 1 https://github.com/nvim-lua/plenary.nvim ~/.local/share/nvim/site/pack/vendor/start/plenary.nvim
-          ln -s $(pwd) ~/.local/share/nvim/site/pack/vendor/start
+          ln -s "$(pwd)" ~/.local/share/nvim/site/pack/vendor/start
 
       - name: Run tests
         run: |
