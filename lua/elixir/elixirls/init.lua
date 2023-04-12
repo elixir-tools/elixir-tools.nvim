@@ -285,7 +285,7 @@ function M.setup(opts)
     vim.api.nvim_buf_set_name(elixir_nvim_output_bufnr, "ElixirLS Output Panel")
   end
 
-  local elixir_group = vim.api.nvim_create_augroup("elixirnvim", { clear = true })
+  local elixir_group = vim.api.nvim_create_augroup("elixir-tools.elixirls", { clear = true })
 
   local start_elixir_ls = function(arg)
     local fname = Path.new(arg.file):absolute()
