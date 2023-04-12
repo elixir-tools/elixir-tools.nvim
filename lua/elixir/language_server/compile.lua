@@ -45,7 +45,7 @@ function M.compile(source_path, install_path, opts)
 
   -- sync is just for testing
   if do_sync then
-    compile:sync(60000)
+    compile:sync(180000)
   else
     compile:start()
   end
