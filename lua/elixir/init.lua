@@ -11,6 +11,8 @@ M.elixirls.settings = elixirls.settings
 M.elixirls.open_output_panel = elixirls.open_output_panel
 
 function M.setup(opts)
+  opts = opts or {}
+
   mix.setup()
   projectionist.setup()
   elixirls.setup(opts.elixirls or {})
