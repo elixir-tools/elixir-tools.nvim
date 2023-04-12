@@ -207,9 +207,9 @@ M.on_attach = function(client, bufnr)
   end, {})
 end
 
-local cache_dir = Path:new(vim.fn.getcwd(), ".elixir_ls", "elixir.nvim")
+local cache_dir = Path:new(vim.fn.getcwd(), ".elixir_ls", "elixir-tools.nvim")
 local download_dir = cache_dir:joinpath("downloads")
-local install_dir = Path:new(vim.fn.expand("~/.cache/nvim/elixir.nvim/installs"))
+local install_dir = Path:new(vim.fn.expand("~/.cache/nvim/elixir-tools.nvim/installs"))
 
 local function install_elixir_ls(opts)
   local source_path = Download.clone(tostring(download_dir:absolute()), opts)
@@ -236,9 +236,9 @@ local function install_elixir_ls(opts)
           vim.fn.jobstart({ "rm", "-rf", download_dir:absolute() }, {
             on_exit = vim.schedule_wrap(function(_, rm_code)
               if rm_code == 0 then
-                vim.notify("Cleaned up elixir.nvim download directory")
+                vim.notify("Cleaned up elixir-tools.nvim download directory")
               else
-                vim.api.nvim_err_writeln("Failed to clean up elixir.nivm download directory")
+                vim.api.nvim_err_writeln("Failed to clean up elixir-tools.nvim download directory")
               end
             end),
           })

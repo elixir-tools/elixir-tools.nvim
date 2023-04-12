@@ -1,8 +1,8 @@
-# elixir.nvim
+# elixir-tools.nvim
 
 [![Discord](https://img.shields.io/badge/Discord-5865F3?style=flat&logo=discord&logoColor=white&link=https://discord.gg/nNDMwTJ8)](https://discord.gg/nNDMwTJ8)
 
-`elixir.nvim` provides a nice experience for writing Elixir applications with [Neovim](https://github.com/neovim/neovim).
+`elixir-tools.nvim` provides a nice experience for writing Elixir applications with [Neovim](https://github.com/neovim/neovim).
 
 > Note: This plugin does not provide autocompletion, I recommend using [nvim-cmp](https://github.com/hrsh7th/nvim-cmp).
 
@@ -20,7 +20,7 @@ Requires 0.8.
 
 ```lua
 {
-  "mhanberg/elixir.nvim",
+  "elixir-tools/elixir-tools.nvim",
   ft = { "elixir", "eex", "heex", "surface" },
   config = function()
     local elixir = require("elixir")
@@ -49,7 +49,7 @@ Requires 0.8.
 ### packer.nvim
 
 ```lua
-use({ "mhanberg/elixir.nvim", requires = { "nvim-lua/plenary.nvim" }})
+use({ "elixir-tools/elixir-tools.nvim", requires = { "nvim-lua/plenary.nvim" }})
 ```
 
 ## Getting Started
@@ -140,7 +140,7 @@ Caveat: This currently downloads the language server into the `.elixir_ls` direc
 
 #### Root Path Detection
 
-`elixir.nvim` should be able to properly set the root directory for umbrella and non-umbrella apps. The nvim-lspconfig project's root detection doesn't properly account for umbrella projects.
+`elixir-tools.nvim` should be able to properly set the root directory for umbrella and non-umbrella apps. The nvim-lspconfig project's root detection doesn't properly account for umbrella projects.
 
 #### Run Tests
 
