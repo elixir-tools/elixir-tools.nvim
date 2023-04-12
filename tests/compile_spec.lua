@@ -1,8 +1,8 @@
 local eq = assert.are.same
 local Path = require("plenary.path")
-local Compile = require("elixir.language_server.compile")
+local Compile = require("elixir.elixirls.compile")
 
-local versions = require("elixir.language_server.version").get()
+local versions = require("elixir.elixirls.version").get()
 
 describe("compile", function()
 	before_each(function()
