@@ -1,7 +1,5 @@
-local eq = assert.are.same
 local shell = vim.fn.system
-local curl = require("plenary.curl")
-local elixir = require("elixir.language_server")
+local elixirls = require("elixir.elixirls")
 
 describe("elixir", function()
 	describe("command", function()
@@ -11,7 +9,7 @@ describe("elixir", function()
 
 		it("returns false when it's not installed", function()
 			local install_path = "tmp/fake_install"
-			local result = elixir.command({
+			local result = elixirls.command({
 				path = install_path,
 				repo = "foo/biz",
 				ref = "bar/baz",
@@ -27,7 +25,7 @@ describe("elixir", function()
 			shell("mkdir -p tmp/fake_install/foo/biz/bar_baz/foobarbaz")
 			shell("touch tmp/fake_install/foo/biz/bar_baz/foobarbaz/language_server.sh")
 
-			local result = elixir.command({
+			local result = elixirls.command({
 				path = install_path,
 				repo = "foo/biz",
 				ref = "bar/baz",

@@ -1,16 +1,20 @@
-local language_server = require("elixir.language_server")
+local elixirls = require("elixir.elixirls")
+local credo = require("elixir.credo")
 local mix = require("elixir.mix")
 local projectionist = require("elixir.projectionist")
 
 local M = {}
 
-M.settings = language_server.settings
-M.open_output_panel = language_server.open_output_panel
+M.elixirls = {}
+
+M.elixirls.settings = elixirls.settings
+M.elixirls.open_output_panel = elixirls.open_output_panel
 
 function M.setup(opts)
   mix.setup()
   projectionist.setup()
-  language_server.setup(opts)
+  elixirls.setup(opts["elixirls"] or {})
+  credo.setup(opts["credo"] or {})
 end
 
 return M

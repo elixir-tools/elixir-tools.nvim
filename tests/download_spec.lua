@@ -1,6 +1,6 @@
 local Path = require("plenary.path")
 local eq = assert.are.same
-local Download = require("elixir.language_server.download")
+local Download = require("elixir.elixirls.download")
 vim.notify = function(thing)
 	io.stdout:write(thing .. "\n")
 end

@@ -1,9 +1,9 @@
 local Path = require("plenary.path")
 local popup = require("plenary.popup")
 
-local Version = require("elixir.language_server.version")
-local Download = require("elixir.language_server.download")
-local Compile = require("elixir.language_server.compile")
+local Version = require("elixir.elixirls.version")
+local Download = require("elixir.elixirls.download")
+local Compile = require("elixir.elixirls.compile")
 local Utils = require("elixir.utils")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
