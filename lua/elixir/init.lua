@@ -1,5 +1,4 @@
 local elixirls = require("elixir.elixirls")
-local credo = require("elixir.credo")
 local mix = require("elixir.mix")
 local projectionist = require("elixir.projectionist")
 
@@ -14,7 +13,6 @@ function M.setup(opts)
   mix.setup()
   projectionist.setup()
   elixirls.setup(opts["elixirls"] or {})
-  credo.setup(opts["credo"] or {})
 end
 
 return M
