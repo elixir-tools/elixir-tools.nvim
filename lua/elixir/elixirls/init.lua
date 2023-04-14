@@ -315,6 +315,7 @@ function M.setup(opts)
     end
 
     if root_dir then
+      local log_message = vim.lsp.handlers["window/logMessage"]
       vim.lsp.start(vim.tbl_extend("keep", {
         name = "ElixirLS",
         cmd = opts.cmd and wrap_in_table(opts.cmd) or { tostring(cmd) },
@@ -325,7 +326,9 @@ function M.setup(opts)
         capabilities = opts.capabilities or capabilities,
         root_dir = root_dir,
         handlers = {
-          ["window/logMessage"] = function(_err, result)
+          ["window/logMessage"] = function(err, result, ...)
+            log_message(err, result, ...)
+
             local message =
               vim.split("[" .. vim.lsp.protocol.MessageType[result.type] .. "] " .. result.message, "\n")
 
