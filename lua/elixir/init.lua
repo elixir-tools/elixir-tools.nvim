@@ -10,8 +10,17 @@ M.elixirls = {}
 M.elixirls.settings = elixirls.settings
 M.elixirls.open_output_panel = elixirls.open_output_panel
 
+M.credo = {}
+
+M.credo.default_bin = vim.fn.fnamemodify(debug.getinfo(1).short_src, ":h")
+  .. "/../../bin/credo-language-server"
+
 function M.setup(opts)
   opts = opts or {}
+
+  if opts.credo and not opts.credo.bin then
+    opts.credo.bin = M.credo.default_bin
+  end
 
   mix.setup()
   projectionist.setup()
