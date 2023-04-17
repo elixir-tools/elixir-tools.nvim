@@ -12,8 +12,9 @@ M.elixirls.open_output_panel = elixirls.open_output_panel
 
 M.credo = {}
 
-M.credo.default_bin = vim.fn.fnamemodify(debug.getinfo(1).short_src, ":h")
-  .. "/../../bin/credo-language-server"
+M.credo.default_bin = (
+  vim.fn.fnamemodify(debug.getinfo(1).source, ":h") .. "/../../bin/credo-language-server"
+):gsub("^@", "")
 
 local enabled = function(value)
   return value == nil or value == true
