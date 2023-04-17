@@ -27,7 +27,7 @@ function M.setup(opts)
       vim.lsp.start {
         name = "Credo",
         -- cmd = vim.lsp.rpc.connect('127.0.0.1', 9000),
-        cmd = { opts.bin, "--stdio" },
+        cmd = { opts.cmd, "--stdio" },
         settings = {},
         root_dir = vim.fs.dirname(file),
         on_attach = opts.on_attach or function() end,

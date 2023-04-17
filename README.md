@@ -9,6 +9,7 @@
 ## Features
 
 - [ElixirLS](https://github.com/elixir-lsp/elixir-ls) installation and configuration (uses the Neovim built-in LSP client)
+- [credo-language-server](https://github.com/elixir-tools/credo-language-server) integration.
 - `:Mix` command with autocomplete
 - [vim-projectionist](https://github.com/tpope/vim-projectionist) support
 
@@ -27,13 +28,13 @@ Requires 0.8
     local elixirls = require("elixir.elixirls")
 
     elixir.setup {
+      credo = {},
       elixirls = {
+        enabled = true,
         settings = elixirls.settings {
           dialyzerEnabled = false,
           enableTestLenses = false,
         },
-        log_level = vim.lsp.protocol.MessageType.Log,
-        message_level = vim.lsp.protocol.MessageType.Log,
         on_attach = function(client, bufnr)
           -- whatever keybinds you want, see below for more suggestions
           vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
@@ -59,21 +60,38 @@ use({ "elixir-tools/elixir-tools.nvim", requires = { "nvim-lua/plenary.nvim" }})
 
 ### Minimal Setup
 
+The minimal setup will configure both ElixirLS and credo-langauge-server.
+
 ```lua
 require("elixir").setup()
+```
+
+ElixirLS and credo-language-server can be disabled by setting the `enabled` flag in the respective options table.
+
+```lua
+require("elixir").setup({
+  credo = {enable = false},
+  elixirls = {enable = false},
+})
 ```
 
 ### Advanced Setup
 
 While the plugin works with a minimal setup, it is much more useful if you add some personal configuration.
 
-Note: Not specifying the `repo`, `branch`, or `tag` options will default to the latest release.
+Note: For ElixirLS, not specifying the `repo`, `branch`, or `tag` options will default to the latest release.
 
 ```lua
 local elixir = require("elixir")
 local elixirls = require("elixir.elixirls")
 
 elixir.setup {
+  credo = {
+    cmd = "path/to/credo-language-server",
+    on_attach = function(client, bufnr)
+      -- custom keybinds
+    end
+  },
   elixirls = {
     -- specify a repository and branch
     repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
@@ -124,15 +142,15 @@ elixir.setup {
 
 ## Features
 
-### Language Server
+### ElixirLS
 
-#### Automatic ElixirLS Installation
+#### Automatic Installation
 
 When a compatible installation of ELixirLS is not found, you will be prompted to install it. The plugin will download the source code to the `.elixir_ls` directory and compile it using the Elixir and OTP versions used by your current project.
 
 Caveat: This assumes you are developing your project locally (outside of something like Docker) and they will be available.
 
-Caveat: This currently downloads the language server into the `.elixir_ls` directory in your repository, but it does install it into `~/.cache` and will re-use it  when needed.
+Caveat: This currently downloads the language server into the `.elixir_ls` directory in your repository, but it does install it into `~/.cache` and will re-use it when needed.
 
 ![auto-install-elixirls](https://user-images.githubusercontent.com/5523984/160333851-94d448d9-5c80-458c-aa0d-4c81528dde8f.gif)
 
@@ -181,6 +199,14 @@ You can see the logs for ElixirLS via the output panel. By default opens the buf
 :lua require("elixir").open_output_panel({ window = "float" })
 ```
 
+### credo-language-server
+
+> Note: The credo-language-server integration utilizes `Mix.install/2`, so you must be running Elixir >= 1.12
+
+- Uses your project's Credo version.
+- Full project diagnostics
+- Code Actions
+
 ### Mix
 
 You can run any `mix` command in your project, complete with... autocomplete!
@@ -198,9 +224,3 @@ You can run any `mix` command in your project, complete with... autocomplete!
 - Phoenix Controllers
 - Phoenix Channels
 - Wallaby/Hound Feature tests
-
-### Debugger
-
-TODO: make it work
-
-TODO: gif

@@ -15,17 +15,26 @@ M.credo = {}
 M.credo.default_bin = vim.fn.fnamemodify(debug.getinfo(1).short_src, ":h")
   .. "/../../bin/credo-language-server"
 
+local enabled = function(value)
+  return value == nil or value == true
+end
+
 function M.setup(opts)
   opts = opts or {}
 
-  if opts.credo and not opts.credo.bin then
-    opts.credo.bin = M.credo.default_bin
+  opts.elixirls = opts.elixirls or {}
+  opts.credo = opts.credo or {}
+
+  if not opts.credo.cmd then
+    opts.credo.cmd = M.credo.default_bin
   end
 
   mix.setup()
   projectionist.setup()
-  elixirls.setup(opts.elixirls or {})
-  if opts.credo then
+  if enabled(opts.elixirls.enable) then
+    elixirls.setup(opts.elixirls)
+  end
+  if enabled(opts.credo.enable) then
     credo.setup(opts.credo)
   end
 end
