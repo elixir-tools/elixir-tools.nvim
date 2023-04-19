@@ -1,6 +1,6 @@
 # elixir-tools.nvim
 
-[![Discord](https://img.shields.io/badge/Discord-5865F3?style=flat&logo=discord&logoColor=white&link=https://discord.gg/nNDMwTJ8)](https://discord.gg/nNDMwTJ8)
+[![Discord](https://img.shields.io/badge/Discord-5865F3?style=flat&logo=discord&logoColor=white&link=https://discord.gg/nNDMwTJ8)](https://discord.gg/6XdGnxVA2A)
 
 `elixir-tools.nvim` provides a nice experience for writing Elixir applications with [Neovim](https://github.com/neovim/neovim).
 
