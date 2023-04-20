@@ -24,10 +24,16 @@ function M.setup(opts)
         file = nil
       end
 
+      local cmd
+      if type(opts.port) == "number" then
+        cmd = vim.lsp.rpc.connect("127.0.0.1", opts.port)
+      else
+        cmd = { opts.cmd, "--stdio" }
+      end
+
       vim.lsp.start {
         name = "Credo",
-        -- cmd = vim.lsp.rpc.connect('127.0.0.1', 9000),
-        cmd = { opts.cmd, "--stdio" },
+        cmd = cmd,
         settings = {},
         root_dir = vim.fs.dirname(file),
         on_attach = opts.on_attach or function() end,

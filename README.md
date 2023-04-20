@@ -87,7 +87,8 @@ local elixirls = require("elixir.elixirls")
 
 elixir.setup {
   credo = {
-    cmd = "path/to/credo-language-server",
+    port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`
+    cmd = "path/to/credo-language-server", -- path to the executable. mutually exclusive with `port`
     on_attach = function(client, bufnr)
       -- custom keybinds
     end
