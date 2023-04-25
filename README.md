@@ -60,7 +60,7 @@ use({ "elixir-tools/elixir-tools.nvim", requires = { "nvim-lua/plenary.nvim" }})
 
 ### Minimal Setup
 
-The minimal setup will configure both ElixirLS and credo-langauge-server.
+The minimal setup will configure both ElixirLS and credo-language-server.
 
 ```lua
 require("elixir").setup()
