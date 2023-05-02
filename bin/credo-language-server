@@ -2,7 +2,7 @@
 
 System.no_halt(true)
 
-{%{credo: {_, :credo, credo_version, _, _, _, _, _}}, _} = Code.eval_file("./mix.lock")
+{%{credo: {_, :credo, credo_version, _, _, _, _, _}}, _} = Code.eval_file(System.get_env("CREDO_MIX_LOCK_PATH", "./mix.lock"))
 
 Mix.install([
   {:credo_language_server, "0.0.4"},
