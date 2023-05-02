@@ -7,8 +7,13 @@ function M.setup(opts)
     group = credo,
     pattern = { "elixir" },
     callback = function()
-      local file =
-        vim.fs.find({ "mix.exs" }, { upward = true, path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)) })[1]
+      local matches = vim.fs.find({ "mix.lock" }, {
+        stop = vim.loop.os_homedir(),
+        upward = true,
+        path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+      })
+
+      local file = nil
 
       local function read_file(path)
         local f = io.open(path, "rb")
@@ -20,8 +25,11 @@ function M.setup(opts)
         return content
       end
 
-      if file and not read_file(file):find("{:credo, ") then
-        file = nil
+      for _, f in ipairs(matches) do
+        if f and read_file(f):find([["credo": {]]) then
+          file = f
+          break
+        end
       end
 
       if file then
@@ -35,6 +43,7 @@ function M.setup(opts)
         vim.lsp.start {
           name = "Credo",
           cmd = cmd,
+          cmd_env = { CREDO_MIX_LOCK_PATH = file },
           settings = {},
           root_dir = vim.fs.dirname(file),
           on_attach = opts.on_attach or function() end,
