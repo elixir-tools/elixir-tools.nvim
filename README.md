@@ -22,7 +22,7 @@ Requires 0.8
 ```lua
 {
   "elixir-tools/elixir-tools.nvim",
-  ft = { "elixir", "eex", "heex", "surface" },
+  event = { "BufReadPre", "BufNewFile" },
   config = function()
     local elixir = require("elixir")
     local elixirls = require("elixir.elixirls")
