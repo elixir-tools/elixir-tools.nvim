@@ -62,23 +62,23 @@ local config = {
         "end",
       },
     },
-    ["lib/**/components/*_component.ex"] = {
+    ["lib/**/components/*.ex"] = {
       type = "component",
-      alternate = "test/{dirname}/components/{basename}_component_test.exs",
+      alternate = "test/{dirname}/components/{basename}_test.exs",
       template = {
-        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Component do",
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize} do",
         "  use Phoenix.Component",
         "end",
       },
     },
-    ["test/**/controllers/*_component_test.exs"] = {
+    ["test/**/controllers/*_test.exs"] = {
       type = "test",
-      alternate = "lib/{dirname}/components/{basename}_component.ex",
+      alternate = "lib/{dirname}/components/{basename}.ex",
       template = {
-        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ComponentTest do",
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Test do",
         "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
         "",
-        "  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Component",
+        "  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}",
         "end",
       },
     },
