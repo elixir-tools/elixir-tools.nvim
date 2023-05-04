@@ -47,7 +47,7 @@ local config = {
         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}HTML do",
         "  use {dirname|camelcase|capitalize}, :html",
         "",
-        "  embed_templates {basename|snake_case}_html/*",
+        [[  embed_templates "{basename|snakecase}_html/*"]],
         "end",
       },
     },
