@@ -40,6 +40,28 @@ local config = {
         "end",
       },
     },
+    ["lib/**/controllers/*_html.ex"] = {
+      type = "html",
+      alternate = "test/{dirname}/controllers/{basename}_html_test.exs",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}HTML do",
+        "  use {dirname|camelcase|capitalize}, :html",
+        "",
+        "  embed_templates {basename|snake_case}_html/*",
+        "end",
+      },
+    },
+    ["test/**/controllers/*_html_test.exs"] = {
+      type = "test",
+      alternate = "lib/{dirname}/controllers/{basename}_html.ex",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ControllerTest do",
+        "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
+        "",
+        "  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}HTML",
+        "end",
+      },
+    },
     ["lib/**/live/*_live.ex"] = {
       type = "liveview",
       alternate = "test/{dirname}/live/{basename}_live_test.exs",
