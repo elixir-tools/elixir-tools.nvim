@@ -62,6 +62,26 @@ local config = {
         "end",
       },
     },
+    ["lib/**/components/*_component.ex"] = {
+      type = "component",
+      alternate = "test/{dirname}/components/{basename}_component_test.exs",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Component do",
+        "  use Phoenix.Component",
+        "end",
+      },
+    },
+    ["test/**/controllers/*_component_test.exs"] = {
+      type = "test",
+      alternate = "lib/{dirname}/components/{basename}_component.ex",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ComponentTest do",
+        "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
+        "",
+        "  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Component",
+        "end",
+      },
+    },
     ["lib/**/live/*_live.ex"] = {
       type = "liveview",
       alternate = "test/{dirname}/live/{basename}_live_test.exs",
