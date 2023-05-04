@@ -55,7 +55,7 @@ local config = {
       type = "test",
       alternate = "lib/{dirname}/controllers/{basename}_html.ex",
       template = {
-        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ControllerTest do",
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}HTMLTest do",
         "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
         "",
         "  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}HTML",
