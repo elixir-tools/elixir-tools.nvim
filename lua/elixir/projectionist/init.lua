@@ -71,7 +71,7 @@ local config = {
         "end",
       },
     },
-    ["test/**/controllers/*_test.exs"] = {
+    ["test/**/components/*_test.exs"] = {
       type = "test",
       alternate = "lib/{dirname}/components/{basename}.ex",
       template = {
