@@ -12,8 +12,8 @@ local config = {
       },
     },
     ["test/**/views/*_view_test.exs"] = {
-      alternate = "lib/{dirname}/views/{basename}_view.ex",
       type = "test",
+      alternate = "lib/{dirname}/views/{basename}_view.ex",
       template = {
         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ViewTest do",
         "  use ExUnit.Case, async: true",
@@ -32,11 +32,73 @@ local config = {
       },
     },
     ["test/**/controllers/*_controller_test.exs"] = {
-      alternate = "lib/{dirname}/controllers/{basename}_controller.ex",
       type = "test",
+      alternate = "lib/{dirname}/controllers/{basename}_controller.ex",
       template = {
         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ControllerTest do",
         "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
+        "end",
+      },
+    },
+    ["lib/**/controllers/*_html.ex"] = {
+      type = "html",
+      alternate = "test/{dirname}/controllers/{basename}_html_test.exs",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}HTML do",
+        "  use {dirname|camelcase|capitalize}, :html",
+        "",
+        [[  embed_templates "{basename|snakecase}_html/*"]],
+        "end",
+      },
+    },
+    ["test/**/controllers/*_html_test.exs"] = {
+      type = "test",
+      alternate = "lib/{dirname}/controllers/{basename}_html.ex",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}HTMLTest do",
+        "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
+        "",
+        "  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}HTML",
+        "end",
+      },
+    },
+    ["lib/**/components/*.ex"] = {
+      type = "component",
+      alternate = "test/{dirname}/components/{basename}_test.exs",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize} do",
+        "  use Phoenix.Component",
+        "end",
+      },
+    },
+    ["test/**/components/*_test.exs"] = {
+      type = "test",
+      alternate = "lib/{dirname}/components/{basename}.ex",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Test do",
+        "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
+        "",
+        "  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}",
+        "end",
+      },
+    },
+    ["lib/**/live/*_live.ex"] = {
+      type = "liveview",
+      alternate = "test/{dirname}/live/{basename}_live_test.exs",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Live do",
+        "  use {dirname|camelcase|capitalize}, :live_view",
+        "end",
+      },
+    },
+    ["test/**/live/*_live_test.exs"] = {
+      type = "test",
+      alternate = "lib/{dirname}/live/{basename}_live.ex",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}LiveTest do",
+        "  use {dirname|camelcase|capitalize}.ConnCase",
+        "",
+        "  import Phoenix.LiveViewTest",
         "end",
       },
     },
@@ -50,8 +112,8 @@ local config = {
       },
     },
     ["test/**/channels/*_channel_test.exs"] = {
-      alternate = "lib/{dirname}/channels/{basename}_channel.ex",
       type = "test",
+      alternate = "lib/{dirname}/channels/{basename}_channel.ex",
       template = {
         "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ChannelTest do",
         "  use {dirname|camelcase|capitalize}.ChannelCase, async: true",
@@ -69,13 +131,13 @@ local config = {
       },
     },
     ["lib/*.ex"] = {
-      alternate = "test/{}_test.exs",
       type = "source",
+      alternate = "test/{}_test.exs",
       template = { "defmodule {camelcase|capitalize|dot} do", "end" },
     },
     ["test/*_test.exs"] = {
-      alternate = "lib/{}.ex",
       type = "test",
+      alternate = "lib/{}.ex",
       template = {
         "defmodule {camelcase|capitalize|dot}Test do",
         "  use ExUnit.Case, async: true",
