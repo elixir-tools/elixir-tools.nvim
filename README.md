@@ -204,10 +204,92 @@ You can run any `mix` command in your project, complete with... autocomplete!
 
 ## Projectionist
 
-[vim-projectionist](https://github.com/tpope/vim-projectionist) definitions are provided for:
+[vim-projectionist](https://github.com/tpope/vim-projectionist) integration!
 
-- Elixir files
-- Phoenix Views
-- Phoenix Controllers
-- Phoenix Channels
-- Wallaby/Hound Feature tests
+:Esource {args}
+
+: Create or edit a regular source module.
+
+    ```vim
+    Esource my_app/accounts/team
+    ```
+
+:Etest {args}
+
+: Create or edit a regular test module.
+
+    ```vim
+    Etest my_app/accounts/team
+    ```
+
+:Etask {args}
+
+: Create or edit a Mix task module.
+
+    ```vim
+    Etask server.start
+    ```
+
+:Econtroller {args}
+
+: Create or edit a Phoenix controller module.
+
+    ```vim
+    Econtroller my_project_web/users
+    ```
+
+:Eview {args}
+
+: Create or edit a Phoenix view module.
+
+    ```vim
+    Eview my_project_web/users
+    ```
+
+:Ehtml {args}
+
+: Create or edit a Phoenix HTML module.
+
+    ```vim
+    Ehtml my_project_web/users
+    ```
+
+:Ejson {args}
+
+: Create or edit a Phoenix JSON module.
+
+    ```vim
+    Ejson my_project_web/users
+    ```
+
+:Ecomponent {args}
+
+: Create or edit a Phoenix.Component module.
+
+    ```vim
+    Ecomponent my_project_web/users
+    ```
+
+:Eliveview {args}
+
+: Create or edit a Phoenix.LiveView module.
+
+    ```vim
+    Eliveview my_project_web/users
+    ```
+
+:Elivecomponent {args}
+
+: Create or edit a Phoenix.LiveComponent module.
+
+    ```vim
+    Elivecomponent my_project_web/users
+    ```
+
+:Echannel {args}
+
+: Create or edit a Phoenix channel module.
+
+:Efeature {args}
+
+: Create or edit a Wallaby test module.
