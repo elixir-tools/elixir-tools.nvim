@@ -101,6 +101,26 @@ local config = {
         "end",
       },
     },
+    ["lib/**/live/*_component.ex"] = {
+      type = "livecomponent",
+      alternate = "test/{dirname}/live/{basename}_component_test.exs",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Component do",
+        "  use {dirname|camelcase|capitalize}, :live_component",
+        "end",
+      },
+    },
+    ["test/**/live/*_component_test.exs"] = {
+      type = "test",
+      alternate = "lib/{dirname}/live/{basename}_component.ex",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ComponentTest do",
+        "  use {dirname|camelcase|capitalize}.ConnCase",
+        "",
+        "  import Phoenix.LiveViewTest",
+        "end",
+      },
+    },
     ["lib/**/live/*_live.ex"] = {
       type = "liveview",
       alternate = "test/{dirname}/live/{basename}_live_test.exs",
