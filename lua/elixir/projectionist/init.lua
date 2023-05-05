@@ -82,36 +82,36 @@ local config = {
         "end",
       },
     },
-    ["lib/**/live/*_live.ex"] = {
+    ["lib/**/live/*.ex"] = {
       type = "liveview",
-      alternate = "test/{dirname}/live/{basename}_live_test.exs",
+      alternate = "test/{dirname}/live/{basename}_test.exs",
       template = {
-        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Live do",
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize} do",
         "  use {dirname|camelcase|capitalize}, :live_view",
         "end",
       },
     },
-    ["test/**/live/*_live_test.exs"] = {
+    ["test/**/live/*_test.exs"] = {
       type = "test",
-      alternate = "lib/{dirname}/live/{basename}_live.ex",
+      alternate = "lib/{dirname}/live/{basename}.ex",
       template = {
-        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}LiveTest do",
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Test do",
         "  use {dirname|camelcase|capitalize}.ConnCase",
         "",
         "  import Phoenix.LiveViewTest",
         "end",
       },
     },
-    ["lib/**/live/*_live.html.leex"] = {
+    ["lib/**/live/*.html.leex"] = {
       type = "leex",
-      alternate = "test/{dirname}/live/{basename}_live_test.exs",
+      alternate = "test/{dirname}/live/{basename}_test.exs",
       template = {
         "",
       },
     },
-    ["lib/**/live/*_live.html.heex"] = {
+    ["lib/**/live/*.html.heex"] = {
       type = "heex",
-      alternate = "test/{dirname}/live/{basename}_live_test.exs",
+      alternate = "test/{dirname}/live/{basename}_test.exs",
       template = {
         "",
       },
