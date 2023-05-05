@@ -62,6 +62,25 @@ local config = {
         "end",
       },
     },
+    ["lib/**/controllers/*_json.ex"] = {
+      type = "json",
+      alternate = "test/{dirname}/controllers/{basename}_json_test.exs",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}JSON do",
+        "end",
+      },
+    },
+    ["test/**/controllers/*_json_test.exs"] = {
+      type = "test",
+      alternate = "lib/{dirname}/controllers/{basename}_json.ex",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}JSONTest do",
+        "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
+        "",
+        "  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}JSON",
+        "end",
+      },
+    },
     ["lib/**/components/*.ex"] = {
       type = "component",
       alternate = "test/{dirname}/components/{basename}_test.exs",
