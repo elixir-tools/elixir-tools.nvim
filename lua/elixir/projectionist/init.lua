@@ -102,6 +102,20 @@ local config = {
         "end",
       },
     },
+    ["lib/**/live/*_live.html.leex"] = {
+      type = "leex",
+      alternate = "test/{dirname}/live/{basename}_live_test.exs",
+      template = {
+        "",
+      },
+    },
+    ["lib/**/live/*_live.html.heex"] = {
+      type = "heex",
+      alternate = "test/{dirname}/live/{basename}_live_test.exs",
+      template = {
+        "",
+      },
+    },
     ["lib/**/channels/*_channel.ex"] = {
       type = "channel",
       alternate = "test/{dirname}/channels/{basename}_channel_test.exs",
