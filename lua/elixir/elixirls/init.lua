@@ -349,7 +349,7 @@ function M.setup(opts)
   vim.api.nvim_create_autocmd({ "FileType" }, {
     group = elixir_group,
     pattern = { "elixir", "eelixir", "heex", "surface" },
-    callback = start_elixir_ls,
+    callback = vim.schedule_wrap(start_elixir_ls),
   })
 end
 
