@@ -16,20 +16,10 @@ function M.root_dir(fname)
     fname = vim.fn.getcwd()
   end
 
-  local child_or_root_path =
-    vim.fs.dirname(vim.fs.find({ "mix.exs", ".git" }, { upward = true, path = fname })[1])
-  local maybe_umbrella_path =
-    vim.fs.dirname(vim.fs.find({ "mix.exs" }, { upward = true, path = child_or_root_path })[1])
+  local matches = vim.fs.find({ "mix.exs" }, { upward = true, limit = 2, path = fname })
+  local child_or_root_path, maybe_umbrella_path = unpack(matches)
 
-  if maybe_umbrella_path then
-    if not vim.startswith(child_or_root_path, Path:joinpath(maybe_umbrella_path, "apps"):absolute()) then
-      maybe_umbrella_path = nil
-    end
-  end
-
-  local path = maybe_umbrella_path or child_or_root_path or vim.loop.os_homedir()
-
-  return path
+  return vim.fs.dirname(maybe_umbrella_path or child_or_root_path)
 end
 
 return M
