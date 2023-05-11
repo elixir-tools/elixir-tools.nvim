@@ -1,4 +1,4 @@
-*elixir-tools.nvim.txt*        For NVIM v0.8.0        Last change: 2023 May 09
+*elixir-tools.nvim.txt*        For NVIM v0.8.0        Last change: 2023 May 11
 
 ==============================================================================
 Table of Contents                        *elixir-tools.nvim-table-of-contents*
@@ -33,7 +33,6 @@ with Neovim <https://github.com/neovim/neovim>.
   nvim-treesitter <https://github.com/nvim-treesitter/nvim-treesitter>.
 
 FEATURES                                 *elixir-tools.nvim-overview-features*
-
 
 - ElixirLS <https://github.com/elixir-lsp/elixir-ls> installation and configuration (uses the Neovim built-in LSP client)
 - credo-language-server <https://github.com/elixir-tools/credo-language-server> integration.
@@ -244,7 +243,6 @@ CREDO-LANGUAGE-SERVER       *elixir-tools.nvim-features-credo-language-server*
 
   Note: The credo-language-server integration utilizes `Mix.install/2`, so you
   must be running Elixir >= 1.12
-
 - Uses your project’s Credo version.
 - Full project diagnostics
 - Code Actions
@@ -267,7 +265,6 @@ PROJECTIONIST                       *elixir-tools.nvim-features-projectionist*
 
 vim-projectionist <https://github.com/tpope/vim-projectionist> definitions are
 provided for:
-
 
 - Elixir files
 - Phoenix Views
