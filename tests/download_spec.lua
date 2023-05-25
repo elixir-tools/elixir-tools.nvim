@@ -42,9 +42,9 @@ describe("download", function()
 	it("can checkout a different tag", function()
 		local download_dir = "tmp/downloads"
 
-		local result = Download.clone(download_dir, { repo = "elixir-lsp/elixir-ls", ref = "tags/v0.13.0" })
+		local result = Download.clone(download_dir, { repo = "elixir-lsp/elixir-ls", ref = "tags/v0.14.6" })
 
-		eq("elixir-lsp/elixir-ls/tags_v0.13.0", result)
-		assert.True(Path:new(download_dir, "elixir-lsp/elixir-ls/tags_v0.13.0", "mix.exs"):exists())
+		eq("elixir-lsp/elixir-ls/tags_v0.14.6", result)
+		assert.True(Path:new(download_dir, "elixir-lsp/elixir-ls/tags_v0.14.6", "mix.exs"):exists())
 	end)
 end)

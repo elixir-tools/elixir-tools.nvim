@@ -9,7 +9,7 @@ local Utils = require("elixir.utils")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local default_install_tag = "tags/v0.13.0"
+local default_install_tag = "tags/v0.14.6"
 
 local elixir_nvim_output_bufnr
 
