@@ -175,10 +175,10 @@ ElixirLS provides a codelens to identify and run your tests. If you configure `e
 : Open the output panel that displays logs and compiler information from the server.
 
 ```lua
-require("elixir").open_output_panel()
-require("elixir").open_output_panel({ window = "split" })
-require("elixir").open_output_panel({ window = "vsplit" })
-require("elixir").open_output_panel({ window = "float" })
+require("elixir.elixirls").open_output_panel()
+require("elixir.elixirls").open_output_panel({ window = "split" })
+require("elixir.elixirls").open_output_panel({ window = "vsplit" })
+require("elixir.elixirls").open_output_panel({ window = "float" })
 ```
 
 ## credo-language-server
