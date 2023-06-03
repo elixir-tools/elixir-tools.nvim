@@ -1,4 +1,4 @@
-*elixir-tools.nvim.txt*        For NVIM v0.8.0        Last change: 2023 May 25
+*elixir-tools.nvim.txt*        For NVIM v0.8.0       Last change: 2023 June 03
 
 ==============================================================================
 Table of Contents                        *elixir-tools.nvim-table-of-contents*
@@ -231,10 +231,10 @@ COMMANDS ~
 
 
 >lua
-    require("elixir").open_output_panel()
-    require("elixir").open_output_panel({ window = "split" })
-    require("elixir").open_output_panel({ window = "vsplit" })
-    require("elixir").open_output_panel({ window = "float" })
+    require("elixir.elixirls").open_output_panel()
+    require("elixir.elixirls").open_output_panel({ window = "split" })
+    require("elixir.elixirls").open_output_panel({ window = "vsplit" })
+    require("elixir.elixirls").open_output_panel({ window = "float" })
 <
 
 
