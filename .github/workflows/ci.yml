@@ -24,14 +24,18 @@ jobs:
             url: https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-linux64.tar.gz
             manager: sudo apt-get
             packages: -y fd-find esl-erlang elixir
-          # - os: macos-11
-          #   url: https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
-          #   manager: brew
-          #   packages: fd elixir
-          # - os: macos-11
-          #   url: https://github.com/neovim/neovim/releases/download/v0.6.0/nvim-macos.tar.gz
-          #   manager: brew
-          #   packages: fd elixir
+          - os: macos-12
+            url: https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
+            manager: brew
+            packages: fd elixir
+          - os: macos-12
+            url: https://github.com/neovim/neovim/releases/download/v0.9.1/nvim-macos.tar.gz
+            manager: brew
+            packages: fd elixir
+          - os: macos-12
+            url: https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-macos.tar.gz
+            manager: brew
+            packages: fd elixir
     steps:
       - uses: actions/checkout@v2
 
