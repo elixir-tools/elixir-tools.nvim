@@ -47,7 +47,10 @@ function M.setup(opts)
         vim.lsp.start {
           name = "Credo",
           cmd = cmd,
-          cmd_env = { CREDO_MIX_LOCK_PATH = file },
+          cmd_env = {
+            CREDO_LSP_VERSION = opts.version
+
+          },
           settings = {},
           root_dir = vim.fs.dirname(file),
           on_attach = opts.on_attach or function() end,
