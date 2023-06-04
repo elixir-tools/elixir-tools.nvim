@@ -1,5 +1,9 @@
 local M = {}
 
+if not vim.uv then
+  vim.uv = vim.loop
+end
+
 function M.setup(opts)
   local credo = vim.api.nvim_create_augroup("elixir-tools.credo", { clear = true })
 
@@ -8,7 +12,7 @@ function M.setup(opts)
     pattern = { "elixir" },
     callback = function()
       local matches = vim.fs.find({ "mix.lock" }, {
-        stop = vim.loop.os_homedir(),
+        stop = vim.uv.os_homedir(),
         upward = true,
         path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
       })
