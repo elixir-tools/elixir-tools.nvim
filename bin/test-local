@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-nvim --headless -c "PlenaryBustedDirectory tests {timeout = 180000}"
