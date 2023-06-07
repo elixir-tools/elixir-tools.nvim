@@ -2,15 +2,12 @@ local root_dir = vim.fn.getcwd()
 local utils = require("elixir.utils")
 
 describe("utils", function()
-
   after_each(function()
     vim.api.nvim_command("cd " .. root_dir)
   end)
 
   describe("root_dir", function()
-
     it("finds elixir project root dir without a filename", function()
-
       local project_dir = root_dir .. "/tests/fixtures/project_a"
 
       vim.api.nvim_command("cd " .. project_dir)
@@ -38,7 +35,5 @@ describe("utils", function()
 
       assert.are.equal(nil, result)
     end)
-
   end)
 end)
-

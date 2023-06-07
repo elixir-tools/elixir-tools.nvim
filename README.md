@@ -36,7 +36,7 @@ Requires 0.8
     elixir.setup {
       credo = {},
       elixirls = {
-        enabled = true,
+        enable = true,
         settings = elixirls.settings {
           dialyzerEnabled = false,
           enableTestLenses = false,
@@ -71,7 +71,7 @@ The minimal setup will configure both ElixirLS and credo-language-server.
 require("elixir").setup()
 ```
 
-ElixirLS and credo-language-server can be disabled by setting the `enabled` flag in the respective options table.
+ElixirLS and credo-language-server can be disabled by setting the `enable` flag in the respective options table.
 
 ```lua
 require("elixir").setup({
@@ -94,7 +94,7 @@ elixir.setup {
   credo = {
     port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`
     cmd = "path/to/credo-language-server", -- path to the executable. mutually exclusive with `port`
-    version = "0.1.0-rc.1", -- version of credo-language-server to install and use. defaults to 0.0.5
+    version = "0.1.0-rc.3", -- version of credo-language-server to install and use. defaults to 0.0.5
     on_attach = function(client, bufnr)
       -- custom keybinds
     end

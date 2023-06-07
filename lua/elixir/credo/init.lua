@@ -48,8 +48,7 @@ function M.setup(opts)
           name = "Credo",
           cmd = cmd,
           cmd_env = {
-            CREDO_LSP_VERSION = opts.version
-
+            CREDO_LSP_VERSION = opts.version,
           },
           settings = {},
           root_dir = vim.fs.dirname(file),
