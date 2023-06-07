@@ -3,7 +3,7 @@ describe("projectionist", function()
     local tmp_dir = [[./tmp/fixtures]]
     vim.fn.system([[rm -rf ]] .. tmp_dir)
     vim.fn.system([[mkdir -p ]] .. tmp_dir)
-    vim.fn.system([[cp -r tests/fixtures/ ]] .. tmp_dir)
+    vim.fn.system([[cp -R tests/fixtures/. ]] .. tmp_dir)
     vim.print(vim.fn.system([[ls tmp]]))
     vim.print("===========")
     vim.print(vim.fn.system([[ls tmp/fixtures]]))
