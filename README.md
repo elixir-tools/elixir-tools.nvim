@@ -36,7 +36,7 @@ Requires 0.8
     elixir.setup {
       credo = {},
       elixirls = {
-        enabled = true,
+        enable = true,
         settings = elixirls.settings {
           dialyzerEnabled = false,
           enableTestLenses = false,
@@ -71,7 +71,7 @@ The minimal setup will configure both ElixirLS and credo-language-server.
 require("elixir").setup()
 ```
 
-ElixirLS and credo-language-server can be disabled by setting the `enabled` flag in the respective options table.
+ElixirLS and credo-language-server can be disabled by setting the `enable` flag in the respective options table.
 
 ```lua
 require("elixir").setup({
