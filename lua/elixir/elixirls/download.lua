@@ -22,7 +22,7 @@ function M.clone(dir, opts)
     enable_recording = true,
   }
 
-  clone:sync()
+  clone:sync(60000)
 
   assert(clone.code == 0, "Failed to clone")
 
