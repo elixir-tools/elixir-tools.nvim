@@ -28,6 +28,7 @@ Requires 0.8
 ```lua
 {
   "elixir-tools/elixir-tools.nvim",
+  version = "*",
   event = { "BufReadPre", "BufNewFile" },
   config = function()
     local elixir = require("elixir")
@@ -58,7 +59,7 @@ Requires 0.8
 ## packer.nvim
 
 ```lua
-use({ "elixir-tools/elixir-tools.nvim", requires = { "nvim-lua/plenary.nvim" }})
+use({ "elixir-tools/elixir-tools.nvim", tag = "stable", requires = { "nvim-lua/plenary.nvim" }})
 ```
 
 # Getting Started
