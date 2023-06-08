@@ -1,0 +1,52 @@
+name: release
+on:
+  push:
+    branches:
+      - main
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    name: vimdoc generator
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
+
+      - name: panvimdoc
+        uses: kdheepak/panvimdoc@main
+        with:
+          vimdoc: elixir-tools.nvim
+          version: "NVIM v0.8.0"
+          demojify: true
+          treesitter: true
+
+      - name: Push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore(build): auto-generate vimdoc"
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+
+  release:
+    name: release
+    needs:
+      - docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: simple
+          package-name: elixir-tools.nvim
+      - uses: actions/checkout@v3
+      - name: tag stable versions
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
+          git remote add gh-token "https://${{ secrets.GITHUB_TOKEN }}@github.com/google-github-actions/release-please-action.git"
+          git tag -d stable || true
+          git push origin :stable || true
+          git tag -a stable -m "Latest Stable Release"
+          git push origin stable
