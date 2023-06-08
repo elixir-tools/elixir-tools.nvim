@@ -22,4 +22,15 @@ function M.root_dir(fname)
   return vim.fs.dirname(maybe_umbrella_path or child_or_root_path)
 end
 
+function M.latest_release(owner, repo)
+  local curl = string.format(
+    [[curl --silent -L -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/%s/%s/releases/latest]],
+    owner,
+    repo
+  )
+  local resp = vim.json.decode(vim.fn.system(curl))
+
+  return resp and resp.tag_name or nil
+end
+
 return M
