@@ -21,6 +21,7 @@ Table of Contents                        *elixir-tools.nvim-table-of-contents*
 1. Overview                                       *elixir-tools.nvim-overview*
 
 <https://discord.gg/6XdGnxVA2A>
+<https://github.com/orgs/elixir-tools/discussions>
 
 `elixir-tools.nvim` provides a nice experience for writing Elixir applications
 with Neovim <https://github.com/neovim/neovim>.
