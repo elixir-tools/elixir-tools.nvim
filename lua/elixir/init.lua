@@ -2,6 +2,7 @@ local elixirls = require("elixir.elixirls")
 local credo = require("elixir.credo")
 local mix = require("elixir.mix")
 local projectionist = require("elixir.projectionist")
+local utils = require("elixir.utils")
 
 local M = {}
 
@@ -15,8 +16,6 @@ M.credo = {}
 M.credo.default_bin = (
   vim.fn.fnamemodify(debug.getinfo(1).source, ":h") .. "/../../bin/credo-language-server"
 ):gsub("^@", "")
-
-M.credo.default_version = "0.0.5"
 
 local enabled = function(value)
   return value == nil or value == true
@@ -33,7 +32,7 @@ function M.setup(opts)
   end
 
   if not opts.credo.version then
-    opts.credo.version = M.credo.default_version
+    opts.credo.version = utils.latest_release("elixir-tools", "credo-language-server")
   end
 
   mix.setup()
