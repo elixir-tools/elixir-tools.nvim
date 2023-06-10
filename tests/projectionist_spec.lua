@@ -65,4 +65,39 @@ describe("projectionist", function()
       { "defmodule ProjectAWeb.UserLive do", "  use ProjectAWeb, :live_view", "end" }
     )
   end)
+
+  it("Etask", function()
+    vim.cmd.Etask("foo.bar")
+    vim.cmd.write()
+
+    assert.are.same(vim.fn.readfile("lib/mix/tasks/foo.bar.ex"), {
+      "defmodule Mix.Tasks.Foo.Bar do",
+      [[  use Mix.Task]],
+      "",
+      [[  @shortdoc "foo.bar"]],
+      "",
+      [[  @moduledoc """]],
+      [[  foo.bar]],
+      [[  """]],
+      "",
+      [[  @impl true]],
+      [[  @doc false]],
+      [[  def run(argv) do]],
+      "",
+      [[  end]],
+      "end",
+    })
+
+    vim.cmd.AV()
+    vim.api.nvim_exec2([[feedkeys('1\<cr>', 'tx')]])
+    vim.cmd.write()
+
+    assert.are.same(vim.fn.readfile("test/mix/tasks/foo.bar_test.ex"), {
+      "defmodule Mix.Tasks.Foo.BarTest do",
+      [[  use ExUnit.Case, async: true]],
+      "",
+      [[  alias Mix.Tasks.Foo.Bar]],
+      "end",
+    })
+  end)
 end)
