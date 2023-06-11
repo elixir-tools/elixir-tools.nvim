@@ -266,14 +266,111 @@ You can run any `mix` command in your project, complete with… autocomplete!
 
 PROJECTIONIST                       *elixir-tools.nvim-features-projectionist*
 
-vim-projectionist <https://github.com/tpope/vim-projectionist> definitions are
-provided for:
+vim-projectionist <https://github.com/tpope/vim-projectionist> integration!
 
-- Elixir files
-- Phoenix Views
-- Phoenix Controllers
-- Phoenix Channels
-- Wallaby/Hound Feature tests
+
+                                                *elixir-tools.nvim-:Esource*
+
+
+:Esource {args}                        Create or edit a regular source module.
+                                       >vim
+                                           Esource my_app/accounts/team
+                                       <
+
+
+                                                  *elixir-tools.nvim-:Etest*
+
+
+:Etest {args}                          Create or edit a regular test module.
+                                       >vim
+                                           Etest my_app/accounts/team
+                                       <
+
+
+                                                  *elixir-tools.nvim-:Etask*
+
+
+:Etask {args}                          Create or edit a Mix task module.
+                                       >vim
+                                           Etask server.start
+                                       <
+
+
+                                            *elixir-tools.nvim-:Econtroller*
+
+
+:Econtroller {args}                    Create or edit a Phoenix controller module.
+                                       >vim
+                                           Econtroller my_project_web/users
+                                       <
+
+
+                                                  *elixir-tools.nvim-:Eview*
+
+
+:Eview {args}                          Create or edit a Phoenix view module.
+                                       >vim
+                                           Eview my_project_web/users
+                                       <
+
+
+                                                  *elixir-tools.nvim-:Ehtml*
+
+
+:Ehtml {args}                          Create or edit a Phoenix HTML module.
+                                       >vim
+                                           Ehtml my_project_web/users
+                                       <
+
+
+                                                  *elixir-tools.nvim-:Ejson*
+
+
+:Ejson {args}                          Create or edit a Phoenix JSON module.
+                                       >vim
+                                           Ejson my_project_web/users
+                                       <
+
+
+                                             *elixir-tools.nvim-:Ecomponent*
+
+
+:Ecomponent {args}                     Create or edit a Phoenix.Component module.
+                                       >vim
+                                           Ecomponent my_project_web/users
+                                       <
+
+
+                                              *elixir-tools.nvim-:Eliveview*
+
+
+:Eliveview {args}                      Create or edit a Phoenix.LiveView module.
+                                       >vim
+                                           Eliveview my_project_web/users
+                                       <
+
+
+                                         *elixir-tools.nvim-:Elivecomponent*
+
+
+:Elivecomponent {args}                 Create or edit a Phoenix.LiveComponent module.
+                                       >vim
+                                           Elivecomponent my_project_web/users
+                                       <
+
+
+                                               *elixir-tools.nvim-:Echannel*
+
+
+:Echannel {args}                       Create or edit a Phoenix channel module.
+
+
+                                               *elixir-tools.nvim-:Efeature*
+
+
+:Efeature {args}                       Create or edit a Wallaby test module.
+
+
 
 ==============================================================================
 5. Links                                             *elixir-tools.nvim-links*
