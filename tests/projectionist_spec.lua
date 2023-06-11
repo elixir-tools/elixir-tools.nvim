@@ -46,6 +46,16 @@ describe("projectionist", function()
     })
   end)
 
+  it("Ejson", function()
+    vim.cmd.Ejson("project_a_web/user")
+    vim.cmd.write()
+
+    assert.are.same(
+      vim.fn.readfile("lib/project_a_web/controllers/user_json.ex"),
+      { "defmodule ProjectAWeb.UserJSON do", "end" }
+    )
+  end)
+
   it("Ecomponent", function()
     vim.cmd.Ecomponent("project_a_web/user")
     vim.cmd.write()
@@ -63,6 +73,16 @@ describe("projectionist", function()
     assert.are.same(
       vim.fn.readfile("lib/project_a_web/live/user_live.ex"),
       { "defmodule ProjectAWeb.UserLive do", "  use ProjectAWeb, :live_view", "end" }
+    )
+  end)
+
+  it("Elivecomponent", function()
+    vim.cmd.Elivecomponent("project_a_web/user")
+    vim.cmd.write()
+
+    assert.are.same(
+      vim.fn.readfile("lib/project_a_web/live/user_component.ex"),
+      { "defmodule ProjectAWeb.UserComponent do", "  use ProjectAWeb, :live_component", "end" }
     )
   end)
 

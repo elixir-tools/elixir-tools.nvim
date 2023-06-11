@@ -75,6 +75,25 @@ local config = {
         "end",
       },
     },
+    ["lib/**/controllers/*_json.ex"] = {
+      type = "json",
+      alternate = "test/{dirname}/controllers/{basename}_json_test.exs",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}JSON do",
+        "end",
+      },
+    },
+    ["test/**/controllers/*_json_test.exs"] = {
+      type = "test",
+      alternate = "lib/{dirname}/controllers/{basename}_json.ex",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}JSONTest do",
+        "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
+        "",
+        "  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}JSON",
+        "end",
+      },
+    },
     ["lib/**/components/*.ex"] = {
       type = "component",
       alternate = "test/{dirname}/components/{basename}_test.exs",
@@ -92,6 +111,26 @@ local config = {
         "  use {dirname|camelcase|capitalize}.ConnCase, async: true",
         "",
         "  alias {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}",
+        "end",
+      },
+    },
+    ["lib/**/live/*_component.ex"] = {
+      type = "livecomponent",
+      alternate = "test/{dirname}/live/{basename}_component_test.exs",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}Component do",
+        "  use {dirname|camelcase|capitalize}, :live_component",
+        "end",
+      },
+    },
+    ["test/**/live/*_component_test.exs"] = {
+      type = "test",
+      alternate = "lib/{dirname}/live/{basename}_component.ex",
+      template = {
+        "defmodule {dirname|camelcase|capitalize}.{basename|camelcase|capitalize}ComponentTest do",
+        "  use {dirname|camelcase|capitalize}.ConnCase",
+        "",
+        "  import Phoenix.LiveViewTest",
         "end",
       },
     },
