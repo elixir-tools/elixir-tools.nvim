@@ -88,11 +88,9 @@ describe("projectionist", function()
       "end",
     })
 
-    vim.cmd.AV()
-    vim.api.nvim_exec2([[feedkeys('1\<cr>', 'tx')]])
-    vim.cmd.write()
+    vim.cmd([[call feedkeys("1\<cr>", "t") | A | write]])
 
-    assert.are.same(vim.fn.readfile("test/mix/tasks/foo.bar_test.ex"), {
+    assert.are.same(vim.fn.readfile("test/mix/tasks/foo.bar_test.exs"), {
       "defmodule Mix.Tasks.Foo.BarTest do",
       [[  use ExUnit.Case, async: true]],
       "",
