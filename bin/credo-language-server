@@ -1,4 +1,4 @@
-#!/usr/bin/env elixir --sname undefined
+#!/usr/bin/env -S elixir --sname undefined
 
 System.no_halt(true)
 
