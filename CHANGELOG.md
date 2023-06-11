@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+## [0.4.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.3.0...v0.4.0) (2023-06-11)
+
+
+### Features
+
+* Etask projection ([#119](https://github.com/elixir-tools/elixir-tools.nvim/issues/119)) ([3eb9c10](https://github.com/elixir-tools/elixir-tools.nvim/commit/3eb9c10dd53418b3f268a177f6876df1334a94e4)), closes [#92](https://github.com/elixir-tools/elixir-tools.nvim/issues/92)
+* **projectionist:** Ejson and Elivecomponent ([#80](https://github.com/elixir-tools/elixir-tools.nvim/issues/80)) ([7af93b7](https://github.com/elixir-tools/elixir-tools.nvim/commit/7af93b721848c995436c5b7fbc32d5c299903d05))
+
+
+### Bug Fixes
+
+* **credo:** use -S in shebang line ([#122](https://github.com/elixir-tools/elixir-tools.nvim/issues/122)) ([6d8cbe9](https://github.com/elixir-tools/elixir-tools.nvim/commit/6d8cbe9a32dd8131eff326d3079948371248cf77))
+* **projectionist:** don't append live to file and module name ([#121](https://github.com/elixir-tools/elixir-tools.nvim/issues/121)) ([e504b87](https://github.com/elixir-tools/elixir-tools.nvim/commit/e504b87859fb44d5d9d22ac12bc2a5418f74d6ac))
+
 ## [0.3.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.2.0...v0.3.0) (2023-06-08)
 
 
