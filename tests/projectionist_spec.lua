@@ -66,14 +66,28 @@ describe("projectionist", function()
     )
   end)
 
-  it("Eliveview", function()
-    vim.cmd.Eliveview("project_a_web/user")
-    vim.cmd.write()
+  describe("Eliveview", function()
+    it("root path", function()
+      vim.cmd.Eliveview("project_a_web/user_live")
+      vim.cmd.write()
 
-    assert.are.same(
-      vim.fn.readfile("lib/project_a_web/live/user_live.ex"),
-      { "defmodule ProjectAWeb.UserLive do", "  use ProjectAWeb, :live_view", "end" }
-    )
+      assert.are.same(
+        vim.fn.readfile("lib/project_a_web/live/user_live.ex"),
+        { "defmodule ProjectAWeb.UserLive do", "  use ProjectAWeb, :live_view", "end" }
+      )
+    end)
+
+    -- TODO: i think we need a more specific projection transformer here to convert
+    -- `project_a_web/user_live_index` into the correct module name.
+    pending("with action", function()
+      vim.cmd.Eliveview("project_a_web/user_live/index")
+      vim.cmd.write()
+
+      assert.are.same(
+        vim.fn.readfile("lib/project_a_web/live/user_live/index.ex"),
+        { "defmodule ProjectAWeb.UserLive.Index do", "  use ProjectAWeb, :live_view", "end" }
+      )
+    end)
   end)
 
   it("Elivecomponent", function()
