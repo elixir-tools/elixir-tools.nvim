@@ -1,4 +1,17 @@
 local M = {}
+if not vim.g.projectionist_transformations then
+  vim.g.projectionist_transformations = vim.empty_dict()
+end
+
+ElixirToolsProjectionistElixirModule = function(input)
+  return input:gsub("(%.%l)", string.upper)
+end
+
+vim.cmd([[
+function! g:projectionist_transformations.elixir_module(input, o) abort
+  return v:lua.ElixirToolsProjectionistElixirModule(a:input, a:o)
+endfunction
+]])
 
 local config = {
   ["mix.exs"] = {
@@ -139,10 +152,31 @@ local config = {
       type = "test",
       alternate = "lib/{}.ex",
       template = {
-        "defmodule {camelcase|capitalize|dot}Test do",
+        "defmodule {camelcase|capitalize|dot|elixir_module}Test do",
         "  use ExUnit.Case, async: true",
         "",
-        "  alias {camelcase|capitalize|dot}",
+        "  alias {camelcase|capitalize|dot|elixir_module}",
+        "end",
+      },
+    },
+    ["lib/mix/tasks/*.ex"] = {
+      type = "task",
+      alternate = "test/mix/tasks/{}_test.exs",
+      template = {
+        "defmodule Mix.Tasks.{camelcase|capitalize|dot|elixir_module} do",
+        [[  use Mix.Task]],
+        "",
+        [[  @shortdoc "{}"]],
+        "",
+        [[  @moduledoc """]],
+        [[  {}]],
+        [[  """]],
+        "",
+        [[  @impl true]],
+        [[  @doc false]],
+        [[  def run(argv) do]],
+        "",
+        [[  end]],
         "end",
       },
     },
