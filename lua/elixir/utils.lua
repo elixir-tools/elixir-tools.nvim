@@ -29,7 +29,7 @@ function M.latest_release(owner, repo)
   )
   local resp = vim.json.decode(vim.fn.system(curl))
 
-  return resp and resp.tag_name:gsub("^v", "") or nil
+  return resp and resp.tag_name and resp.tag_name:gsub("^v", "") or nil
 end
 
 return M

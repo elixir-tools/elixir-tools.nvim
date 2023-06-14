@@ -1,0 +1,14 @@
+#!/usr/bin/env -S elixir --sname undefined
+
+System.no_halt(true)
+
+Logger.configure(level: :none)
+
+Mix.start()
+Mix.shell(Mix.Shell.Process)
+
+Mix.install([{:next_ls, System.get_env("NEXTLS_VERSION")}])
+
+Logger.configure(level: :info)
+
+Application.ensure_all_started(:next_ls)
