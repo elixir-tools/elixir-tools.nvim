@@ -61,7 +61,7 @@ function M.setup(opts)
     credo.setup(opts.credo)
   end
 
-  if enabled(opts.nextls.enable) then
+  if opts.nextls.enable == true then
     nextls.setup(opts.nextls)
   end
 end
