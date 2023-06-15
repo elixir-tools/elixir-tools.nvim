@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.5.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.5.0...v0.5.1) (2023-06-15)
+
+
+### Bug Fixes
+
+* **nextls:** only start if explicitly enabled ([#126](https://github.com/elixir-tools/elixir-tools.nvim/issues/126)) ([40877be](https://github.com/elixir-tools/elixir-tools.nvim/commit/40877be58a22a338f24013612abe61cb2387eb8e))
+
 ## [0.5.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.4.0...v0.5.0) (2023-06-14)
 
 
