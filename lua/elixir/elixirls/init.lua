@@ -325,7 +325,7 @@ function M.setup(opts)
         settings = opts.settings or M.settings {},
         capabilities = opts.capabilities or capabilities,
         root_dir = root_dir,
-        handlers = {
+        handlers = vim.tbl_extend("keep", {
           ["window/logMessage"] = function(err, result, ...)
             log_message(err, result, ...)
 
@@ -334,7 +334,7 @@ function M.setup(opts)
 
             pcall(vim.api.nvim_buf_set_lines, elixir_nvim_output_bufnr, -1, -1, false, message)
           end,
-        },
+        }, opts.handlers or {}),
         on_attach = function(...)
           if opts.on_attach then
             opts.on_attach(...)
