@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## [0.6.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.5.1...v0.6.0) (2023-06-21)
+
+
+### Features
+
+* **elixir,treesitter:** highlight arg to Repo.query! as SQL ([4464531](https://github.com/elixir-tools/elixir-tools.nvim/commit/44645316f987d78d1afe6e6f8ac46839bb5a2bbc))
+* **elixirls:** bump ElixirLS ([1014838](https://github.com/elixir-tools/elixir-tools.nvim/commit/101483829e25dc25d0e0e9fb3b090f7b4e07b964))
+
 ## [0.5.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.5.0...v0.5.1) (2023-06-15)
 
 
