@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.6.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.6.0...v0.6.1) (2023-06-21)
+
+
+### Bug Fixes
+
+* **elixirls:** allow overriding handlers ([2fa5e75](https://github.com/elixir-tools/elixir-tools.nvim/commit/2fa5e75e7f5fac23a36567f43c205631b6b7910c))
+
 ## [0.6.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.5.1...v0.6.0) (2023-06-21)
 
 
