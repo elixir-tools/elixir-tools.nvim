@@ -40,7 +40,7 @@ function M.setup(opts)
     opts.credo.cmd = M.credo.default_bin
   end
 
-  if not opts.credo.version then
+  if enabled(opts.credo.enable) and not opts.credo.version then
     opts.credo.version = utils.latest_release("elixir-tools", "credo-language-server")
   end
 
@@ -48,7 +48,7 @@ function M.setup(opts)
     opts.nextls.cmd = M.nextls.default_bin
   end
 
-  if not opts.nextls.version then
+  if opts.nextls.enable and not opts.nextls.version then
     opts.nextls.version = utils.latest_release("elixir-tools", "next-ls")
   end
 
@@ -57,11 +57,12 @@ function M.setup(opts)
   if enabled(opts.elixirls.enable) then
     elixirls.setup(opts.elixirls)
   end
-  if enabled(opts.credo.enable) then
+
+  if opts.credo.version and enabled(opts.credo.enable) then
     credo.setup(opts.credo)
   end
 
-  if opts.nextls.enable == true then
+  if opts.nextls.version and opts.nextls.enable == true then
     nextls.setup(opts.nextls)
   end
 end
