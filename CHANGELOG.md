@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.6.4](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.6.3...v0.6.4) (2023-06-25)
+
+
+### Bug Fixes
+
+* bin/nextls ([545e9bb](https://github.com/elixir-tools/elixir-tools.nvim/commit/545e9bb152bc3c4bfad0d3aa1cbae058a4b357d8))
+
 ## [0.6.3](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.6.2...v0.6.3) (2023-06-25)
 
 
