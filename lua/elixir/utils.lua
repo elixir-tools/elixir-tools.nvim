@@ -1,15 +1,22 @@
+local Path = require("plenary.path")
 local M = {}
 
+---@param path string
 function M.safe_path(path)
   return string.gsub(path, "/", "_")
 end
 
+---@param repo string
+---@param ref string
+---@return string
 function M.repo_path(repo, ref)
   local x = M.safe_path(string.format("%s-%s", repo, ref or "HEAD"))
 
   return x
 end
 
+---@param fname string?
+---@return string
 function M.root_dir(fname)
   if not fname or fname == "" then
     fname = vim.fn.getcwd()
@@ -21,15 +28,44 @@ function M.root_dir(fname)
   return vim.fs.dirname(maybe_umbrella_path or child_or_root_path)
 end
 
-function M.latest_release(owner, repo)
+---@param owner string
+---@param repo string
+---@param opts? table
+---@return string?
+function M.latest_release(owner, repo, opts)
+  opts = opts or {}
+  local github_host = opts.github_host or "api.github.com"
+  local cache_dir = opts.cache_dir or "~/.cache/nvim/elixir-tools.nvim/"
   local curl = string.format(
-    [[curl --silent -L -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/%s/%s/releases/latest]],
+    [[curl --silent -L -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" https://%s/repos/%s/%s/releases/latest]],
+    github_host,
     owner,
     repo
   )
-  local resp = vim.json.decode(vim.fn.system(curl))
+  local invocation = vim.fn.system(curl)
 
-  return resp and resp.tag_name and resp.tag_name:gsub("^v", "") or nil
+  local latest_version_file = Path:new(vim.fn.expand(cache_dir .. owner .. "-" .. repo .. ".txt")):absolute()
+
+  if vim.v.shell_error == 0 then
+    local resp = vim.json.decode(invocation)
+    local version = resp and resp.tag_name and resp.tag_name:gsub("^v", "")
+
+    assert(type(version) == "string")
+
+    vim.fn.writefile({ version }, latest_version_file)
+
+    return version
+  elseif vim.fn.filereadable(latest_version_file) == 1 then
+    return vim.fn.readfile(latest_version_file)[1]
+  else
+    vim.notify(
+      "Failed to fetch the current "
+        .. repo
+        .. " version from GitHub or the cache. You most likely do not have an internet connection and have no cached version of the language server."
+    )
+
+    return nil
+  end
 end
 
 return M
