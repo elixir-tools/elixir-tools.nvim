@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.6.5](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.6.4...v0.6.5) (2023-06-26)
+
+
+### Bug Fixes
+
+* ensure elixir-tool.nvim cache dir exists ([5a3f6f3](https://github.com/elixir-tools/elixir-tools.nvim/commit/5a3f6f36e0263ffd2ac65767c12fd8f0f7c8010b))
+
 ## [0.6.4](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.6.3...v0.6.4) (2023-06-25)
 
 
