@@ -44,6 +44,8 @@ function M.latest_release(owner, repo, opts)
   )
   local invocation = vim.fn.system(curl)
 
+  vim.fn.mkdir(vim.fn.expand(cache_dir), "p")
+
   local latest_version_file = Path:new(vim.fn.expand(cache_dir .. owner .. "-" .. repo .. ".txt")):absolute()
 
   if vim.v.shell_error == 0 then

@@ -38,8 +38,12 @@ describe("utils", function()
   end)
 
   describe("latest_release", function()
+    before_each(function()
+      vim.fn.delete("./tmp/version-cache", "rf")
+    end)
+
     it("returns the latest release for the repo", function()
-      local result = utils.latest_release("elixir-tools", "next-ls", { cache_dir = "./tmp/" })
+      local result = utils.latest_release("elixir-tools", "next-ls", { cache_dir = "./tmp/version-cache/" })
 
       assert(type(result) == "string")
       assert.is.Truthy(string.match(result, "%d+%.%d+%.%d+"))
@@ -50,18 +54,19 @@ describe("utils", function()
       local result = utils.latest_release(
         "elixir-tools",
         "next-ls",
-        { github_host = "localhost:9999", cache_dir = "./tmp/" }
+        { github_host = "localhost:9999", cache_dir = "./tmp/version-cache/" }
       )
 
       assert.is.Nil(result)
     end)
 
     it("returns nil if the command has a non zero exit code and no file in cache", function()
-      vim.fn.writefile({ "0.2.2" }, "./tmp/elixir-tools-next-ls.txt")
+      vim.fn.mkdir("./tmp/version-cache", "p")
+      vim.fn.writefile({ "0.2.2" }, "./tmp/version-cache/elixir-tools-next-ls.txt")
       local result = utils.latest_release(
         "elixir-tools",
         "next-ls",
-        { github_host = "localhost:9999", cache_dir = "./tmp/" }
+        { github_host = "localhost:9999", cache_dir = "./tmp/version-cache/" }
       )
 
       assert.are.same(result, "0.2.2")
