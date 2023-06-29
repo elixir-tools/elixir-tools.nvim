@@ -96,7 +96,7 @@ elixir.setup {
   credo = {
     port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`
     cmd = "path/to/credo-language-server", -- path to the executable. mutually exclusive with `port`
-    version = "0.1.0-rc.3", -- version of credo-language-server to install and use. defaults to 0.0.5
+    version = "0.1.0-rc.3", -- version of credo-language-server to install and use. defaults to the latest release
     on_attach = function(client, bufnr)
       -- custom keybinds
     end
