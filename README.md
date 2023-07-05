@@ -17,9 +17,9 @@
 
 ## Features
 
-- [Next LS](https://github.com/elixir-tools/next-ls) installation and configuration (uses the Neovim built-in LSP client)
-- [Credo Language Server](https://github.com/elixir-tools/credo-language-server) integration.
-- [ElixirLS](https://github.com/elixir-lsp/elixir-ls) installation and configuration (uses the Neovim built-in LSP client)
+- [Next LS](https://github.com/elixir-tools/next-ls) installation and configuration.
+- [Credo Language Server](https://github.com/elixir-tools/credo-language-server) installation and configuration.
+- [ElixirLS](https://github.com/elixir-lsp/elixir-ls) installation and configuration.
 - `:Mix` command with autocomplete
 - [vim-projectionist](https://github.com/tpope/vim-projectionist) support
 
