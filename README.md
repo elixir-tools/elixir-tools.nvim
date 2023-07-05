@@ -11,7 +11,7 @@
 
 > **Note**
 > This plugin does not provide autocompletion, I recommend using [nvim-cmp](https://github.com/hrsh7th/nvim-cmp).
->
+> **Note**
 > This plugin does not provide syntax highlighting, I recommend using [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
 
 ## Features
@@ -150,9 +150,9 @@ elixir.setup {
 
 > **Note**
 > Next LS is **disabled** by default. Once it reaches feature parity with ElixirLS, it will switch to enabled by default.
->
+> **Note**
 > Next LS integration utilizes `Mix.install/2`, so you must be running Elixir >= 1.12
->
+> **Note**
 > Next LS creates a `.elixir-tools` directory in your project root. You'll want to add that to your gitignore.
 
 The language server for Elixir that just works. 😎
@@ -163,7 +163,7 @@ You can read more about it at https://www.elixir-tools.dev/next-ls.
 
 > **Note**
 > Credo Language Server integration utilizes `Mix.install/2`, so you must be running Elixir >= 1.12
->
+> **Note**
 > Credo Language Server creates a `.elixir-tools` directory in your project root. You'll want to add that to your gitignore.
 
 - Uses your project's Credo version.
