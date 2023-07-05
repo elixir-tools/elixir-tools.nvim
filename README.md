@@ -9,14 +9,17 @@
 
 `elixir-tools.nvim` provides a nice experience for writing Elixir applications with [Neovim](https://github.com/neovim/neovim).
 
-> Note: This plugin does not provide autocompletion, I recommend using [nvim-cmp](https://github.com/hrsh7th/nvim-cmp).
+> **Note**
+> This plugin does not provide autocompletion, I recommend using [nvim-cmp](https://github.com/hrsh7th/nvim-cmp).
 
-> Note: This plugin does not provide syntax highlighting, I recommend using [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
+> **Note**
+> This plugin does not provide syntax highlighting, I recommend using [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
 
 ## Features
 
+- [Next LS](https://github.com/elixir-tools/next-ls) installation and configuration (uses the Neovim built-in LSP client)
+- [Credo Language Server](https://github.com/elixir-tools/credo-language-server) integration.
 - [ElixirLS](https://github.com/elixir-lsp/elixir-ls) installation and configuration (uses the Neovim built-in LSP client)
-- [credo-language-server](https://github.com/elixir-tools/credo-language-server) integration.
 - `:Mix` command with autocomplete
 - [vim-projectionist](https://github.com/tpope/vim-projectionist) support
 
@@ -36,6 +39,7 @@ Requires 0.8
     local elixirls = require("elixir.elixirls")
 
     elixir.setup {
+      nextls = {enable = true},
       credo = {},
       elixirls = {
         enable = true,
@@ -73,12 +77,15 @@ The minimal setup will configure both ElixirLS and credo-language-server.
 require("elixir").setup()
 ```
 
-ElixirLS and credo-language-server can be disabled by setting the `enable` flag in the respective options table.
+NextLS, ElixirLS,  and credo-language-server can be enabled/disabled by setting the `enable` flag in the respective options table.
+
+The defaults are shown below.
 
 ```lua
 require("elixir").setup({
-  credo = {enable = false},
-  elixirls = {enable = false},
+  nextls = {enable = false},
+  credo = {enable = true},
+  elixirls = {enable = true},
 })
 ```
 
@@ -86,15 +93,26 @@ require("elixir").setup({
 
 While the plugin works with a minimal setup, it is much more useful if you add some personal configuration.
 
-Note: For ElixirLS, not specifying the `repo`, `branch`, or `tag` options will default to the latest release.
+> **Note**
+> For ElixirLS, not specifying the `repo`, `branch`, or `tag` options will default to the latest release.
 
 ```lua
 local elixir = require("elixir")
 local elixirls = require("elixir.elixirls")
 
 elixir.setup {
+  nextls = {
+    enable = false, -- defaults to false
+    port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`. defaults to nil
+    cmd = "path/to/next-ls", -- path to the executable. mutually exclusive with `port`
+    version = "0.5.0", -- version of Next LS to install and use. defaults to the latest version
+    on_attach = function(client, bufnr)
+      -- custom keybinds
+    end
+  },
   credo = {
-    port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`
+    enable = true, -- defaults to true
+    port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`. defaults to nil
     cmd = "path/to/credo-language-server", -- path to the executable. mutually exclusive with `port`
     version = "0.1.0-rc.3", -- version of credo-language-server to install and use. defaults to the latest release
     on_attach = function(client, bufnr)
@@ -129,11 +147,38 @@ elixir.setup {
 
 # Features
 
+## Next LS
+
+> **Note**
+> Next LS is **disabled** by default. Once it reaches feature parity with ElixirLS, it will switch to enabled by default.
+
+> **Note**
+> Next LS integration utilizes `Mix.install/2`, so you must be running Elixir >= 1.12
+
+> **Note**
+> Next LS creates a `.elixir-tools` directory in your project root. You'll want to add that to your gitignore.
+
+The language server for Elixir that just works. 😎
+
+You can read more about it at https://www.elixir-tools.dev/next-ls.
+
+## Credo Language Server
+
+> **Note**
+> Credo Language Server integration utilizes `Mix.install/2`, so you must be running Elixir >= 1.12
+
+> **Note**
+> Credo Language Server creates a `.elixir-tools` directory in your project root. You'll want to add that to your gitignore.
+
+- Uses your project's Credo version.
+- Full project diagnostics
+- Code Actions
+
 ## ElixirLS
 
 ### Automatic Installation
 
-When a compatible installation of ELixirLS is not found, you will be prompted to install it. The plugin will download the source code to the `.elixir_ls` directory and compile it using the Elixir and OTP versions used by your current project.
+When a compatible installation of ElixirLS is not found, you will be prompted to install it. The plugin will download the source code to the `.elixir_ls` directory and compile it using the Elixir and OTP versions used by your current project.
 
 Caveat: This assumes you are developing your project locally (outside of something like Docker) and they will be available.
 
@@ -183,14 +228,6 @@ require("elixir.elixirls").open_output_panel({ window = "split" })
 require("elixir.elixirls").open_output_panel({ window = "vsplit" })
 require("elixir.elixirls").open_output_panel({ window = "float" })
 ```
-
-## credo-language-server
-
-> Note: The credo-language-server integration utilizes `Mix.install/2`, so you must be running Elixir >= 1.12
-
-- Uses your project's Credo version.
-- Full project diagnostics
-- Code Actions
 
 ## Mix
 
