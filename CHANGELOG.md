@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.6.6](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.6.5...v0.6.6) (2023-07-20)
+
+
+### Bug Fixes
+
+* bump elixir-ls version ([#144](https://github.com/elixir-tools/elixir-tools.nvim/issues/144)) ([389fb56](https://github.com/elixir-tools/elixir-tools.nvim/commit/389fb56b46da025d0a650c128c7ebc296e7b58dd)), closes [#143](https://github.com/elixir-tools/elixir-tools.nvim/issues/143)
+
 ## [0.6.5](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.6.4...v0.6.5) (2023-06-26)
 
 
