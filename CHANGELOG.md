@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## [0.7.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.6.6...v0.7.0) (2023-07-28)
+
+
+### Features
+
+* **nextls:** reuse client correctly for workspace folders ([22fe478](https://github.com/elixir-tools/elixir-tools.nvim/commit/22fe478395860765b7fc82a490b640eaf0e6f8cc))
+
+
+### Bug Fixes
+
+* connect to eelixir, heex, and surface filetypes ([f5da7e3](https://github.com/elixir-tools/elixir-tools.nvim/commit/f5da7e3b94d4f42dfba6f2db56cb62162c7c1351))
+
 ## [0.6.6](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.6.5...v0.6.6) (2023-07-20)
 
 
