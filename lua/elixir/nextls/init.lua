@@ -4,6 +4,10 @@ if not vim.uv then
   vim.uv = vim.loop
 end
 
+if not vim.iter then
+  vim.iter = require("elixir.iter")
+end
+
 function M.setup(opts)
   local nextls_group = vim.api.nvim_create_augroup("elixir-tools.nextls", { clear = true })
 
@@ -27,16 +31,31 @@ function M.setup(opts)
           cmd = { opts.cmd, "--stdio" }
         end
 
-        vim.lsp.start {
+        local root_dir = vim.fs.dirname(file)
+        assert(type(root_dir) == "string", "expected root_dir to be a string")
+
+        vim.lsp.start({
           name = "NextLS",
           cmd = cmd,
           cmd_env = {
             NEXTLS_VERSION = opts.version,
           },
           settings = {},
-          root_dir = vim.fs.dirname(file),
+          workspace_folders = {
+            { name = root_dir, uri = vim.uri_from_fname(root_dir) },
+          },
           on_attach = opts.on_attach or function() end,
-        }
+        }, {
+          bufnr = 0,
+          reuse_client = function(client, config)
+            return client.name == config.name
+              and vim.iter(client.workspace_folders or {}):any(function(client_wf)
+                return vim.iter(config.workspace_folders):any(function(new_config_wf)
+                  return new_config_wf.name == client_wf.name and new_config_wf.uri == client_wf.uri
+                end)
+              end)
+          end,
+        })
       end
     end,
   })
