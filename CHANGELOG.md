@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.7.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.7.0...v0.7.1) (2023-07-28)
+
+
+### Bug Fixes
+
+* workspace/didChangeWatchedFiles on nvim stable ([088bb2d](https://github.com/elixir-tools/elixir-tools.nvim/commit/088bb2dd940586647aadaec30506654e0e69d1c4)), closes [#148](https://github.com/elixir-tools/elixir-tools.nvim/issues/148)
+
 ## [0.7.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.6.6...v0.7.0) (2023-07-28)
 
 
