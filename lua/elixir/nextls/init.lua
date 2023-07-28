@@ -13,7 +13,7 @@ function M.setup(opts)
 
   vim.api.nvim_create_autocmd({ "FileType" }, {
     group = nextls_group,
-    pattern = { "elixir" },
+    pattern = { "elixir", "eelixir", "heex", "surface" },
     callback = function()
       local matches = vim.fs.find({ "mix.lock" }, {
         stop = vim.uv.os_homedir(),
