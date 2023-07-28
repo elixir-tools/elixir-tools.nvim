@@ -41,6 +41,7 @@ function M.setup(opts)
             NEXTLS_VERSION = opts.version,
           },
           settings = {},
+          capabilities = opts.capabilities or vim.lsp.protocol.make_client_capabilities(),
           workspace_folders = {
             { name = root_dir, uri = vim.uri_from_fname(root_dir) },
           },
