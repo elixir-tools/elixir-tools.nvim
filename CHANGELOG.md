@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.7.2](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.7.1...v0.7.2) (2023-08-01)
+
+
+### Bug Fixes
+
+* elixir-tools does not load when Github Rate Limit reached ([#151](https://github.com/elixir-tools/elixir-tools.nvim/issues/151)) ([de6d046](https://github.com/elixir-tools/elixir-tools.nvim/commit/de6d0461b1ea4928298bc7bdb0313c3d1ef146db))
+
 ## [0.7.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.7.0...v0.7.1) (2023-07-28)
 
 
