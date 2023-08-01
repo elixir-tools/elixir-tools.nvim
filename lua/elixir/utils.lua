@@ -37,7 +37,7 @@ function M.latest_release(owner, repo, opts)
   local github_host = opts.github_host or "api.github.com"
   local cache_dir = opts.cache_dir or "~/.cache/nvim/elixir-tools.nvim/"
   local curl = string.format(
-    [[curl --silent -L -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" https://%s/repos/%s/%s/releases/latest]],
+    [[curl --fail --silent -L -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" https://%s/repos/%s/%s/releases/latest]],
     github_host,
     owner,
     repo
@@ -63,7 +63,10 @@ function M.latest_release(owner, repo, opts)
     vim.notify(
       "Failed to fetch the current "
         .. repo
-        .. " version from GitHub or the cache. You most likely do not have an internet connection and have no cached version of the language server."
+        .. " version from GitHub or the cache.\n"
+        .. "You most likely do not have an internet connection / exceeded\n"
+        .. "the GitHub rate limit, and have no cached version of the language\n"
+        .. "server."
     )
 
     return nil
