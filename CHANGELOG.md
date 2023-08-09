@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.8.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.7.2...v0.8.0) (2023-08-09)
+
+
+### Features
+
+* install prebuilt nextls binaries ([#153](https://github.com/elixir-tools/elixir-tools.nvim/issues/153)) ([af37b9f](https://github.com/elixir-tools/elixir-tools.nvim/commit/af37b9fb2749d2aa7cf1ecb3e3d3205538b0e244))
+
 ## [0.7.2](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.7.1...v0.7.2) (2023-08-01)
 
 
