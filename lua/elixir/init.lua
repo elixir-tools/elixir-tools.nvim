@@ -18,13 +18,6 @@ M.credo.default_bin = (
   vim.fn.fnamemodify(debug.getinfo(1).source, ":h") .. "/../../bin/credo-language-server"
 ):gsub("^@", "")
 
-M.nextls = {}
-
-M.nextls.default_bin = (vim.fn.fnamemodify(debug.getinfo(1).source, ":h") .. "/../../bin/nextls"):gsub(
-  "^@",
-  ""
-)
-
 local enabled = function(value)
   return value == nil or value == true
 end
@@ -45,12 +38,12 @@ function M.setup(opts)
   end
 
   if not opts.nextls.cmd then
-    opts.nextls.cmd = M.nextls.default_bin
+    opts.nextls.cmd = nextls.default_bin
   end
 
-  if opts.nextls.enable and not opts.nextls.version then
-    opts.nextls.version = utils.latest_release("elixir-tools", "next-ls")
-  end
+  -- if opts.nextls.enable and not opts.nextls.version then
+  --   opts.nextls.version = utils.latest_release("elixir-tools", "next-ls")
+  -- end
 
   mix.setup()
   projectionist.setup()
@@ -62,7 +55,7 @@ function M.setup(opts)
     credo.setup(opts.credo)
   end
 
-  if opts.nextls.version and opts.nextls.enable == true then
+  if opts.nextls.enable == true then
     nextls.setup(opts.nextls)
   end
 end

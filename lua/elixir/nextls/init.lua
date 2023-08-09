@@ -1,3 +1,4 @@
+local utils = require("elixir.utils")
 local M = {}
 
 if not vim.uv then
@@ -8,8 +9,43 @@ if not vim.iter then
   vim.iter = require("elixir.iter")
 end
 
+M.default_bin = vim.env.HOME .. "/.cache/elixir-tools/nextls/bin/nextls"
+
 function M.setup(opts)
   local nextls_group = vim.api.nvim_create_augroup("elixir-tools.nextls", { clear = true })
+
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "ElixirToolsNextLSActivate",
+    group = nextls_group,
+    callback = function(event)
+      local cmd = event.data.cmd
+      local options = event.data.opts
+      local root_dir = event.data.root_dir
+      vim.lsp.start({
+        name = "NextLS",
+        cmd = cmd,
+        cmd_env = {
+          NEXTLS_VERSION = options.version,
+        },
+        settings = {},
+        capabilities = options.capabilities or vim.lsp.protocol.make_client_capabilities(),
+        workspace_folders = {
+          { name = root_dir, uri = vim.uri_from_fname(root_dir) },
+        },
+        on_attach = options.on_attach or function() end,
+      }, {
+        bufnr = 0,
+        reuse_client = function(client, config)
+          return client.name == config.name
+            and vim.iter(client.workspace_folders or {}):any(function(client_wf)
+              return vim.iter(config.workspace_folders):any(function(new_config_wf)
+                return new_config_wf.name == client_wf.name and new_config_wf.uri == client_wf.uri
+              end)
+            end)
+        end,
+      })
+    end,
+  })
 
   vim.api.nvim_create_autocmd({ "FileType" }, {
     group = nextls_group,
@@ -33,30 +69,33 @@ function M.setup(opts)
 
         local root_dir = vim.fs.dirname(file)
         assert(type(root_dir) == "string", "expected root_dir to be a string")
+        local activate = function()
+          vim.api.nvim_exec_autocmds("User", {
+            pattern = "ElixirToolsNextLSActivate",
+            data = {
+              root_dir = root_dir,
+              cmd = cmd,
+              opts = opts,
+            },
+          })
+        end
 
-        vim.lsp.start({
-          name = "NextLS",
-          cmd = cmd,
-          cmd_env = {
-            NEXTLS_VERSION = opts.version,
-          },
-          settings = {},
-          capabilities = opts.capabilities or vim.lsp.protocol.make_client_capabilities(),
-          workspace_folders = {
-            { name = root_dir, uri = vim.uri_from_fname(root_dir) },
-          },
-          on_attach = opts.on_attach or function() end,
-        }, {
-          bufnr = 0,
-          reuse_client = function(client, config)
-            return client.name == config.name
-              and vim.iter(client.workspace_folders or {}):any(function(client_wf)
-                return vim.iter(config.workspace_folders):any(function(new_config_wf)
-                  return new_config_wf.name == client_wf.name and new_config_wf.uri == client_wf.uri
-                end)
-              end)
-          end,
-        })
+        if
+          not vim.b.elixir_tools_prompted_nextls_install
+          and type(opts.port) ~= "number"
+          and not vim.uv.fs_stat(opts.cmd)
+        then
+          vim.ui.select({ "Yes", "No" }, { prompt = "Install Next LS?" }, function(choice)
+            if choice == "Yes" then
+              utils.download_nextls()
+              activate()
+            else
+              vim.b.elixir_tools_prompted_nextls_install = true
+            end
+          end)
+        else
+          vim.schedule_wrap(activate)()
+        end
       end
     end,
   })
