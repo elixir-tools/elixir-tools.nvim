@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.8.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.8.0...v0.8.1) (2023-08-10)
+
+
+### Bug Fixes
+
+* x86-64 -&gt; x86_64 ([#156](https://github.com/elixir-tools/elixir-tools.nvim/issues/156)) ([9479630](https://github.com/elixir-tools/elixir-tools.nvim/commit/9479630b37486a459e5a9fb0132072a16242a1fe))
+
 ## [0.8.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.7.2...v0.8.0) (2023-08-09)
 
 
