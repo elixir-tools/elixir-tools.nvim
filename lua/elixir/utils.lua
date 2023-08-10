@@ -32,7 +32,7 @@ local arch = {
   ["arm64"] = "arm64",
   ["aarch64"] = "arm64",
   ["amd64"] = "amd64",
-  ["x86-64"] = "amd64",
+  ["x86_64"] = "amd64",
 }
 
 function M.download_nextls(opts)
