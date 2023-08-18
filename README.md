@@ -160,7 +160,7 @@ elixir.setup {
 
 The language server for Elixir that just works. 😎
 
-You can read more about it at https://www.elixir-tools.dev/next-ls.
+You can read more about it at https://www.elixir-tools.dev/next-ls/
 
 ## Credo Language Server
 

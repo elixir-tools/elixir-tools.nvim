@@ -192,7 +192,7 @@ NEXT LS                                   *elixir-tools.nvim-features-next-ls*
   You’ll want to add that to your gitignore.
 The language server for Elixir that just works.
 
-You can read more about it at https://www.elixir-tools.dev/next-ls/
+Youcan read more about it at https://www.elixir-tools.dev/next-ls.
 
 
 CREDO LANGUAGE SERVER       *elixir-tools.nvim-features-credo-language-server*
