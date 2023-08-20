@@ -26,6 +26,7 @@ function M.setup(opts)
         cmd = cmd,
         cmd_env = {
           NEXTLS_VERSION = options.version,
+          NEXTLS_AUTO_UPDATE = true
         },
         settings = {},
         capabilities = options.capabilities or vim.lsp.protocol.make_client_capabilities(),
