@@ -15,7 +15,7 @@ function M.setup(opts)
     group = nextls_group,
     callback = function(event)
       local cmd = event.data.cmd
-      local auto_update = event.auto_update
+      local auto_update = event.data.auto_update
       local options = event.data.opts
       local root_dir = event.data.root_dir
       vim.lsp.start({
