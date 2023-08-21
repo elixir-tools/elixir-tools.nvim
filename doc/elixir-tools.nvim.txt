@@ -12,6 +12,7 @@ Table of Contents                        *elixir-tools.nvim-table-of-contents*
   - Minimal Setup            |elixir-tools.nvim-getting-started-minimal-setup|
   - Advanced Setup          |elixir-tools.nvim-getting-started-advanced-setup|
 4. Features                                       |elixir-tools.nvim-features|
+  - Commands                             |elixir-tools.nvim-features-commands|
   - Next LS                               |elixir-tools.nvim-features-next-ls|
   - Credo Language Server   |elixir-tools.nvim-features-credo-language-server|
   - ElixirLS                             |elixir-tools.nvim-features-elixirls|
@@ -179,20 +180,56 @@ some personal configuration.
 4. Features                                       *elixir-tools.nvim-features*
 
 
+COMMANDS                                 *elixir-tools.nvim-features-commands*
+
+
+                                               *elixir-tools.nvim-:Elixir-]*
+
+
+:Elixir {command} [{subcommand}]       The main elixir-tools command
+                                       >vim
+                                           :Elixir nextls uninstall
+                                       <
+                                       FULL LIST ~
+
+
+
+  ---------------------------------------------------------------------------------
+  Command   Subcommand   Description
+  --------- ------------ ----------------------------------------------------------
+  nextls    uninstall    Removes the nextls executable from the default location:
+                         ~/.cache/elixir-tools/nextls/bin/nextls
+
+  ---------------------------------------------------------------------------------
+
 NEXT LS                                   *elixir-tools.nvim-features-next-ls*
 
 
   **Note** Next LS is **disabled** by default. Once it reaches feature parity
   with ElixirLS, it will switch to enabled by default.
 
-  **Note** Next LS integration utilizes `Mix.install/2`, so you must be running
-  Elixir >= 1.12
-
-  **Note** Next LS creates a `.elixir-tools` directory in your project root.
-  You’ll want to add that to your gitignore.
+  **Note** Next LS creates a `.elixir-tools` directory in your project root, but
+  it’s automatically ignored by git.
 The language server for Elixir that just works.
 
 Youcan read more about it at https://www.elixir-tools.dev/next-ls.
+
+
+AUTOMATIC INSTALLATION ~
+
+Next LS is distributed as pre-compiled binaries, which are available from the
+Next LS GitHub releases page. elixir-tools.nvim will prompt you to install it
+if it is not found, and then will consequently download it from GitHub.
+
+If you are using a package manager like Mason
+<https://github.com/williamboman/mason.nvim>, you can set the `cmd` property of
+the `nextls` setup table and it will not prompt you to install and use it from
+there.
+
+
+COMMANDS ~
+
+Next LS command are available as subcommands of the `:Elixir` command
 
 
 CREDO LANGUAGE SERVER       *elixir-tools.nvim-features-credo-language-server*
