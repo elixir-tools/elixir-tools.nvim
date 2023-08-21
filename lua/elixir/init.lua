@@ -36,10 +36,7 @@ local define_user_command = function()
       local subcommand = args:next()
       if "uninstall" == subcommand then
         vim.fn.delete(nextls.default_bin)
-        vim.notify(
-          string.format("Uninstalled Next LS from %s", nextls.default_bin),
-          vim.lsp.log_levels.INFO
-        )
+        vim.notify(string.format("Uninstalled Next LS from %s", nextls.default_bin), vim.lsp.log_levels.INFO)
       else
         not_found = true
       end
@@ -80,13 +77,11 @@ function M.setup(opts)
     opts.credo.version = utils.latest_release("elixir-tools", "credo-language-server")
   end
 
+  local nextls_auto_update
   if not opts.nextls.cmd then
     opts.nextls.cmd = nextls.default_bin
+    nextls_auto_update = true
   end
-
-  -- if opts.nextls.enable and not opts.nextls.version then
-  --   opts.nextls.version = utils.latest_release("elixir-tools", "next-ls")
-  -- end
 
   mix.setup()
   projectionist.setup()
@@ -99,7 +94,7 @@ function M.setup(opts)
   end
 
   if opts.nextls.enable == true then
-    nextls.setup(opts.nextls)
+    nextls.setup(vim.tbl_extend("force", opts.nextls, { auto_update = nextls_auto_update }))
   end
 end
 

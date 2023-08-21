@@ -15,6 +15,7 @@ function M.setup(opts)
     group = nextls_group,
     callback = function(event)
       local cmd = event.data.cmd
+      local auto_update = event.auto_update
       local options = event.data.opts
       local root_dir = event.data.root_dir
       vim.lsp.start({
@@ -22,7 +23,7 @@ function M.setup(opts)
         cmd = cmd,
         cmd_env = {
           NEXTLS_VERSION = options.version,
-          NEXTLS_AUTO_UPDATE = true,
+          NEXTLS_AUTO_UPDATE = auto_update,
         },
         settings = {},
         capabilities = options.capabilities or vim.lsp.protocol.make_client_capabilities(),
@@ -72,6 +73,7 @@ function M.setup(opts)
             data = {
               root_dir = root_dir,
               cmd = cmd,
+              auto_update = opts.auto_update,
               opts = opts,
             },
           })
