@@ -5,10 +5,6 @@ if not vim.uv then
   vim.uv = vim.loop
 end
 
-if not vim.iter then
-  vim.iter = require("elixir.iter")
-end
-
 M.default_bin = vim.env.HOME .. "/.cache/elixir-tools/nextls/bin/nextls"
 
 function M.setup(opts)
