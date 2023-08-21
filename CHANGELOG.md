@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## [0.9.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.8.1...v0.9.0) (2023-08-21)
+
+
+### Features
+
+* :Elixir command with subcommands and completions ([#160](https://github.com/elixir-tools/elixir-tools.nvim/issues/160)) ([c4e1db5](https://github.com/elixir-tools/elixir-tools.nvim/commit/c4e1db5922787baa03ba2d7e7e3ce4e75a46f2e5))
+* **nextls:** enable auto update ([#159](https://github.com/elixir-tools/elixir-tools.nvim/issues/159)) ([af1b5a8](https://github.com/elixir-tools/elixir-tools.nvim/commit/af1b5a84c01d281c261ff0f96b2982ee351373dc))
+
 ## [0.8.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.8.0...v0.8.1) (2023-08-10)
 
 
