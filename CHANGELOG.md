@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.9.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.9.0...v0.9.1) (2023-08-21)
+
+
+### Bug Fixes
+
+* **nextls:** correctly set autoupdate flag ([#162](https://github.com/elixir-tools/elixir-tools.nvim/issues/162)) ([2c1239f](https://github.com/elixir-tools/elixir-tools.nvim/commit/2c1239fef1bb76d08f6f6328bee04c10fc529476))
+
 ## [0.9.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.8.1...v0.9.0) (2023-08-21)
 
 
