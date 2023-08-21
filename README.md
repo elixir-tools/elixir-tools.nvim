@@ -147,20 +147,44 @@ elixir.setup {
 
 # Features
 
+## Commands
+
+:Elixir {command} [{subcommand}]
+
+: The main elixir-tools command
+
+      ```vim
+      :Elixir nextls uninstall
+      ```
+### Full List
+
+| Command | Subcommand | Description                                                                                          |
+|---------|------------|------------------------------------------------------------------------------------------------------|
+| nextls  | uninstall  | Removes the `nextls` executable from the default location: `~/.cache/elixir-tools/nextls/bin/nextls` |
+
 ## Next LS
 
 > **Note**
 > Next LS is **disabled** by default. Once it reaches feature parity with ElixirLS, it will switch to enabled by default.
 
 > **Note**
-> Next LS integration utilizes `Mix.install/2`, so you must be running Elixir >= 1.12
-
-> **Note**
-> Next LS creates a `.elixir-tools` directory in your project root. You'll want to add that to your gitignore.
+> Next LS creates a `.elixir-tools` directory in your project root, but it's automatically ignored by git.
 
 The language server for Elixir that just works. 😎
 
 You can read more about it at https://www.elixir-tools.dev/next-ls.
+
+### Automatic Installation
+
+Next LS is distributed as pre-compiled binaries, which are available from the Next LS GitHub releases page. elixir-tools.nvim will prompt you to install it if it is not found, and then
+will consequently download it from GitHub.
+
+If you are using a package manager like [Mason](https://github.com/williamboman/mason.nvim), you can set the `cmd` property of the `nextls` setup table
+and it will not prompt you to install and use it from there.
+
+### Commands
+
+Next LS command are available as subcommands of the `:Elixir` command
 
 ## Credo Language Server
 
