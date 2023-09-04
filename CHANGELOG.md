@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.9.2](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.9.1...v0.9.2) (2023-09-04)
+
+
+### Bug Fixes
+
+* activate nextls when it detects a mix.exs file ([#165](https://github.com/elixir-tools/elixir-tools.nvim/issues/165)) ([061d7ad](https://github.com/elixir-tools/elixir-tools.nvim/commit/061d7ad919033d9d04b9a85e4aca75821f55e5b6))
+
 ## [0.9.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.9.0...v0.9.1) (2023-08-21)
 
 
