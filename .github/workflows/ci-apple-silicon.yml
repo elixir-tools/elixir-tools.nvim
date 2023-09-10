@@ -2,7 +2,7 @@ name: Tests (Apple Silicon)
 
 on: [push, pull_request]
 concurrency:
-  group: ci-${{ github.ref }}
+  group: apple-silicon-ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
