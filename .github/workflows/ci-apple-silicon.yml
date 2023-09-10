@@ -13,7 +13,7 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true)
     uses: elixir-tools/private-workflows/.github/workflows/ci.yaml@main
     with:
-      repo: elixir-tools/next-ls
+      repo: elixir-tools/elixir-tools.nvim
       args: -e URL="https://github.com/neovim/neovim/releases/download/${{ matrix.neovim }}/nvim-macos.tar.gz"
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
