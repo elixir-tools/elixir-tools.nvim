@@ -1,0 +1,19 @@
+task:
+  name: Test
+  env:
+    BUSTED_TIMEOUT: 600000
+  macos_instance:
+    image: ghcr.io/cirruslabs/macos-ventura-base:latest
+  package_script:
+    - brew install fd elixir
+  prepare_script: |
+    test -d _neovim || {
+      mkdir -p _neovim
+      curl -sL "$URL" | tar xzf - --strip-components=1 -C "${PWD}/_neovim"
+    }
+  test_script: |
+    export PATH="${PWD}/_neovim/bin:${PATH}"
+    export VIM="${PWD}/_neovim/share/nvim/runtime"
+    chmod +x bin/test
+    chmod +x bin/compile
+    bin/test

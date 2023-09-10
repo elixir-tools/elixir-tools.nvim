@@ -20,7 +20,7 @@ jobs:
             manager: sudo apt-get
             packages: -y fd-find esl-erlang elixir
           - os: ubuntu-20.04
-            url: https://github.com/neovim/neovim/releases/download/v0.9.1/nvim-linux64.tar.gz
+            url: https://github.com/neovim/neovim/releases/download/v0.9.2/nvim-linux64.tar.gz
             manager: sudo apt-get
             packages: -y fd-find esl-erlang elixir
           - os: ubuntu-20.04
@@ -32,7 +32,7 @@ jobs:
             manager: brew
             packages: fd elixir
           - os: macos-12
-            url: https://github.com/neovim/neovim/releases/download/v0.9.1/nvim-macos.tar.gz
+            url: https://github.com/neovim/neovim/releases/download/v0.9.2/nvim-macos.tar.gz
             manager: brew
             packages: fd elixir
           - os: macos-12
@@ -66,10 +66,6 @@ jobs:
             mkdir -p _neovim
             curl -sL ${{ matrix.url }} | tar xzf - --strip-components=1 -C "${PWD}/_neovim"
           }
-          # mkdir -p ~/.local/share/nvim/site/pack/vendor/start
-          # git clone --depth 1 https://github.com/nvim-lua/plenary.nvim ~/.local/share/nvim/site/pack/vendor/start/plenary.nvim
-          # git clone --depth 1 https://github.com/tpope/vim-projectionist ~/.local/share/nvim/site/pack/vendor/start/vim-projectionist
-          # ln -s "$(pwd)" ~/.local/share/nvim/site/pack/vendor/start
 
       - name: Run tests
         env:
