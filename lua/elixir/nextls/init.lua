@@ -49,13 +49,19 @@ function M.setup(opts)
     group = nextls_group,
     pattern = { "elixir", "eelixir", "heex", "surface" },
     callback = function()
-      local matches = vim.fs.find({ "mix.lock", "mix.exs" }, {
+      local lock_matches = vim.fs.find({ "mix.lock" }, {
         stop = vim.uv.os_homedir(),
         upward = true,
         path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
       })
 
-      local file = matches[1]
+      local mix_exs_matches = vim.fs.find({ "mix.exs" }, {
+        stop = vim.uv.os_homedir(),
+        upward = true,
+        path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+      })
+
+      local file = lock_matches[1] or mix_exs_matches[1]
 
       if file then
         local cmd
