@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.9.3](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.9.2...v0.9.3) (2023-09-14)
+
+
+### Bug Fixes
+
+* correct logic for identifying default cmd([#169](https://github.com/elixir-tools/elixir-tools.nvim/issues/169)) ([252c3e5](https://github.com/elixir-tools/elixir-tools.nvim/commit/252c3e50d69f534bb6792b7870a5a91fdcefb3c6))
+
 ## [0.9.2](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.9.1...v0.9.2) (2023-09-04)
 
 
