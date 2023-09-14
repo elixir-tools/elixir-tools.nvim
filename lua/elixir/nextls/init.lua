@@ -82,7 +82,7 @@ function M.setup(opts)
         if
           not vim.b.elixir_tools_prompted_nextls_install
           and type(opts.port) ~= "number"
-          and not vim.uv.fs_stat(opts.cmd)
+          and (opts.auto_update and not vim.uv.fs_stat(opts.cmd))
         then
           vim.ui.select({ "Yes", "No" }, { prompt = "Install Next LS?" }, function(choice)
             if choice == "Yes" then
