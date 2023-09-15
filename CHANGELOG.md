@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.9.4](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.9.3...v0.9.4) (2023-09-14)
+
+
+### Bug Fixes
+
+* **nextls:** correctly find root dir ([d89d774](https://github.com/elixir-tools/elixir-tools.nvim/commit/d89d774a5e0abe1ec78541b0d4b9713e156ecaa7))
+
 ## [0.9.3](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.9.2...v0.9.3) (2023-09-14)
 
 
