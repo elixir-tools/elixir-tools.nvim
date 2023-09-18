@@ -1,4 +1,4 @@
-*elixir-tools.nvim.txt*     For NVIM v0.8.0     Last change: 2023 September 15
+*elixir-tools.nvim.txt*     For NVIM v0.8.0     Last change: 2023 September 18
 
 ==============================================================================
 Table of Contents                        *elixir-tools.nvim-table-of-contents*
@@ -55,7 +55,7 @@ LAZY.NVIM                                *elixir-tools.nvim-install-lazy.nvim*
 >lua
     {
       "elixir-tools/elixir-tools.nvim",
-      version = "",
+      version = "*",
       event = { "BufReadPre", "BufNewFile" },
       config = function()
         local elixir = require("elixir")
