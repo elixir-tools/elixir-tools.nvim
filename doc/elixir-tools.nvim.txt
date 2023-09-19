@@ -1,4 +1,4 @@
-*elixir-tools.nvim.txt*     For NVIM v0.8.0     Last change: 2023 September 18
+*elixir-tools.nvim.txt*     For NVIM v0.8.0     Last change: 2023 September 19
 
 ==============================================================================
 Table of Contents                        *elixir-tools.nvim-table-of-contents*
@@ -135,7 +135,6 @@ some personal configuration.
         enable = false, -- defaults to false
         port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`. defaults to nil
         cmd = "path/to/next-ls", -- path to the executable. mutually exclusive with `port`
-        version = "0.5.0", -- version of Next LS to install and use. defaults to the latest version
         on_attach = function(client, bufnr)
           -- custom keybinds
         end
