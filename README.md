@@ -105,7 +105,6 @@ elixir.setup {
     enable = false, -- defaults to false
     port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`. defaults to nil
     cmd = "path/to/next-ls", -- path to the executable. mutually exclusive with `port`
-    version = "0.5.0", -- version of Next LS to install and use. defaults to the latest version
     on_attach = function(client, bufnr)
       -- custom keybinds
     end
