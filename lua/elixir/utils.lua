@@ -53,8 +53,8 @@ function M.download_nextls(opts)
     cache_dir .. "/nextls",
   }
 
-  vim.fn.system(curl)
   vim.fn.mkdir(vim.fn.expand(cache_dir), "p")
+  vim.fn.system(curl)
 
   assert(vim.uv.fs_chmod(cache_dir .. "/nextls", 755), "failed to make nextls executable")
 
