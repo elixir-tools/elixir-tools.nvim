@@ -38,22 +38,29 @@ local arch = {
 function M.download_nextls(opts)
   opts = opts or {}
   local cache_dir = opts.cache_dir or vim.env.HOME .. "/.cache/elixir-tools/nextls/bin"
-  local sys = vim.uv.os_uname()
-  local curl = string.format(
-    [[curl --fail --silent -L https://github.com/elixir-tools/next-ls/releases/latest/download/next_ls_%s_%s -o %s/nextls]],
-    string.lower(sys.sysname),
-    arch[string.lower(sys.machine)],
-    cache_dir
-  )
-  vim.fn.mkdir(vim.fn.expand(cache_dir), "p")
+  local os_name = string.lower(vim.uv.os_uname().sysname)
+  local current_arch = arch[string.lower(vim.uv.os_uname().machine)]
+  local curl = {
+    "curl",
+    "--fail",
+    "--silent",
+    "-L",
+    "https://github.com/elixir-tools/next-ls/releases/latest/download/next_ls_"
+    .. os_name
+    .. "_"
+    .. current_arch,
+    "-o",
+    cache_dir .. "/nextls",
+  }
+
   vim.fn.system(curl)
+  vim.fn.mkdir(vim.fn.expand(cache_dir), "p")
 
   assert(vim.uv.fs_chmod(cache_dir .. "/nextls", 755), "failed to make nextls executable")
 
   if not vim.v.shell_error == 0 then
     vim.notify(
-      "Failed to fetch the latest release of Next LS from GitHub.\n\n" .. "Using the command `" .. curl .. "`"
-    )
+      "Failed to fetch the latest release of Next LS from GitHub.\n\n" .. "Using the command `" .. table.concat(curl, " ") .. "`")
   end
 end
 
@@ -65,20 +72,24 @@ function M.latest_release(owner, repo, opts)
   opts = opts or {}
   local github_host = opts.github_host or "api.github.com"
   local cache_dir = opts.cache_dir or "~/.cache/nvim/elixir-tools.nvim/"
-  local curl = string.format(
-    [[curl --fail --silent -L -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" https://%s/repos/%s/%s/releases/latest]],
-    github_host,
-    owner,
-    repo
-  )
-  local invocation = vim.fn.system(curl)
+  local curl_response = vim.fn.system {
+    "curl",
+    "--fail",
+    "--silent",
+    "-L",
+    "-H",
+    "Accept: application/vnd.github+json",
+    "-H",
+    "X-GitHub-Api-Version: 2022-11-28",
+    "https://" .. github_host .. "/repos/" .. owner .. "/" .. repo .. "/releases/latest",
+  }
 
   vim.fn.mkdir(vim.fn.expand(cache_dir), "p")
 
   local latest_version_file = Path:new(vim.fn.expand(cache_dir .. owner .. "-" .. repo .. ".txt")):absolute()
 
   if vim.v.shell_error == 0 then
-    local resp = vim.json.decode(invocation)
+    local resp = vim.json.decode(curl_response)
     local version = resp and resp.tag_name and resp.tag_name:gsub("^v", "")
 
     assert(type(version) == "string")
