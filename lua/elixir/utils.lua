@@ -46,9 +46,9 @@ function M.download_nextls(opts)
     "--silent",
     "-L",
     "https://github.com/elixir-tools/next-ls/releases/latest/download/next_ls_"
-    .. os_name
-    .. "_"
-    .. current_arch,
+      .. os_name
+      .. "_"
+      .. current_arch,
     "-o",
     cache_dir .. "/nextls",
   }
@@ -60,7 +60,11 @@ function M.download_nextls(opts)
 
   if not vim.v.shell_error == 0 then
     vim.notify(
-      "Failed to fetch the latest release of Next LS from GitHub.\n\n" .. "Using the command `" .. table.concat(curl, " ") .. "`")
+      "Failed to fetch the latest release of Next LS from GitHub.\n\n"
+        .. "Using the command `"
+        .. table.concat(curl, " ")
+        .. "`"
+    )
   end
 end
 
