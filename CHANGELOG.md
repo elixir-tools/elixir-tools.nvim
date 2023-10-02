@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.10.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.10.0...v0.10.1) (2023-10-02)
+
+
+### Bug Fixes
+
+* receive correct json responses from curl ([#173](https://github.com/elixir-tools/elixir-tools.nvim/issues/173)) ([99d2a27](https://github.com/elixir-tools/elixir-tools.nvim/commit/99d2a27baf869668d114616b5b95a6f6ef425a79))
+
 ## [0.10.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.9.4...v0.10.0) (2023-10-02)
 
 
