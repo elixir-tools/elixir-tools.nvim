@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.10.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.9.4...v0.10.0) (2023-10-02)
+
+
+### Features
+
+* **nextls:** init options ([#174](https://github.com/elixir-tools/elixir-tools.nvim/issues/174)) ([68a6433](https://github.com/elixir-tools/elixir-tools.nvim/commit/68a6433df667046cd24ccd16068d16322988b929))
+
 ## [0.9.4](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.9.3...v0.9.4) (2023-09-14)
 
 
