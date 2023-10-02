@@ -25,7 +25,7 @@ function M.setup(opts)
           NEXTLS_VERSION = options.version,
           NEXTLS_AUTO_UPDATE = auto_update,
         },
-        init_options = options.init_options or {},
+        init_options = options.init_options or vim.empty_dict(),
         settings = {},
         capabilities = options.capabilities or vim.lsp.protocol.make_client_capabilities(),
         workspace_folders = {
