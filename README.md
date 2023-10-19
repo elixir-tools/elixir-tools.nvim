@@ -107,7 +107,12 @@ elixir.setup {
     cmd = "path/to/next-ls", -- path to the executable. mutually exclusive with `port`
     init_options = {
       mix_env = "dev",
-      mix_target = "host"
+      mix_target = "host",
+      experimental = {
+        completions = {
+          enable = false -- control if completions are enabled. defaults to false
+        }
+      }
     },
     on_attach = function(client, bufnr)
       -- custom keybinds
