@@ -1,4 +1,4 @@
-*elixir-tools.nvim.txt*      For NVIM v0.8.0      Last change: 2023 October 02
+*elixir-tools.nvim.txt*      For NVIM v0.8.0      Last change: 2023 October 19
 
 ==============================================================================
 Table of Contents                        *elixir-tools.nvim-table-of-contents*
@@ -137,7 +137,12 @@ some personal configuration.
         cmd = "path/to/next-ls", -- path to the executable. mutually exclusive with `port`
         init_options = {
           mix_env = "dev",
-          mix_target = "host"
+          mix_target = "host",
+          experimental = {
+            completions = {
+              enable = false -- control if completions are enabled. defaults to false
+            }
+          }
         },
         on_attach = function(client, bufnr)
           -- custom keybinds
