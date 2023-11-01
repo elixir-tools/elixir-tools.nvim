@@ -37,6 +37,8 @@ local define_user_command = function()
       if "uninstall" == subcommand then
         vim.fn.delete(nextls.default_bin)
         vim.notify(string.format("Uninstalled Next LS from %s", nextls.default_bin), vim.lsp.log_levels.INFO)
+      elseif "open-ui" == subcommand then
+        vim.lsp.buf.execute_command { command = "open-ui" }
       else
         not_found = true
       end
@@ -52,7 +54,7 @@ local define_user_command = function()
     complete = function(_, cmd_line)
       local cmd = vim.trim(cmd_line)
       if vim.startswith(cmd, "Elixir nextls") then
-        return { "uninstall" }
+        return { "uninstall", "open-ui" }
       elseif vim.startswith(cmd, "Elixir") then
         return { "nextls" }
       end
