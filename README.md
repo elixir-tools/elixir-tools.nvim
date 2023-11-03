@@ -169,6 +169,8 @@ elixir.setup {
 | Command | Subcommand | Description                                                                                          |
 |---------|------------|------------------------------------------------------------------------------------------------------|
 | nextls  | uninstall  | Removes the `nextls` executable from the default location: `~/.cache/elixir-tools/nextls/bin/nextls` |
+| nextls  |  to-pipe   | Extracts the first argument to a pipe call                                                           |
+| nextls  | from-pipe  | Inlines the pipe call to a function call the first argument to a pipe                                |
 
 ## Next LS
 
