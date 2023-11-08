@@ -17,7 +17,8 @@ function M.setup(opts)
       local cmd = event.data.cmd
       local auto_update = event.data.auto_update
       local options = event.data.opts
-      local root_dir = event.data.root_dir
+      local workspace_folders = event.data.workspace_folders
+
       vim.lsp.start({
         name = "NextLS",
         cmd = cmd,
@@ -28,9 +29,7 @@ function M.setup(opts)
         init_options = options.init_options or vim.empty_dict(),
         settings = {},
         capabilities = options.capabilities or vim.lsp.protocol.make_client_capabilities(),
-        workspace_folders = {
-          { name = root_dir, uri = vim.uri_from_fname(root_dir) },
-        },
+        workspace_folders = workspace_folders,
         on_attach = options.on_attach or function() end,
       }, {
         bufnr = 0,
@@ -50,21 +49,42 @@ function M.setup(opts)
     group = nextls_group,
     pattern = { "elixir", "eelixir", "heex", "surface" },
     callback = function()
-      local lock_matches = vim.fs.find({ "mix.lock" }, {
-        stop = vim.uv.os_homedir(),
-        upward = true,
-        path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
-      })
+      local lock_matches
+      local mix_exs_matches
+      local workspace_folders
+      if vim.g.workspace then
+        local uri = vim.uri_from_bufnr(0)
+        if
+          vim.iter(vim.g.workspace.folders):any(function(folder)
+            return vim.startswith(uri, folder.uri)
+          end)
+        then
+          workspace_folders = vim.g.workspace.folders
+        end
+      else
+        lock_matches = vim.fs.find({ "mix.lock" }, {
+          stop = vim.uv.os_homedir(),
+          upward = true,
+          path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+        })
 
-      local mix_exs_matches = vim.fs.find({ "mix.exs" }, {
-        stop = vim.uv.os_homedir(),
-        upward = true,
-        path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
-      })
+        mix_exs_matches = vim.fs.find({ "mix.exs" }, {
+          stop = vim.uv.os_homedir(),
+          upward = true,
+          path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+        })
+        local file = lock_matches[1] or mix_exs_matches[1]
 
-      local file = lock_matches[1] or mix_exs_matches[1]
+        if file then
+          local root_dir = vim.fs.dirname(file)
+          assert(type(root_dir) == "string", "expected root_dir to be a string")
+          workspace_folders = {
+            { name = vim.fs.basename(root_dir), uri = vim.uri_from_fname(root_dir) },
+          }
+        end
+      end
 
-      if file then
+      if workspace_folders then
         local cmd
         if type(opts.port) == "number" then
           cmd = vim.lsp.rpc.connect("127.0.0.1", opts.port)
@@ -72,13 +92,11 @@ function M.setup(opts)
           cmd = { opts.cmd, "--stdio" }
         end
 
-        local root_dir = vim.fs.dirname(file)
-        assert(type(root_dir) == "string", "expected root_dir to be a string")
         local activate = function()
           vim.api.nvim_exec_autocmds("User", {
             pattern = "ElixirToolsNextLSActivate",
             data = {
-              root_dir = root_dir,
+              workspace_folders = workspace_folders,
               cmd = cmd,
               auto_update = opts.auto_update,
               opts = opts,
@@ -96,7 +114,7 @@ function M.setup(opts)
               utils.download_nextls()
               activate()
             else
-              vim.b.elixir_tools_prompted_nextls_install = true
+              vim.b["elixir_tools_prompted_nextls_install"] = true
             end
           end)
         else
