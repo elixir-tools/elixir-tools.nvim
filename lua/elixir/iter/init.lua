@@ -1,355 +1,59 @@
--- This entire file is copied from the Neovim source code and is used to polyfill
--- the vim.iter module.
--- The license belongs to them
--- Copyright Neovim contributors. All rights reserved.
-
--- Neovim is licensed under the terms of the Apache 2.0 license, except for
--- parts of Neovim that were contributed under the Vim license (see below).
-
--- Neovim's license follows:
-
--- ====
---                                  Apache License
---                            Version 2.0, January 2004
---                         https://www.apache.org/licenses/
-
---    TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
-
---    1. Definitions.
-
---       "License" shall mean the terms and conditions for use, reproduction,
---       and distribution as defined by Sections 1 through 9 of this document.
-
---       "Licensor" shall mean the copyright owner or entity authorized by
---       the copyright owner that is granting the License.
-
---       "Legal Entity" shall mean the union of the acting entity and all
---       other entities that control, are controlled by, or are under common
---       control with that entity. For the purposes of this definition,
---       "control" means (i) the power, direct or indirect, to cause the
---       direction or management of such entity, whether by contract or
---       otherwise, or (ii) ownership of fifty percent (50%) or more of the
---       outstanding shares, or (iii) beneficial ownership of such entity.
-
---       "You" (or "Your") shall mean an individual or Legal Entity
---       exercising permissions granted by this License.
-
---       "Source" form shall mean the preferred form for making modifications,
---       including but not limited to software source code, documentation
---       source, and configuration files.
-
---       "Object" form shall mean any form resulting from mechanical
---       transformation or translation of a Source form, including but
---       not limited to compiled object code, generated documentation,
---       and conversions to other media types.
-
---       "Work" shall mean the work of authorship, whether in Source or
---       Object form, made available under the License, as indicated by a
---       copyright notice that is included in or attached to the work
---       (an example is provided in the Appendix below).
-
---       "Derivative Works" shall mean any work, whether in Source or Object
---       form, that is based on (or derived from) the Work and for which the
---       editorial revisions, annotations, elaborations, or other modifications
---       represent, as a whole, an original work of authorship. For the purposes
---       of this License, Derivative Works shall not include works that remain
---       separable from, or merely link (or bind by name) to the interfaces of,
---       the Work and Derivative Works thereof.
-
---       "Contribution" shall mean any work of authorship, including
---       the original version of the Work and any modifications or additions
---       to that Work or Derivative Works thereof, that is intentionally
---       submitted to Licensor for inclusion in the Work by the copyright owner
---       or by an individual or Legal Entity authorized to submit on behalf of
---       the copyright owner. For the purposes of this definition, "submitted"
---       means any form of electronic, verbal, or written communication sent
---       to the Licensor or its representatives, including but not limited to
---       communication on electronic mailing lists, source code control systems,
---       and issue tracking systems that are managed by, or on behalf of, the
---       Licensor for the purpose of discussing and improving the Work, but
---       excluding communication that is conspicuously marked or otherwise
---       designated in writing by the copyright owner as "Not a Contribution."
-
---       "Contributor" shall mean Licensor and any individual or Legal Entity
---       on behalf of whom a Contribution has been received by Licensor and
---       subsequently incorporated within the Work.
-
---    2. Grant of Copyright License. Subject to the terms and conditions of
---       this License, each Contributor hereby grants to You a perpetual,
---       worldwide, non-exclusive, no-charge, royalty-free, irrevocable
---       copyright license to reproduce, prepare Derivative Works of,
---       publicly display, publicly perform, sublicense, and distribute the
---       Work and such Derivative Works in Source or Object form.
-
---    3. Grant of Patent License. Subject to the terms and conditions of
---       this License, each Contributor hereby grants to You a perpetual,
---       worldwide, non-exclusive, no-charge, royalty-free, irrevocable
---       (except as stated in this section) patent license to make, have made,
---       use, offer to sell, sell, import, and otherwise transfer the Work,
---       where such license applies only to those patent claims licensable
---       by such Contributor that are necessarily infringed by their
---       Contribution(s) alone or by combination of their Contribution(s)
---       with the Work to which such Contribution(s) was submitted. If You
---       institute patent litigation against any entity (including a
---       cross-claim or counterclaim in a lawsuit) alleging that the Work
---       or a Contribution incorporated within the Work constitutes direct
---       or contributory patent infringement, then any patent licenses
---       granted to You under this License for that Work shall terminate
---       as of the date such litigation is filed.
-
---    4. Redistribution. You may reproduce and distribute copies of the
---       Work or Derivative Works thereof in any medium, with or without
---       modifications, and in Source or Object form, provided that You
---       meet the following conditions:
-
---       (a) You must give any other recipients of the Work or
---           Derivative Works a copy of this License; and
-
---       (b) You must cause any modified files to carry prominent notices
---           stating that You changed the files; and
-
---       (c) You must retain, in the Source form of any Derivative Works
---           that You distribute, all copyright, patent, trademark, and
---           attribution notices from the Source form of the Work,
---           excluding those notices that do not pertain to any part of
---           the Derivative Works; and
-
---       (d) If the Work includes a "NOTICE" text file as part of its
---           distribution, then any Derivative Works that You distribute must
---           include a readable copy of the attribution notices contained
---           within such NOTICE file, excluding those notices that do not
---           pertain to any part of the Derivative Works, in at least one
---           of the following places: within a NOTICE text file distributed
---           as part of the Derivative Works; within the Source form or
---           documentation, if provided along with the Derivative Works; or,
---           within a display generated by the Derivative Works, if and
---           wherever such third-party notices normally appear. The contents
---           of the NOTICE file are for informational purposes only and
---           do not modify the License. You may add Your own attribution
---           notices within Derivative Works that You distribute, alongside
---           or as an addendum to the NOTICE text from the Work, provided
---           that such additional attribution notices cannot be construed
---           as modifying the License.
-
---       You may add Your own copyright statement to Your modifications and
---       may provide additional or different license terms and conditions
---       for use, reproduction, or distribution of Your modifications, or
---       for any such Derivative Works as a whole, provided Your use,
---       reproduction, and distribution of the Work otherwise complies with
---       the conditions stated in this License.
-
---    5. Submission of Contributions. Unless You explicitly state otherwise,
---       any Contribution intentionally submitted for inclusion in the Work
---       by You to the Licensor shall be under the terms and conditions of
---       this License, without any additional terms or conditions.
---       Notwithstanding the above, nothing herein shall supersede or modify
---       the terms of any separate license agreement you may have executed
---       with Licensor regarding such Contributions.
-
---    6. Trademarks. This License does not grant permission to use the trade
---       names, trademarks, service marks, or product names of the Licensor,
---       except as required for reasonable and customary use in describing the
---       origin of the Work and reproducing the content of the NOTICE file.
-
---    7. Disclaimer of Warranty. Unless required by applicable law or
---       agreed to in writing, Licensor provides the Work (and each
---       Contributor provides its Contributions) on an "AS IS" BASIS,
---       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
---       implied, including, without limitation, any warranties or conditions
---       of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
---       PARTICULAR PURPOSE. You are solely responsible for determining the
---       appropriateness of using or redistributing the Work and assume any
---       risks associated with Your exercise of permissions under this License.
-
---    8. Limitation of Liability. In no event and under no legal theory,
---       whether in tort (including negligence), contract, or otherwise,
---       unless required by applicable law (such as deliberate and grossly
---       negligent acts) or agreed to in writing, shall any Contributor be
---       liable to You for damages, including any direct, indirect, special,
---       incidental, or consequential damages of any character arising as a
---       result of this License or out of the use or inability to use the
---       Work (including but not limited to damages for loss of goodwill,
---       work stoppage, computer failure or malfunction, or any and all
---       other commercial damages or losses), even if such Contributor
---       has been advised of the possibility of such damages.
-
---    9. Accepting Warranty or Additional Liability. While redistributing
---       the Work or Derivative Works thereof, You may choose to offer,
---       and charge a fee for, acceptance of support, warranty, indemnity,
---       or other liability obligations and/or rights consistent with this
---       License. However, in accepting such obligations, You may act only
---       on Your own behalf and on Your sole responsibility, not on behalf
---       of any other Contributor, and only if You agree to indemnify,
---       defend, and hold each Contributor harmless for any liability
---       incurred by, or claims asserted against, such Contributor by reason
---       of your accepting any such warranty or additional liability.
-
--- ====
-
--- The above license applies to all parts of Neovim except (1) parts that were
--- contributed under the Vim license and (2) externally maintained libraries.
-
--- The externally maintained libraries used by Neovim are:
-
---   - Klib: a Generic Library in C. MIT/X11 license.
---   - Lua: MIT license
---   - LuaJIT: a Just-In-Time Compiler for Lua. Copyright Mike Pall. MIT license.
---   - Luv: Apache 2.0 license
---   - libmpack: MIT license
---   - libtermkey: MIT license
---   - libuv. Copyright Joyent, Inc. and other Node contributors. Node.js license.
---   - libvterm: MIT license
---   - lua-cjson: MIT license
---   - lua-compat: MIT license
---   - tree-sitter: MIT license
---   - unibilium: LGPL v3
---   - xdiff: LGPL v2
-
--- ====
-
--- Any parts of Neovim that were contributed under the Vim license are licensed
--- under the Vim license unless the copyright holder gave permission to license
--- those contributions under the Apache 2.0 license.
-
--- The Vim license follows:
-
--- VIM LICENSE
-
--- I)  There are no restrictions on distributing unmodified copies of Vim except
---     that they must include this license text.  You can also distribute
---     unmodified parts of Vim, likewise unrestricted except that they must
---     include this license text.  You are also allowed to include executables
---     that you made from the unmodified Vim sources, plus your own usage
---     examples and Vim scripts.
-
--- II) It is allowed to distribute a modified (or extended) version of Vim,
---     including executables and/or source code, when the following four
---     conditions are met:
---     1) This license text must be included unmodified.
---     2) The modified Vim must be distributed in one of the following five ways:
---        a) If you make changes to Vim yourself, you must clearly describe in
--- 	  the distribution how to contact you.  When the maintainer asks you
--- 	  (in any way) for a copy of the modified Vim you distributed, you
--- 	  must make your changes, including source code, available to the
--- 	  maintainer without fee.  The maintainer reserves the right to
--- 	  include your changes in the official version of Vim.  What the
--- 	  maintainer will do with your changes and under what license they
--- 	  will be distributed is negotiable.  If there has been no negotiation
--- 	  then this license, or a later version, also applies to your changes.
--- 	  The current maintainer is Bram Moolenaar <Bram@vim.org>.  If this
--- 	  changes it will be announced in appropriate places (most likely
--- 	  vim.sf.net, www.vim.org and/or comp.editors).  When it is completely
--- 	  impossible to contact the maintainer, the obligation to send him
--- 	  your changes ceases.  Once the maintainer has confirmed that he has
--- 	  received your changes they will not have to be sent again.
---        b) If you have received a modified Vim that was distributed as
--- 	  mentioned under a) you are allowed to further distribute it
--- 	  unmodified, as mentioned at I).  If you make additional changes the
--- 	  text under a) applies to those changes.
---        c) Provide all the changes, including source code, with every copy of
--- 	  the modified Vim you distribute.  This may be done in the form of a
--- 	  context diff.  You can choose what license to use for new code you
--- 	  add.  The changes and their license must not restrict others from
--- 	  making their own changes to the official version of Vim.
---        d) When you have a modified Vim which includes changes as mentioned
--- 	  under c), you can distribute it without the source code for the
--- 	  changes if the following three conditions are met:
--- 	  - The license that applies to the changes permits you to distribute
--- 	    the changes to the Vim maintainer without fee or restriction, and
--- 	    permits the Vim maintainer to include the changes in the official
--- 	    version of Vim without fee or restriction.
--- 	  - You keep the changes for at least three years after last
--- 	    distributing the corresponding modified Vim.  When the maintainer
--- 	    or someone who you distributed the modified Vim to asks you (in
--- 	    any way) for the changes within this period, you must make them
--- 	    available to him.
--- 	  - You clearly describe in the distribution how to contact you.  This
--- 	    contact information must remain valid for at least three years
--- 	    after last distributing the corresponding modified Vim, or as long
--- 	    as possible.
---        e) When the GNU General Public License (GPL) applies to the changes,
--- 	  you can distribute the modified Vim under the GNU GPL version 2 or
--- 	  any later version.
---     3) A message must be added, at least in the output of the ":version"
---        command and in the intro screen, such that the user of the modified Vim
---        is able to see that it was modified.  When distributing as mentioned
---        under 2)e) adding the message is only required for as far as this does
---        not conflict with the license used for the changes.
---     4) The contact information as required under 2)a) and 2)d) must not be
---        removed or changed, except that the person himself can make
---        corrections.
-
--- III) If you distribute a modified version of Vim, you are encouraged to use
---      the Vim license for your changes and make them available to the
---      maintainer, including the source code.  The preferred way to do this is
---      by e-mail or by uploading the files to a server and e-mailing the URL.
---      If the number of changes is small (e.g., a modified Makefile) e-mailing a
---      context diff will do.  The e-mail address to be used is
---      <maintainer@vim.org>
-
--- IV)  It is not allowed to remove this license from the distribution of the Vim
---      sources, parts of it or from a modified version.  You may use this
---      license for previous Vim releases instead of the license that they came
---      with, at your option.
-
 ---@defgroup vim.iter
 ---
---- This module provides a generic interface for working with
---- iterables: tables, lists, iterator functions, pair()/ipair()-like iterators,
---- and \`vim.iter()\` objects.
+--- \*vim.iter()\* is an interface for |iterable|s: it wraps a table or function argument into an
+--- \*Iter\* object with methods (such as |Iter:filter()| and |Iter:map()|) that transform the
+--- underlying source data. These methods can be chained together to create iterator "pipelines".
+--- Each pipeline stage receives as input the output values from the prior stage. The values used in
+--- the first stage of the pipeline depend on the type passed to this function:
 ---
---- \*vim.iter()\* wraps its table or function argument into an \*Iter\* object
---- with methods (such as |Iter:filter()| and |Iter:map()|) that transform the
---- underlying source data. These methods can be chained together to create
---- iterator "pipelines". Each pipeline stage receives as input the output
---- values from the prior stage. The values used in the first stage of the
---- pipeline depend on the type passed to this function:
+--- - List tables (arrays) pass only the value of each element
+--- - Non-list tables (dictionaries) pass both the key and value of each element
+--- - Function |iterator|s pass all of the values returned by their respective function
+--- - Tables with a metatable implementing |__call()| are treated as function iterators
 ---
---- - List tables pass only the value of each element
---- - Non-list tables pass both the key and value of each element
---- - Function iterators pass all of the values returned by their respective
----   function
---- - Tables with a metatable implementing __call are treated as function
----   iterators
+--- The iterator pipeline terminates when the original table or function iterator runs out of values
+--- (for function iterators, this means that the first value returned by the function is nil).
 ---
 --- Examples:
---- <pre>lua
----   local it = vim.iter({ 1, 2, 3, 4, 5 })
----   it:map(function(v)
----     return v * 3
----   end)
----   it:rev()
----   it:skip(2)
----   it:totable()
----   -- { 9, 6, 3 }
 ---
----   vim.iter(ipairs({ 1, 2, 3, 4, 5 })):map(function(i, v)
----     if i > 2 then return v end
----   end):totable()
----   -- { 3, 4, 5 }
+--- ```lua
+--- local it = vim.iter({ 1, 2, 3, 4, 5 })
+--- it:map(function(v)
+---   return v * 3
+--- end)
+--- it:rev()
+--- it:skip(2)
+--- it:totable()
+--- -- { 9, 6, 3 }
 ---
----   local it = vim.iter(vim.gsplit('1,2,3,4,5', ','))
----   it:map(function(s) return tonumber(s) end)
----   for i, d in it:enumerate() do
----     print(string.format("Column %d is %d", i, d))
----   end
----   -- Column 1 is 1
----   -- Column 2 is 2
----   -- Column 3 is 3
----   -- Column 4 is 4
----   -- Column 5 is 5
+--- -- ipairs() is a function iterator which returns both the index (i) and the value (v)
+--- vim.iter(ipairs({ 1, 2, 3, 4, 5 })):map(function(i, v)
+---   if i > 2 then return v end
+--- end):totable()
+--- -- { 3, 4, 5 }
 ---
----   vim.iter({ a = 1, b = 2, c = 3, z = 26 }):any(function(k, v)
----     return k == 'z'
----   end)
----   -- true
+--- local it = vim.iter(vim.gsplit('1,2,3,4,5', ','))
+--- it:map(function(s) return tonumber(s) end)
+--- for i, d in it:enumerate() do
+---   print(string.format("Column %d is %d", i, d))
+--- end
+--- -- Column 1 is 1
+--- -- Column 2 is 2
+--- -- Column 3 is 3
+--- -- Column 4 is 4
+--- -- Column 5 is 5
 ---
----   local rb = vim.ringbuf(3)
----   rb:push("a")
----   rb:push("b")
----   vim.iter(rb):totable()
----   -- { "a", "b" }
---- </pre>
+--- vim.iter({ a = 1, b = 2, c = 3, z = 26 }):any(function(k, v)
+---   return k == 'z'
+--- end)
+--- -- true
+---
+--- local rb = vim.ringbuf(3)
+--- rb:push("a")
+--- rb:push("b")
+--- vim.iter(rb):totable()
+--- -- { "a", "b" }
+--- ```
 ---
 --- In addition to the |vim.iter()| function, the |vim.iter| module provides
 --- convenience functions like |vim.iter.filter()| and |vim.iter.totable()|.
@@ -380,14 +84,14 @@ end
 local packedmt = {}
 
 local function unpack(t)
-  if type(t) == "table" and getmetatable(t) == packedmt then
+  if type(t) == 'table' and getmetatable(t) == packedmt then
     return _G.unpack(t, 1, t.n)
   end
   return t
 end
 
 local function pack(...)
-  local n = select("#", ...)
+  local n = select('#', ...)
   if n > 1 then
     return setmetatable({ n = n, ... }, packedmt)
   end
@@ -395,7 +99,7 @@ local function pack(...)
 end
 
 local function sanitize(t)
-  if type(t) == "table" and getmetatable(t) == packedmt then
+  if type(t) == 'table' and getmetatable(t) == packedmt then
     -- Remove length tag
     t.n = nil
   end
@@ -412,7 +116,7 @@ end
 ---@return boolean True if the iterator stage should continue, false otherwise
 ---@return any Function arguments.
 local function continue(...)
-  if select("#", ...) > 0 then
+  if select(1, ...) ~= nil then
     return false, ...
   end
   return true
@@ -428,7 +132,7 @@ end
 ---@return boolean True if the iterator pipeline should continue, false otherwise
 ---@return any Return values of f
 local function apply(f, ...)
-  if select("#", ...) > 0 then
+  if select(1, ...) ~= nil then
     return continue(f(...))
   end
   return false
@@ -437,9 +141,10 @@ end
 --- Add a filter step to the iterator pipeline.
 ---
 --- Example:
---- <pre>lua
+---
+--- ```lua
 --- local bufs = vim.iter(vim.api.nvim_list_bufs()):filter(vim.api.nvim_buf_is_loaded)
---- </pre>
+--- ```
 ---
 ---@param f function(...):bool Takes all values returned from the previous stage
 ---                            in the pipeline and returns false or nil if the
@@ -473,7 +178,8 @@ end
 --- If the map function returns nil, the value is filtered from the iterator.
 ---
 --- Example:
---- <pre>lua
+---
+--- ```lua
 --- local it = vim.iter({ 1, 2, 3, 4 }):map(function(v)
 ---   if v % 2 == 0 then
 ---     return v * 3
@@ -481,7 +187,7 @@ end
 --- end)
 --- it:totable()
 --- -- { 6, 12 }
---- </pre>
+--- ```
 ---
 ---@param f function(...):any Mapping function. Takes all values returned from
 ---                           the previous stage in the pipeline as arguments
@@ -559,7 +265,7 @@ end
 ---                       in the pipeline as arguments.
 function Iter.each(self, f)
   local function fn(...)
-    if select("#", ...) > 0 then
+    if select(1, ...) ~= nil then
       f(...)
       return true
     end
@@ -585,7 +291,8 @@ end
 --- pipeline, each value will be included in a table.
 ---
 --- Examples:
---- <pre>lua
+---
+--- ```lua
 --- vim.iter(string.gmatch('100 20 50', '%d+')):map(tonumber):totable()
 --- -- { 100, 20, 50 }
 ---
@@ -594,7 +301,7 @@ end
 ---
 --- vim.iter({ a = 1, b = 2, c = 3 }):filter(function(k, v) return v % 2 ~= 0 end):totable()
 --- -- { { 'a', 1 }, { 'c', 3 } }
---- </pre>
+--- ```
 ---
 --- The generated table is a list-like table with consecutive, numeric indices.
 --- To create a map-like table with arbitrary keys, use |Iter:fold()|.
@@ -649,7 +356,8 @@ end
 --- Fold ("reduce") an iterator or table into a single value.
 ---
 --- Examples:
---- <pre>lua
+---
+--- ```lua
 --- -- Create a new table with only even values
 --- local t = { a = 1, b = 2, c = 3, d = 4 }
 --- local it = vim.iter(t)
@@ -659,7 +367,7 @@ end
 ---   return t
 --- end)
 --- -- { b = 2, d = 4 }
---- </pre>
+--- ```
 ---
 ---@generic A
 ---
@@ -695,7 +403,8 @@ end
 --- Return the next value from the iterator.
 ---
 --- Example:
---- <pre>lua
+---
+--- ```lua
 ---
 --- local it = vim.iter(string.gmatch('1 2 3', '%d+')):map(tonumber)
 --- it:next()
@@ -705,7 +414,7 @@ end
 --- it:next()
 --- -- 3
 ---
---- </pre>
+--- ```
 ---
 ---@return any
 function Iter.next(self) -- luacheck: no unused args
@@ -728,17 +437,18 @@ end
 --- Only supported for iterators on list-like tables.
 ---
 --- Example:
---- <pre>lua
+---
+--- ```lua
 ---
 --- local it = vim.iter({ 3, 6, 9, 12 }):rev()
 --- it:totable()
 --- -- { 12, 9, 6, 3 }
 ---
---- </pre>
+--- ```
 ---
 ---@return Iter
 function Iter.rev(self)
-  error("rev() requires a list-like table")
+  error('rev() requires a list-like table')
   return self
 end
 
@@ -754,7 +464,8 @@ end
 --- Only supported for iterators on list-like tables.
 ---
 --- Example:
---- <pre>lua
+---
+--- ```lua
 ---
 --- local it = vim.iter({ 3, 6, 9, 12 })
 --- it:peek()
@@ -764,11 +475,11 @@ end
 --- it:next()
 --- -- 3
 ---
---- </pre>
+--- ```
 ---
 ---@return any
 function Iter.peek(self) -- luacheck: no unused args
-  error("peek() requires a list-like table")
+  error('peek() requires a list-like table')
 end
 
 ---@private
@@ -783,7 +494,8 @@ end
 --- Advances the iterator. Returns nil and drains the iterator if no value is found.
 ---
 --- Examples:
---- <pre>lua
+---
+--- ```lua
 ---
 --- local it = vim.iter({ 3, 6, 9, 12 })
 --- it:find(12)
@@ -797,11 +509,11 @@ end
 --- it:find(function(v) return v % 4 == 0 end)
 --- -- 12
 ---
---- </pre>
+--- ```
 ---
 ---@return any
 function Iter.find(self, f)
-  if type(f) ~= "function" then
+  if type(f) ~= 'function' then
     local val = f
     f = function(v)
       return v == val
@@ -833,7 +545,8 @@ end
 --- Only supported for iterators on list-like tables.
 ---
 --- Examples:
---- <pre>lua
+---
+--- ```lua
 ---
 --- local it = vim.iter({ 1, 2, 3, 2, 1 }):enumerate()
 --- it:rfind(1)
@@ -841,18 +554,18 @@ end
 --- it:rfind(1)
 --- -- 1	1
 ---
---- </pre>
+--- ```
 ---
 ---@see Iter.find
 ---
 ---@return any
 function Iter.rfind(self, f) -- luacheck: no unused args
-  error("rfind() requires a list-like table")
+  error('rfind() requires a list-like table')
 end
 
 ---@private
 function ListIter.rfind(self, f) -- luacheck: no unused args
-  if type(f) ~= "function" then
+  if type(f) ~= 'function' then
     local val = f
     f = function(v)
       return v == val
@@ -875,17 +588,18 @@ end
 --- Only supported for iterators on list-like tables.
 ---
 --- Example:
---- <pre>lua
+---
+--- ```lua
 --- local it = vim.iter({1, 2, 3, 4})
 --- it:nextback()
 --- -- 4
 --- it:nextback()
 --- -- 3
---- </pre>
+--- ```
 ---
 ---@return any
 function Iter.nextback(self) -- luacheck: no unused args
-  error("nextback() requires a list-like table")
+  error('nextback() requires a list-like table')
 end
 
 function ListIter.nextback(self)
@@ -901,7 +615,8 @@ end
 --- Only supported for iterators on list-like tables.
 ---
 --- Example:
---- <pre>lua
+---
+--- ```lua
 --- local it = vim.iter({1, 2, 3, 4})
 --- it:peekback()
 --- -- 4
@@ -909,11 +624,11 @@ end
 --- -- 4
 --- it:nextback()
 --- -- 4
---- </pre>
+--- ```
 ---
 ---@return any
 function Iter.peekback(self) -- luacheck: no unused args
-  error("peekback() requires a list-like table")
+  error('peekback() requires a list-like table')
 end
 
 function ListIter.peekback(self)
@@ -926,13 +641,14 @@ end
 --- Skip values in the iterator.
 ---
 --- Example:
---- <pre>lua
+---
+--- ```lua
 ---
 --- local it = vim.iter({ 3, 6, 9, 12 }):skip(2)
 --- it:next()
 --- -- 9
 ---
---- </pre>
+--- ```
 ---
 ---@param n number Number of values to skip.
 ---@return Iter
@@ -958,18 +674,19 @@ end
 --- Only supported for iterators on list-like tables.
 ---
 --- Example:
---- <pre>lua
+---
+--- ```lua
 --- local it = vim.iter({ 1, 2, 3, 4, 5 }):skipback(2)
 --- it:next()
 --- -- 1
 --- it:nextback()
 --- -- 3
---- </pre>
+--- ```
 ---
 ---@param n number Number of values to skip.
 ---@return Iter
 function Iter.skipback(self, n) -- luacheck: no unused args
-  error("skipback() requires a list-like table")
+  error('skipback() requires a list-like table')
   return self
 end
 
@@ -988,7 +705,8 @@ end
 --- This function advances the iterator.
 ---
 --- Example:
---- <pre>lua
+---
+--- ```lua
 ---
 --- local it = vim.iter({ 3, 6, 9, 12 })
 --- it:nth(2)
@@ -996,7 +714,7 @@ end
 --- it:nth(2)
 --- -- 12
 ---
---- </pre>
+--- ```
 ---
 ---@param n number The index of the value to return.
 ---@return any
@@ -1013,7 +731,8 @@ end
 --- Only supported for iterators on list-like tables.
 ---
 --- Example:
---- <pre>lua
+---
+--- ```lua
 ---
 --- local it = vim.iter({ 3, 6, 9, 12 })
 --- it:nthback(2)
@@ -1021,7 +740,7 @@ end
 --- it:nthback(2)
 --- -- 3
 ---
---- </pre>
+--- ```
 ---
 ---@param n number The index of the value to return.
 ---@return any
@@ -1041,6 +760,12 @@ end
 ---@param last number
 ---@return Iter
 function Iter.slice(self, first, last) -- luacheck: no unused args
+  error('slice() requires a list-like table')
+  return self
+end
+
+---@private
+function ListIter.slice(self, first, last)
   return self:skip(math.max(0, first - 1)):skipback(math.max(0, self._tail - last - 1))
 end
 
@@ -1096,7 +821,8 @@ end
 --- Drains the iterator.
 ---
 --- Example:
---- <pre>lua
+---
+--- ```lua
 ---
 --- local it = vim.iter(vim.gsplit('abcdefg', ''))
 --- it:last()
@@ -1106,7 +832,7 @@ end
 --- it:last()
 --- -- 15
 ---
---- </pre>
+--- ```
 ---
 ---@return any
 function Iter.last(self)
@@ -1130,19 +856,22 @@ end
 --- Add an iterator stage that returns the current iterator count as well as the iterator value.
 ---
 --- For list tables, prefer
---- <pre>lua
+---
+--- ```lua
 --- vim.iter(ipairs(t))
---- </pre>
+--- ```
 ---
 --- over
---- <pre>lua
+---
+--- ```lua
 --- vim.iter(t):enumerate()
---- </pre>
+--- ```
 ---
 --- as the former is faster.
 ---
 --- Example:
---- <pre>lua
+---
+--- ```lua
 ---
 --- local it = vim.iter(vim.gsplit('abc', '')):enumerate()
 --- it:next()
@@ -1152,7 +881,7 @@ end
 --- it:next()
 --- -- 3	'c'
 ---
---- </pre>
+--- ```
 ---
 ---@return Iter
 function Iter.enumerate(self)
@@ -1180,9 +909,9 @@ end
 ---@private
 function Iter.new(src, ...)
   local it = {}
-  if type(src) == "table" then
+  if type(src) == 'table' then
     local mt = getmetatable(src)
-    if mt and type(mt.__call) == "function" then
+    if mt and type(mt.__call) == 'function' then
       ---@private
       function it.next()
         return src()
@@ -1208,11 +937,13 @@ function Iter.new(src, ...)
     return ListIter.new(t)
   end
 
-  if type(src) == "function" then
+  if type(src) == 'function' then
     local s, var = ...
 
     --- Use a closure to handle var args returned from iterator
     local function fn(...)
+      -- Per the Lua 5.1 reference manual, an iterator is complete when the first returned value is
+      -- nil (even if there are other, non-nil return values). See |for-in|.
       if select(1, ...) ~= nil then
         var = select(1, ...)
         return ...
@@ -1226,7 +957,7 @@ function Iter.new(src, ...)
 
     setmetatable(it, Iter)
   else
-    error("src must be a table or function")
+    error('src must be a table or function')
   end
   return it
 end
@@ -1248,9 +979,10 @@ end
 --- Collect an iterator into a table.
 ---
 --- This is a convenience function that performs:
---- <pre>lua
+---
+--- ```lua
 --- vim.iter(f):totable()
---- </pre>
+--- ```
 ---
 ---@param f function Iterator function
 ---@return table
@@ -1261,9 +993,10 @@ end
 --- Filter a table or iterator.
 ---
 --- This is a convenience function that performs:
---- <pre>lua
+---
+--- ```lua
 --- vim.iter(src):filter(f):totable()
---- </pre>
+--- ```
 ---
 ---@see |Iter:filter()|
 ---
@@ -1279,9 +1012,10 @@ end
 --- Map and filter a table or iterator.
 ---
 --- This is a convenience function that performs:
---- <pre>lua
+---
+--- ```lua
 --- vim.iter(src):map(f):totable()
---- </pre>
+--- ```
 ---
 ---@see |Iter:map()|
 ---
