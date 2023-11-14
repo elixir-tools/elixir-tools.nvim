@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## [0.11.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.10.1...v0.11.0) (2023-11-10)
+
+
+### Features
+
+* **nextls:** multi-root workspaces ([#184](https://github.com/elixir-tools/elixir-tools.nvim/issues/184)) ([156cf40](https://github.com/elixir-tools/elixir-tools.nvim/commit/156cf40454fadb912895e2d17b7a59b6cc92d0a7))
+
+
+### Bug Fixes
+
+* update vim.iter ([103aaa5](https://github.com/elixir-tools/elixir-tools.nvim/commit/103aaa56c826e752ee046142153b09b1763512a3))
+
 ## [0.10.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.10.0...v0.10.1) (2023-10-02)
 
 
