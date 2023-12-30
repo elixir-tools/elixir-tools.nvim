@@ -9,4 +9,5 @@ mix local.hex --force
 mix local.rebar --force
 mix deps.get
 mix compile
-mix elixir_ls.release -o "$release_path"
+mkdir -p "$release_path"
+mix elixir_ls.release2 -o "$release_path"
