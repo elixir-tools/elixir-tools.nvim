@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.11.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.11.0...v0.11.1) (2023-12-30)
+
+
+### Bug Fixes
+
+* compile ElixirLS with Elixir v1.16 ([#188](https://github.com/elixir-tools/elixir-tools.nvim/issues/188)) ([1c11579](https://github.com/elixir-tools/elixir-tools.nvim/commit/1c1157974e2b296d5041abb4a9cbab58803de423))
+
 ## [0.11.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.10.1...v0.11.0) (2023-11-10)
 
 
