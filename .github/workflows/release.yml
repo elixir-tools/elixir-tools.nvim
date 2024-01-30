@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     name: vimdoc generator
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.PAT }}
 
@@ -44,7 +44,7 @@ jobs:
         with:
           release-type: simple
           package-name: elixir-tools.nvim
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: tag stable versions
         if: ${{ steps.release.outputs.release_created }}
         run: |
