@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.12.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.11.2...v0.12.0) (2024-02-14)
+
+
+### Features
+
+* **nextls:** enable spitfire option ([42aec43](https://github.com/elixir-tools/elixir-tools.nvim/commit/42aec43111af3d6adf1ab69ff6f14a5af510ff5e))
+
 ## [0.11.2](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.11.1...v0.11.2) (2024-02-14)
 
 
