@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.12.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.12.0...v0.12.1) (2024-02-14)
+
+
+### Bug Fixes
+
+* set spitfire var to correct value ([55a5112](https://github.com/elixir-tools/elixir-tools.nvim/commit/55a5112be09cb96b08989ca6ada34ccaf1ace405))
+
 ## [0.12.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.11.2...v0.12.0) (2024-02-14)
 
 
