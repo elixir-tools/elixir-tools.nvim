@@ -24,6 +24,7 @@ function M.setup(opts)
         cmd = cmd,
         cmd_env = {
           NEXTLS_VERSION = options.version,
+          NEXTLS_SPITFIRE_ENABLED = options.spitfire,
           NEXTLS_AUTO_UPDATE = auto_update,
         },
         init_options = options.init_options or vim.empty_dict(),
