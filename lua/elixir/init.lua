@@ -26,6 +26,14 @@ local enabled = function(value)
   return value == nil or value == true
 end
 
+local get_cursor_position = function()
+  local rowcol = vim.api.nvim_win_get_cursor(0)
+  local row = rowcol[1] - 1
+  local col = rowcol[2]
+
+  return row, col
+end
+
 local define_user_command = function()
   vim.api.nvim_create_user_command("Elixir", function(opts)
     local args = vim.iter(opts.fargs)
@@ -37,6 +45,20 @@ local define_user_command = function()
       if "uninstall" == subcommand then
         vim.fn.delete(nextls.default_bin)
         vim.notify(string.format("Uninstalled Next LS from %s", nextls.default_bin), vim.lsp.log_levels.INFO)
+      elseif "to-pipe" == subcommand then
+        local row, col = get_cursor_position()
+        local uri = vim.uri_from_bufnr(0)
+        vim.lsp.buf.execute_command {
+          command = "to-pipe",
+          arguments = { { position = { line = row, character = col }, uri = uri } },
+        }
+      elseif "from-pipe" == subcommand then
+        local row, col = get_cursor_position()
+        local uri = vim.uri_from_bufnr(0)
+        vim.lsp.buf.execute_command {
+          command = "from-pipe",
+          arguments = { { position = { line = row, character = col }, uri = uri } },
+        }
       else
         not_found = true
       end
@@ -52,7 +74,7 @@ local define_user_command = function()
     complete = function(_, cmd_line)
       local cmd = vim.trim(cmd_line)
       if vim.startswith(cmd, "Elixir nextls") then
-        return { "uninstall" }
+        return { "uninstall", "to-pipe", "from-pipe" }
       elseif vim.startswith(cmd, "Elixir") then
         return { "nextls" }
       end
