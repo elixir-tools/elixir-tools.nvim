@@ -1,4 +1,4 @@
-*elixir-tools.nvim.txt*      For NVIM v0.8.0     Last change: 2024 February 14
+*elixir-tools.nvim.txt*      For NVIM v0.8.0     Last change: 2024 February 26
 
 ==============================================================================
 Table of Contents                        *elixir-tools.nvim-table-of-contents*
@@ -208,6 +208,10 @@ COMMANDS                                 *elixir-tools.nvim-features-commands*
   nextls    uninstall    Removes the nextls executable from the default location:
                          ~/.cache/elixir-tools/nextls/bin/nextls
 
+  nextls    to-pipe      Extracts the first argument to a pipe call
+
+  nextls    from-pipe    Inlines the pipe call to a function call the first
+                         argument to a pipe
   ---------------------------------------------------------------------------------
 
 NEXT LS                                   *elixir-tools.nvim-features-next-ls*
