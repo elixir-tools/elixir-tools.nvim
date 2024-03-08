@@ -6,8 +6,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  unit_tests:
-    name: unit tests
+  stylua:
+    name: Stylua
+    runs-on: ubuntu-latest
+
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true)
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: JohnnyMorganz/stylua-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --check .
+
+  legacy_tests:
+    name: legacy tests
     runs-on: ${{ matrix.os }}
 
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true)
@@ -41,12 +55,6 @@ jobs:
             packages: fd elixir
     steps:
       - uses: actions/checkout@v4
-      - uses: JohnnyMorganz/stylua-action@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          version: latest
-          args: --check .
-
       - run: date +%F > todays-date
       - name: Restore from todays cache
         uses: actions/cache@v4
@@ -54,7 +62,7 @@ jobs:
           path: _neovim
           key: ${{ runner.os }}-${{ matrix.url }}-${{ hashFiles('todays-date') }}
 
-      - name: Add Repositoy
+      - name: Add Repository
         if: matrix.os == 'ubuntu-20.04'
         run: wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb && sudo dpkg -i erlang-solutions_2.0_all.deb
 
@@ -67,7 +75,7 @@ jobs:
             curl -sL ${{ matrix.url }} | tar xzf - --strip-components=1 -C "${PWD}/_neovim"
           }
 
-      - name: Run tests
+      - name: Run legacy tests
         env:
           BUSTED_TIMEOUT: 600000
         run: |
@@ -75,3 +83,38 @@ jobs:
           export VIM="${PWD}/_neovim/share/nvim/runtime"
           nvim --version
           bin/test
+
+  tests:
+    name: tests
+    runs-on: ${{ matrix.os }}
+
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true)
+
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-20.04
+            manager: sudo apt-get
+            packages: -y fd-find esl-erlang elixir
+            nvim-version: 0.8.3
+          - os: ubuntu-20.04
+            manager: sudo apt-get
+            packages: -y fd-find esl-erlang elixir
+            nvim-version: 0.9.5
+          - os: macos-14
+            manager: brew
+            packages: fd elixir
+            nvim-version: 0.8.3
+          - os: macos-14
+            manager: brew
+            packages: fd elixir
+            nvim-version: 0.9.5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: extractions/setup-just@v1
+      - uses: leafo/gh-actions-lua@v10
+        with:
+          luaVersion: "5.1.5"
+      - uses: leafo/gh-actions-luarocks@v4
+      - name: Run nvim-test tests
+        run: just test ${{ matrix.nvim-version }}

@@ -169,7 +169,7 @@ elixir.setup {
 | Command | Subcommand | Description                                                                                          |
 |---------|------------|------------------------------------------------------------------------------------------------------|
 | nextls  | uninstall  | Removes the `nextls` executable from the default location: `~/.cache/elixir-tools/nextls/bin/nextls` |
-| nextls  |  to-pipe   | Extracts the first argument to a pipe call                                                           |
+| nextls  | to-pipe    | Extracts the first argument to a pipe call                                                           |
 | nextls  | from-pipe  | Inlines the pipe call to a function call the first argument to a pipe                                |
 
 ## Next LS
@@ -364,3 +364,39 @@ You can run any `mix` command in your project, complete with... autocomplete!
 :Efeature {args}
 
 : Create or edit a Wallaby test module.
+
+## Contributing
+
+### Setup
+
+elixir-tools.nvim uses a combination of [Nix]() and [just]() to provide the development tooling, but you can also install all of this manually.
+
+#### Nix + just
+
+```bash
+# enter a nix shell, provides language deps and just
+$ nix develop
+
+# install test runner and plugin dependencies
+$ just init
+
+# run tests, optionally include the Neovim version to test
+$ just test
+$ just test 0.8.3
+
+# format the code
+$ just format
+```
+
+#### Manually
+
+Install the following software:
+
+- [Neovim](https://neovim.io)
+- [Lua 5.1](https://sourceforge.net/projects/luabinaries/files/5.1.5/)
+- [Luarocks](https://github.com/luarocks/luarocks/wiki/Download)
+- [nvim-test](https://github.com/lewis6991/nvim-test)
+- [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) (into the folder "deps")
+- [stylua](https://github.com/JohnnyMorganz/StyLua)
+
+To run the tests, you can reference the commands run in the justfile

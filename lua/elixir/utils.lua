@@ -36,8 +36,10 @@ local arch = {
 }
 
 function M.download_nextls(opts)
+  vim.notify("[elixir-tools] Downloading latest version of Next LS")
+  local default_cache_dir = vim.g.next_ls_cache_dir or vim.env.HOME .. "/.cache/elixir-tools/nextls/bin"
   opts = opts or {}
-  local cache_dir = opts.cache_dir or vim.env.HOME .. "/.cache/elixir-tools/nextls/bin"
+  local cache_dir = opts.cache_dir or default_cache_dir
   local os_name = string.lower(vim.uv.os_uname().sysname)
   local current_arch = arch[string.lower(vim.uv.os_uname().machine)]
   local curl = {
@@ -60,7 +62,7 @@ function M.download_nextls(opts)
 
   if not vim.v.shell_error == 0 then
     vim.notify(
-      "Failed to fetch the latest release of Next LS from GitHub.\n\n"
+      "[elixir-tools] Failed to fetch the latest release of Next LS from GitHub.\n\n"
         .. "Using the command `"
         .. table.concat(curl, " ")
         .. "`"
@@ -105,7 +107,7 @@ function M.latest_release(owner, repo, opts)
     return vim.fn.readfile(latest_version_file)[1]
   else
     vim.notify(
-      "Failed to fetch the current "
+      "[elixir-tools] Failed to fetch the current "
         .. repo
         .. " version from GitHub or the cache.\n"
         .. "You most likely do not have an internet connection / exceeded\n"

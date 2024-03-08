@@ -141,9 +141,9 @@ local function test(command)
       if exit_code == 0 then
         vim.api.nvim_buf_delete(term_buf_id, { force = true })
         term_buf_id = nil_buf_id
-        vim.notify("Success: " .. cmd, vim.log.levels.INFO)
+        vim.notify("[elixir-tools] Success: " .. cmd, vim.log.levels.INFO)
       else
-        vim.notify("Fail: " .. cmd, vim.log.levels.ERROR)
+        vim.notify("[elixir-tools] Fail: " .. cmd, vim.log.levels.ERROR)
       end
     end,
   })
@@ -228,15 +228,15 @@ local function install_elixir_ls(opts)
             end)
           end
 
-          vim.notify("Finished compiling ElixirLS!")
-          vim.notify("Reloading buffer")
+          vim.notify("[elixir-tools] Finished compiling ElixirLS!")
+          vim.notify("[elixir-tools] Reloading buffer")
           vim.api.nvim_command("edit")
-          vim.notify("Restarting LSP client")
+          vim.notify("[elixir-tools] Restarting LSP client")
           vim.api.nvim_command("LspRestart")
           vim.fn.jobstart({ "rm", "-rf", download_dir:absolute() }, {
             on_exit = vim.schedule_wrap(function(_, rm_code)
               if rm_code == 0 then
-                vim.notify("Cleaned up elixir-tools.nvim download directory")
+                vim.notify("[elixir-tools] Cleaned up elixir-tools.nvim download directory")
               else
                 vim.api.nvim_err_writeln("Failed to clean up elixir-tools.nvim download directory")
               end

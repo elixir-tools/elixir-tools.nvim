@@ -36,7 +36,7 @@ function M.compile(source_path, install_path, opts)
     args = { install_path },
     cwd = source_path,
     on_start = function()
-      vim.notify("Compiling ElixirLS...")
+      vim.notify("[elixir-tools] Compiling ElixirLS...")
     end,
     on_stdout = do_sync and printer or vim.schedule_wrap(printer),
     on_stderr = do_sync and printer or vim.schedule_wrap(printer),
