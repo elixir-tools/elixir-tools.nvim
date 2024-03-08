@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.13.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.13.0...v0.13.1) (2024-03-08)
+
+
+### Bug Fixes
+
+* **nextls:** force a download ([#203](https://github.com/elixir-tools/elixir-tools.nvim/issues/203)) ([123dbc2](https://github.com/elixir-tools/elixir-tools.nvim/commit/123dbc2463aef2c547212a3a961e3018e722a326))
+
 ## [0.13.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.12.1...v0.13.0) (2024-02-26)
 
 
