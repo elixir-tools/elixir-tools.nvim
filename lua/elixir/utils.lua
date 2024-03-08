@@ -36,8 +36,9 @@ local arch = {
 }
 
 function M.download_nextls(opts)
+  local default_cache_dir = vim.g.next_ls_cache_dir or vim.env.HOME .. "/.cache/elixir-tools/nextls/bin"
   opts = opts or {}
-  local cache_dir = opts.cache_dir or vim.env.HOME .. "/.cache/elixir-tools/nextls/bin"
+  local cache_dir = opts.cache_dir or default_cache_dir
   local os_name = string.lower(vim.uv.os_uname().sysname)
   local current_arch = arch[string.lower(vim.uv.os_uname().machine)]
   local curl = {

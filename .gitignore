@@ -1,2 +1,7 @@
 tmp
 node_modules
+nvim-test
+deps
+busted/fixtures/basic/bin
+busted/fixtures/basic/data
+
