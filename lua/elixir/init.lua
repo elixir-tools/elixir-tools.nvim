@@ -44,7 +44,10 @@ local define_user_command = function()
       local subcommand = args:next()
       if "uninstall" == subcommand then
         vim.fn.delete(nextls.default_bin)
-        vim.notify(string.format("[elixir-tools] Uninstalled Next LS from %s", nextls.default_bin), vim.lsp.log_levels.INFO)
+        vim.notify(
+          string.format("[elixir-tools] Uninstalled Next LS from %s", nextls.default_bin),
+          vim.lsp.log_levels.INFO
+        )
       elseif "to-pipe" == subcommand then
         local row, col = get_cursor_position()
         local uri = vim.uri_from_bufnr(0)
