@@ -9,7 +9,6 @@ M.default_bin = vim.g.next_ls_default_bin or (vim.env.HOME .. "/.cache/elixir-to
 M.default_data = vim.g.next_ls_data_dir or (vim.env.HOME .. "/.data/elixir-tools/nextls")
 
 function M.setup(opts)
-  vim.print(opts)
   local nextls_group = vim.api.nvim_create_augroup("elixir-tools.nextls", { clear = true })
 
   vim.api.nvim_create_autocmd("User", {
@@ -106,27 +105,19 @@ function M.setup(opts)
           })
         end
 
-        local force_download = not vim.uv.fs_stat(M.default_data .. "/.next-ls-force-update-v1")
+        vim.fn.mkdir(M.default_data, "p")
+        local force_download_file = M.default_data .. "/.next-ls-force-update-v1"
+        local force_download = not vim.uv.fs_stat(force_download_file)
+        vim.print(M.default_data)
 
         if
           (force_download and opts.auto_update)
-          or (
-            not vim.b.elixir_tools_prompted_nextls_install
-            and type(opts.port) ~= "number"
-            and (opts.auto_update and not vim.uv.fs_stat(opts.cmd))
-          )
+          or (type(opts.port) ~= "number" and (opts.auto_update and not vim.uv.fs_stat(opts.cmd)))
         then
-          vim.ui.select({ "Yes", "No" }, { prompt = "Install Next LS?" }, function(choice)
-            if choice == "Yes" then
-              utils.download_nextls()
-              activate()
-            else
-              vim.b["elixir_tools_prompted_nextls_install"] = true
-            end
-          end)
-        else
-          vim.schedule_wrap(activate)()
+          utils.download_nextls()
+          vim.fn.writefile({ "" }, force_download_file)
         end
+        vim.schedule_wrap(activate)()
       end
     end,
   })

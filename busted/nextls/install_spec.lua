@@ -22,15 +22,8 @@ describe("install", function()
     vim.g.next_ls_cache_dir = "./busted/fixtures/basic/bin"
     vim.g.next_ls_data_dir = "./busted/fixtures/basic/data"
     vim.g.next_ls_default_bin = "./busted/fixtures/basic/bin/nextls"
-    local selected = nil
-    -- inputlist would require input and block the test;
-    vim.fn.inputlist = function(x)
-      selected = true
-      return 1
-    end
     require("elixir.nextls").setup({auto_update = true, cmd = "./busted/fixtures/basic/bin/nextls" })
     vim.cmd.edit("./busted/fixtures/basic/lib/basic.ex")
-    vim.wait(5000, function() return selected ~= nil end)
     ]])
 
     eq(luv.fs_stat("./busted/fixtures/basic/bin/nextls").mode, 33523)
@@ -43,15 +36,8 @@ describe("install", function()
     vim.g.next_ls_cache_dir = "./busted/fixtures/basic/bin"
     vim.g.next_ls_data_dir = "./busted/fixtures/basic/data"
     vim.g.next_ls_default_bin = "./busted/fixtures/basic/bin/nextls"
-    local selected = nil
-    -- inputlist would require input and block the test;
-    vim.fn.inputlist = function(x)
-      selected = true
-      return 1
-    end
     require("elixir.nextls").setup({auto_update = true, cmd = "./busted/fixtures/basic/bin/nextls" })
     vim.cmd.edit("./busted/fixtures/basic/lib/basic.ex")
-    vim.wait(5000, function() return selected ~= nil end)
     ]])
 
     assert.error(function()

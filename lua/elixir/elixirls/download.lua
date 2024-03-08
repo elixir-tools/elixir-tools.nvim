@@ -11,7 +11,7 @@ function M.clone(dir, opts)
   local rr = Utils.safe_path(opts.ref or "HEAD")
   local dir_identifier = Path:new(r, rr).filename
 
-  vim.notify(string.format("Cloning ref %s from repo %s", opts.ref or "default", opts.repo))
+  vim.notify(string.format("[elixir-tools] Cloning ref %s from repo %s", opts.ref or "default", opts.repo))
 
   local made_path = Path:new(dir):mkdir { parents = true, mode = 493 }
   assert(made_path, "failed to make the path")
@@ -36,7 +36,7 @@ function M.clone(dir, opts)
     assert(checkout.code == 0, "Failed to checkout ref " .. opts.ref)
   end
 
-  vim.notify("Downloaded ElixirLS!")
+  vim.notify("[elixir-tools] Downloaded ElixirLS!")
 
   return dir_identifier
 end
