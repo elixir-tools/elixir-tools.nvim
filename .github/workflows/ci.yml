@@ -76,6 +76,9 @@ jobs:
           nvim --version
           bin/test
 
+      - uses: leafo/gh-actions-lua@v9
+      - uses: leafo/gh-actions-luarocks@v4
+
       - name: setup nvim-test
         run: |
           git clone https://github.com/lewis6991/nvim-test
