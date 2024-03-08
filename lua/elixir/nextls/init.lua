@@ -108,7 +108,6 @@ function M.setup(opts)
         vim.fn.mkdir(M.default_data, "p")
         local force_download_file = M.default_data .. "/.next-ls-force-update-v1"
         local force_download = not vim.uv.fs_stat(force_download_file)
-        vim.print(M.default_data)
 
         if
           (force_download and opts.auto_update)

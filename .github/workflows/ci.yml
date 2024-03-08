@@ -88,23 +88,25 @@ jobs:
           - os: ubuntu-20.04
             manager: sudo apt-get
             packages: -y fd-find esl-erlang elixir
+            nvim-version: 0.8.3
+          - os: ubuntu-20.04
+            manager: sudo apt-get
+            packages: -y fd-find esl-erlang elixir
+            nvim-version: 0.9.5
           - os: macos-14
             manager: brew
             packages: fd elixir
+            nvim-version: 0.8.3
+          - os: macos-14
+            manager: brew
+            packages: fd elixir
+            nvim-version: 0.9.5
     steps:
       - uses: actions/checkout@v4
+      - uses: extractions/setup-just@v1
       - uses: leafo/gh-actions-lua@v10
         with:
           luaVersion: "5.1.5"
       - uses: leafo/gh-actions-luarocks@v4
-
-      - name: setup nvim-test
-        run: |
-          git clone https://github.com/lewis6991/nvim-test
-          mkdir -p deps
-          cd deps
-          git clone https://github.com/nvim-lua/plenary.nvim
-          cd ..
       - name: Run nvim-test tests
-        run: |
-          nvim-test/bin/nvim-test busted --lpath="$PWD/lua/?.lua"
+        run: just test {{ matrix.nvim-version}}

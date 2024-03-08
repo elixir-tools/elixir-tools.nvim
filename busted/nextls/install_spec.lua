@@ -41,7 +41,7 @@ describe("install", function()
     ]])
 
     assert.error(function()
-      helpers.fn.readblob("./busted/fixtures/basic/bin/nextls")
+      helpers.fn.readfile("./busted/fixtures/basic/bin/nextls", "b")
     end)
     eq(luv.fs_stat("./busted/fixtures/basic/bin/nextls").mode, 33523)
   end)
@@ -62,7 +62,7 @@ describe("install", function()
 
     helpers.feed("<cr>")
     -- screen:snapshot_util()
-    eq(helpers.fn.readblob("./busted/fixtures/basic/bin/nextls"), "foobar\n")
+    eq(helpers.fn.readfile("./busted/fixtures/basic/bin/nextls", "b")[1], "foobar")
     screen:expect {
       grid = [[
       ^defmodule Basic do                                   |

@@ -28,6 +28,7 @@
         packages = [
           pkgs.luarocks
           pkgs.lua5_1
+          pkgs.just
         ];
       };
       };
