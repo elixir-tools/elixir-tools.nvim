@@ -21,7 +21,7 @@ function M.setup(opts)
       local workspace_folders = event.data.workspace_folders
 
       vim.lsp.start({
-        name = "NextLS",
+        name = "Next LS",
         cmd = cmd,
         cmd_env = {
           NEXTLS_VERSION = options.version,

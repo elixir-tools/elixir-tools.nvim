@@ -77,7 +77,7 @@ The minimal setup will configure both ElixirLS and credo-language-server.
 require("elixir").setup()
 ```
 
-NextLS, ElixirLS,  and credo-language-server can be enabled/disabled by setting the `enable` flag in the respective options table.
+Next LS, ElixirLS, and Credo Language Server can be enabled/disabled by setting the `enable` flag in the respective options table.
 
 The defaults are shown below.
 
