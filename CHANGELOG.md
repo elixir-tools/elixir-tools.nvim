@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.13.2](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.13.1...v0.13.2) (2024-03-08)
+
+
+### Bug Fixes
+
+* correct spelling of Next LS ([972c66e](https://github.com/elixir-tools/elixir-tools.nvim/commit/972c66e4d58c4f7175db122942c1c8783c2eb296))
+
 ## [0.13.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.13.0...v0.13.1) (2024-03-08)
 
 
