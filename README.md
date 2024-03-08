@@ -369,7 +369,7 @@ You can run any `mix` command in your project, complete with... autocomplete!
 
 ### Setup
 
-elixir-tools.nvim uses a combination of [Nix]() and [just]() to provide the development tooling, but you can also install all of this manually.
+elixir-tools.nvim uses a combination of [Nix](https://nixos.org) and [just](https://github.com/casey/just) to provide the development tooling, but you can also install all of this manually.
 
 #### Nix + just
 
