@@ -77,7 +77,8 @@ describe("install", function()
     helpers.feed("<cr>")
     -- screen:snapshot_util()
     eq(helpers.fn.readblob("./busted/fixtures/basic/bin/nextls"), "foobar\n")
-    screen:expect{grid=[[
+    screen:expect {
+      grid = [[
       ^defmodule Basic do                                   |
         def run do                                         |
           Enum.map([:one, :two], &Function.identity/1)     |
@@ -92,8 +93,10 @@ describe("install", function()
       {1:~                                                    }|
       {1:~                                                    }|
                                                            |
-    ]], attr_ids={
-      [1] = {bold = true, foreground = Screen.colors.Blue1};
-    }}
+    ]],
+      attr_ids = {
+        [1] = { bold = true, foreground = Screen.colors.Blue1 },
+      },
+    }
   end)
 end)
