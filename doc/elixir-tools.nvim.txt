@@ -1,4 +1,4 @@
-*elixir-tools.nvim.txt*      For NVIM v0.8.0     Last change: 2024 February 27
+*elixir-tools.nvim.txt*       For NVIM v0.8.0       Last change: 2024 March 08
 
 ==============================================================================
 Table of Contents                        *elixir-tools.nvim-table-of-contents*
@@ -18,6 +18,7 @@ Table of Contents                        *elixir-tools.nvim-table-of-contents*
   - ElixirLS                             |elixir-tools.nvim-features-elixirls|
   - Mix                                       |elixir-tools.nvim-features-mix|
   - Projectionist                   |elixir-tools.nvim-features-projectionist|
+  - Contributing                     |elixir-tools.nvim-features-contributing|
 
 ==============================================================================
 1. Overview                                       *elixir-tools.nvim-overview*
@@ -455,6 +456,47 @@ vim-projectionist <https://github.com/tpope/vim-projectionist> integration!
 :Efeature {args}                       Create or edit a Wallaby test module.
 
 
+
+
+CONTRIBUTING                         *elixir-tools.nvim-features-contributing*
+
+
+SETUP ~
+
+elixir-tools.nvim uses a combination of Nix <> and just <> to provide the
+development tooling, but you can also install all of this manually.
+
+
+NIX + JUST
+
+>bash
+    # enter a nix shell, provides language deps and just
+    $ nix develop
+    
+    # install test runner and plugin dependencies
+    $ just init
+    
+    # run tests, optionally include the Neovim version to test
+    $ just test
+    $ just test 0.8.3
+    
+    # format the code
+    $ just format
+<
+
+
+MANUALLY
+
+Install the following software:
+
+- Neovim <https://neovim.io>
+- Lua 5.1 <https://sourceforge.net/projects/luabinaries/files/5.1.5/>
+- Luarocks <https://github.com/luarocks/luarocks/wiki/Download>
+- nvim-test <https://github.com/lewis6991/nvim-test>
+- plenary.nvim <https://github.com/nvim-lua/plenary.nvim> (into the folder "deps")
+- stylua <https://github.com/JohnnyMorganz/StyLua>
+
+To run the tests, you can reference the commands run in the justfile
 
 ==============================================================================
 5. Links                                             *elixir-tools.nvim-links*
