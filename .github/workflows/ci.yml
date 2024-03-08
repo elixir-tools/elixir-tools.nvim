@@ -6,8 +6,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  unit_tests:
-    name: unit tests
+  legacy_tests:
+    name: legacy tests
     runs-on: ${{ matrix.os }}
 
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true)
@@ -76,6 +76,23 @@ jobs:
           nvim --version
           bin/test
 
+  tests:
+    name: tests
+    runs-on: ${{ matrix.os }}
+
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true)
+
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-20.04
+            manager: sudo apt-get
+            packages: -y fd-find esl-erlang elixir
+          - os: macos-14
+            manager: brew
+            packages: fd elixir
+    steps:
+      - uses: actions/checkout@v4
       - uses: leafo/gh-actions-lua@v10
         with:
           luaVersion: "5.1.5"
