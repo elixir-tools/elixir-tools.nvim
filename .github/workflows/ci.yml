@@ -6,6 +6,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  stylua:
+    name: Stylua
+    runs-on: ubuntu-latest
+
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true)
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: JohnnyMorganz/stylua-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --check .
+
   legacy_tests:
     name: legacy tests
     runs-on: ${{ matrix.os }}
@@ -41,12 +55,6 @@ jobs:
             packages: fd elixir
     steps:
       - uses: actions/checkout@v4
-      - uses: JohnnyMorganz/stylua-action@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          version: latest
-          args: --check .
-
       - run: date +%F > todays-date
       - name: Restore from todays cache
         uses: actions/cache@v4
@@ -54,7 +62,7 @@ jobs:
           path: _neovim
           key: ${{ runner.os }}-${{ matrix.url }}-${{ hashFiles('todays-date') }}
 
-      - name: Add Repositoy
+      - name: Add Repository
         if: matrix.os == 'ubuntu-20.04'
         run: wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb && sudo dpkg -i erlang-solutions_2.0_all.deb
 
