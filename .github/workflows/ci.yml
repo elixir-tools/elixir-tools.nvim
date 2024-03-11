@@ -111,7 +111,7 @@ jobs:
             nvim-version: 0.9.5
     steps:
       - uses: actions/checkout@v4
-      - uses: extractions/setup-just@v1
+      - uses: extractions/setup-just@v2
       - uses: leafo/gh-actions-lua@v10
         with:
           luaVersion: "5.1.5"
