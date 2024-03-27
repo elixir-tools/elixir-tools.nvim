@@ -75,7 +75,7 @@ local define_user_command = function()
     complete = function(_, cmd_line)
       local cmd = vim.trim(cmd_line)
       if vim.startswith(cmd, "Elixir nextls") then
-        return { "uninstall", "to-pipe", "from-pipe", "alias-refactor" }
+        return { "alias-refactor", "to-pipe", "from-pipe", "uninstall" }
       elseif vim.startswith(cmd, "Elixir") then
         return { "nextls" }
       end
