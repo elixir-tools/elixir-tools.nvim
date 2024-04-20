@@ -168,7 +168,7 @@ elixir.setup {
 
 | Command | Subcommand     | Description                                                                                          |
 |---------|----------------|------------------------------------------------------------------------------------------------------|
-| nextls  | alias-refactor | Aliases the module under the cursor refactoring similar calls as well                                |
+| nextls  | alias-refactor | Aliases the module under the cursor, refactoring similar calls as well                                |
 | nextls  | to-pipe        | Extracts the first argument to a pipe call                                                           |
 | nextls  | from-pipe      | Inlines the pipe call to a function call inlining the first argument                                 |
 | nextls  | uninstall      | Removes the `nextls` executable from the default location: `~/.cache/elixir-tools/nextls/bin/nextls` |
