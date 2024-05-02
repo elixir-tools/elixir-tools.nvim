@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## [0.14.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.13.2...v0.14.0) (2024-05-02)
+
+
+### Features
+
+* add alias-refactor command ([#206](https://github.com/elixir-tools/elixir-tools.nvim/issues/206)) ([2ee9274](https://github.com/elixir-tools/elixir-tools.nvim/commit/2ee9274f0d34115276451e8fd78eecb98557c7a4))
+
+
+### Bug Fixes
+
+* **nextls:** only activate for valid buffers ([76d6025](https://github.com/elixir-tools/elixir-tools.nvim/commit/76d6025f0dcfb15b170a901c31a6adbf8c9e7492))
+
 ## [0.13.2](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.13.1...v0.13.2) (2024-03-08)
 
 
