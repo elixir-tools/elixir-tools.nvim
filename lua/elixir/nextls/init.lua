@@ -8,6 +8,18 @@ end
 M.default_bin = vim.g.next_ls_default_bin or (vim.env.HOME .. "/.cache/elixir-tools/nextls/bin/nextls")
 M.default_data = vim.g.next_ls_data_dir or (vim.env.HOME .. "/.data/elixir-tools/nextls")
 
+local function bufname_valid(bufname)
+  if
+    bufname:match("^/")
+    or bufname:match("^[a-zA-Z]:")
+    or bufname:match("^zipfile://")
+    or bufname:match("^tarfile:")
+  then
+    return true
+  end
+  return false
+end
+
 function M.setup(opts)
   local nextls_group = vim.api.nvim_create_augroup("elixir-tools.nextls", { clear = true })
 
@@ -54,6 +66,7 @@ function M.setup(opts)
       local lock_matches
       local mix_exs_matches
       local workspace_folders
+      local buf_name = vim.api.nvim_buf_get_name(0)
       if vim.g.workspace then
         local uri = vim.uri_from_bufnr(0)
         if
@@ -63,7 +76,8 @@ function M.setup(opts)
         then
           workspace_folders = vim.g.workspace.folders
         end
-      else
+      elseif bufname_valid(buf_name) then
+        local buf_uri = vim.uri_from_bufnr(0)
         lock_matches = vim.fs.find({ "mix.lock" }, {
           stop = vim.uv.os_homedir(),
           upward = true,
@@ -72,6 +86,7 @@ function M.setup(opts)
 
         mix_exs_matches = vim.fs.find({ "mix.exs" }, {
           stop = vim.uv.os_homedir(),
+          limit = 2,
           upward = true,
           path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
         })
