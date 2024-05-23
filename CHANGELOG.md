@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.14.2](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.14.1...v0.14.2) (2024-05-23)
+
+
+### Bug Fixes
+
+* **elixirls:** only refresh for the current buffer ([d04320b](https://github.com/elixir-tools/elixir-tools.nvim/commit/d04320b40459c097388dbe8e20711bbfa9bcdadd))
+
 ## [0.14.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.14.0...v0.14.1) (2024-05-23)
 
 
