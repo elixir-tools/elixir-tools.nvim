@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.14.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.14.0...v0.14.1) (2024-05-23)
+
+
+### Bug Fixes
+
+* **elixirls:** properly setup codelens autocmd ([5945e44](https://github.com/elixir-tools/elixir-tools.nvim/commit/5945e44ded3a5b61ae3ab03a06d6928846e0aab0))
+
 ## [0.14.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.13.2...v0.14.0) (2024-05-02)
 
 
