@@ -96,7 +96,7 @@ function M.setup(opts)
     opts.credo.cmd = M.credo.default_bin
   end
 
-  if enabled(opts.credo.enable) and not opts.credo.version then
+  if opts.credo.enable == true and not opts.credo.version then
     opts.credo.version = utils.latest_release("elixir-tools", "credo-language-server")
   end
 
@@ -112,7 +112,7 @@ function M.setup(opts)
     elixirls.setup(opts.elixirls)
   end
 
-  if opts.credo.version and enabled(opts.credo.enable) then
+  if opts.credo.version and opts.credo.enable == true then
     credo.setup(opts.credo)
   end
 

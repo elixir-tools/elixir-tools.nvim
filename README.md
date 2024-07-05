@@ -18,7 +18,6 @@
 ## Features
 
 - [Next LS](https://github.com/elixir-tools/next-ls) installation and configuration.
-- [Credo Language Server](https://github.com/elixir-tools/credo-language-server) installation and configuration.
 - [ElixirLS](https://github.com/elixir-lsp/elixir-ls) installation and configuration.
 - `:Mix` command with autocomplete
 - [vim-projectionist](https://github.com/tpope/vim-projectionist) support
@@ -40,7 +39,6 @@ Requires 0.8
 
     elixir.setup {
       nextls = {enable = true},
-      credo = {},
       elixirls = {
         enable = true,
         settings = elixirls.settings {
@@ -71,20 +69,19 @@ use({ "elixir-tools/elixir-tools.nvim", tag = "stable", requires = { "nvim-lua/p
 
 ## Minimal Setup
 
-The minimal setup will configure both ElixirLS and credo-language-server.
+The minimal setup will configure both ElixirLS but not Next LS.
 
 ```lua
 require("elixir").setup()
 ```
 
-Next LS, ElixirLS, and Credo Language Server can be enabled/disabled by setting the `enable` flag in the respective options table.
+Next LS and ElixirLS can be enabled/disabled by setting the `enable` flag in the respective options table.
 
 The defaults are shown below.
 
 ```lua
 require("elixir").setup({
   nextls = {enable = false},
-  credo = {enable = true},
   elixirls = {enable = true},
 })
 ```
@@ -118,15 +115,7 @@ elixir.setup {
       -- custom keybinds
     end
   },
-  credo = {
-    enable = true, -- defaults to true
-    port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`. defaults to nil
-    cmd = "path/to/credo-language-server", -- path to the executable. mutually exclusive with `port`
-    version = "0.1.0-rc.3", -- version of credo-language-server to install and use. defaults to the latest release
-    on_attach = function(client, bufnr)
-      -- custom keybinds
-    end
-  },
+  ,
   elixirls = {
     -- specify a repository and branch
     repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
@@ -196,18 +185,6 @@ and it will not prompt you to install and use it from there.
 ### Commands
 
 Next LS command are available as subcommands of the `:Elixir` command
-
-## Credo Language Server
-
-> **Note**
-> Credo Language Server integration utilizes `Mix.install/2`, so you must be running Elixir >= 1.12
-
-> **Note**
-> Credo Language Server creates a `.elixir-tools` directory in your project root. You'll want to add that to your gitignore.
-
-- Uses your project's Credo version.
-- Full project diagnostics
-- Code Actions
 
 ## ElixirLS
 
