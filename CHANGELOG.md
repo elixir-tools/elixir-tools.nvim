@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.15.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.14.3...v0.15.0) (2024-07-05)
+
+
+### Features
+
+* deprecate Credo Language Server ([63a9920](https://github.com/elixir-tools/elixir-tools.nvim/commit/63a9920e559154847170b278fd45817f5f4bdef0))
+
 ## [0.14.3](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.14.2...v0.14.3) (2024-06-14)
 
 
