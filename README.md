@@ -50,6 +50,9 @@ Requires 0.8
           vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
           vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
         end,
+      },
+      projectionist = {
+        enable = true
       }
     }
   end,
@@ -75,7 +78,7 @@ The minimal setup will configure both ElixirLS but not Next LS.
 require("elixir").setup()
 ```
 
-Next LS and ElixirLS can be enabled/disabled by setting the `enable` flag in the respective options table.
+Next LS, ElixirLS, and Projectionist can be enabled/disabled by setting the `enable` flag in the respective options table.
 
 The defaults are shown below.
 
@@ -83,6 +86,7 @@ The defaults are shown below.
 require("elixir").setup({
   nextls = {enable = false},
   elixirls = {enable = true},
+  projectionist = {enable = true},
 })
 ```
 

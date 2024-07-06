@@ -89,6 +89,7 @@ function M.setup(opts)
   opts.elixirls = opts.elixirls or {}
   opts.credo = opts.credo or {}
   opts.nextls = opts.nextls or {}
+  opts.projectionist = opts.projectionist or {}
 
   define_user_command()
 
@@ -107,7 +108,11 @@ function M.setup(opts)
   end
 
   mix.setup()
-  projectionist.setup()
+
+  if enabled(opts.projectionist.enable) then
+    projectionist.setup(opts.projectionist)
+  end
+
   if enabled(opts.elixirls.enable) then
     elixirls.setup(opts.elixirls)
   end
