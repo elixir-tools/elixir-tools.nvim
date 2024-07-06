@@ -96,19 +96,19 @@ jobs:
           - os: ubuntu-20.04
             manager: sudo apt-get
             packages: -y fd-find esl-erlang elixir
-            nvim-version: 0.8.3
+            nvim-version: v0.8.3
           - os: ubuntu-20.04
             manager: sudo apt-get
             packages: -y fd-find esl-erlang elixir
-            nvim-version: 0.9.5
+            nvim-version: v0.9.5
           - os: macos-14
             manager: brew
             packages: fd elixir
-            nvim-version: 0.8.3
+            nvim-version: v0.8.3
           - os: macos-14
             manager: brew
             packages: fd elixir
-            nvim-version: 0.9.5
+            nvim-version: v0.9.5
     steps:
       - uses: actions/checkout@v4
       - uses: extractions/setup-just@v2
