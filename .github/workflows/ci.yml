@@ -42,7 +42,7 @@ jobs:
             manager: sudo apt-get
             packages: -y fd-find esl-erlang elixir
           - os: macos-14
-            url: https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
+            url: https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-x86_64.tar.gz
             manager: brew
             packages: fd elixir
           - os: macos-14
