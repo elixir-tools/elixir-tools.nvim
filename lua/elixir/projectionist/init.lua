@@ -225,7 +225,7 @@ local config = {
 function M.setup()
   local new_heuristics
   if vim.g.projectionist_heuristics then
-    new_heuristics = vim.tbl_extend("force", vim.g.projectionist_heuristics, config)
+    new_heuristics = vim.tbl_deep_extend("keep", vim.g.projectionist_heuristics, config)
   else
     new_heuristics = config
   end
