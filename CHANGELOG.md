@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+## [0.16.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.15.0...v0.16.0) (2024-07-10)
+
+
+### Features
+
+* **projectionist:** allow disabling the projectionist integration ([#221](https://github.com/elixir-tools/elixir-tools.nvim/issues/221)) ([057f6e5](https://github.com/elixir-tools/elixir-tools.nvim/commit/057f6e522d757cafd6251db326c25bf704404e1d))
+
+
+### Bug Fixes
+
+* nvim test runner breaking changes ([057f6e5](https://github.com/elixir-tools/elixir-tools.nvim/commit/057f6e522d757cafd6251db326c25bf704404e1d))
+* **projectionist:** do not overwrite existing projections ([057f6e5](https://github.com/elixir-tools/elixir-tools.nvim/commit/057f6e522d757cafd6251db326c25bf704404e1d))
+
 ## [0.15.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.14.3...v0.15.0) (2024-07-05)
 
 
