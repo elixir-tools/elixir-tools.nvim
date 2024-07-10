@@ -11,6 +11,30 @@ describe("projectionist", function()
 
   after_each(function()
     vim.cmd.cd("../../../")
+    vim.g.projectionist_heuristics = {}
+  end)
+
+  it("does not overwrite existing projections", function()
+    vim.g.projectionist_heuristics = {
+      ["mix.exs"] = {
+        ["lib/*_test.ex"] = {
+          type = "test",
+          alternate = "lib/{}.ex",
+        },
+      },
+    }
+
+    local test_projection_before_setup = vim.g.projectionist_heuristics["mix.exs"]["lib/*_test.ex"]
+
+    require("elixir.projectionist").setup()
+
+    local test_projection_after_setup = vim.g.projectionist_heuristics["mix.exs"]["lib/*_test.ex"]
+
+    -- existing projections not overwritten
+    assert.are.same(test_projection_before_setup, test_projection_after_setup)
+
+    -- new projections added
+    assert.not_nil(vim.g.projectionist_heuristics["mix.exs"]["lib/*.ex"])
   end)
 
   it("Eview", function()
