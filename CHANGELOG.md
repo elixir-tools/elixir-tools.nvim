@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.16.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.16.0...v0.16.1) (2024-10-02)
+
+
+### Bug Fixes
+
+* print elixirls repo if it fails to clone ([#226](https://github.com/elixir-tools/elixir-tools.nvim/issues/226)) ([ac8d529](https://github.com/elixir-tools/elixir-tools.nvim/commit/ac8d529626a3bfef59d8c88a0bf95ab62441bf36))
+
 ## [0.16.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.15.0...v0.16.0) (2024-07-10)
 
 
