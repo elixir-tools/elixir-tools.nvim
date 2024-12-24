@@ -1,4 +1,4 @@
-*elixir-tools.nvim.txt*      For NVIM v0.8.0      Last change: 2024 October 02
+*elixir-tools.nvim.txt*      For NVIM v0.8.0     Last change: 2024 December 24
 
 ==============================================================================
 Table of Contents                        *elixir-tools.nvim-table-of-contents*
@@ -8,6 +8,7 @@ Table of Contents                        *elixir-tools.nvim-table-of-contents*
 2. Install                                         |elixir-tools.nvim-install|
   - lazy.nvim                            |elixir-tools.nvim-install-lazy.nvim|
   - packer.nvim                        |elixir-tools.nvim-install-packer.nvim|
+  - vim-plug                              |elixir-tools.nvim-install-vim-plug|
 3. Getting Started                         |elixir-tools.nvim-getting-started|
   - Minimal Setup            |elixir-tools.nvim-getting-started-minimal-setup|
   - Advanced Setup          |elixir-tools.nvim-getting-started-advanced-setup|
@@ -91,6 +92,14 @@ PACKER.NVIM                            *elixir-tools.nvim-install-packer.nvim*
 
 >lua
     use({ "elixir-tools/elixir-tools.nvim", tag = "stable", requires = { "nvim-lua/plenary.nvim" }})
+<
+
+
+VIM-PLUG                                  *elixir-tools.nvim-install-vim-plug*
+
+>vimscript
+    Plug "nvim-lua/plenary.nvim"
+    Plug "elixir-tools/elixir-tools.nvim", { "tag": "stable" }
 <
 
 
