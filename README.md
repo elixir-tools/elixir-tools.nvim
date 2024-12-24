@@ -68,7 +68,7 @@ Requires 0.8
 use({ "elixir-tools/elixir-tools.nvim", tag = "stable", requires = { "nvim-lua/plenary.nvim" }})
 ```
 
-## Vim-Plug
+## vim-plug
 
 ```vimscript
 Plug "nvim-lua/plenary.nvim"
