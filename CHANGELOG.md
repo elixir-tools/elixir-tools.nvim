@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.16.2](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.16.1...v0.16.2) (2025-01-04)
+
+
+### Bug Fixes
+
+* print dest directory if it fails to clone ([#233](https://github.com/elixir-tools/elixir-tools.nvim/issues/233)) ([b08647f](https://github.com/elixir-tools/elixir-tools.nvim/commit/b08647f34049e54677b57d02902bf756138e5c25))
+
 ## [0.16.1](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.16.0...v0.16.1) (2024-10-02)
 
 
