@@ -24,7 +24,7 @@ function M.clone(dir, opts)
 
   clone:sync(60000)
 
-  assert(clone.code == 0, string.format("Failed to clone %s", opts.repo))
+  assert(clone.code == 0, string.format("Failed to clone %s to %s", opts.repo, dir))
 
   if opts.ref ~= "HEAD" then
     local checkout = Job:new {
