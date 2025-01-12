@@ -74,7 +74,6 @@ describe("install", function()
     local screen = Screen.new()
     screen:attach()
     exec_lua([[
-    vim.cmd.colorscheme("vim")
     vim.g.next_ls_cache_dir = "./spec/fixtures/basic/bin"
     vim.g.next_ls_data_dir = "./spec/fixtures/basic/data"
     vim.g.next_ls_default_bin = "./spec/fixtures/basic/bin/nextls"
@@ -92,19 +91,16 @@ describe("install", function()
           Enum.map([:one, :two], &Function.identity/1)     |
         end                                                |
       end                                                  |
-      {1:~                                                    }|
-      {1:~                                                    }|
-      {1:~                                                    }|
-      {1:~                                                    }|
-      {1:~                                                    }|
-      {1:~                                                    }|
-      {1:~                                                    }|
-      {1:~                                                    }|
+      ~                                                    |
+      ~                                                    |
+      ~                                                    |
+      ~                                                    |
+      ~                                                    |
+      ~                                                    |
+      ~                                                    |
+      ~                                                    |
                                                            |
     ]],
-      attr_ids = {
-        [1] = { bold = true, foreground = Screen.colors.Blue1 },
-      },
     }
   end)
 end)
