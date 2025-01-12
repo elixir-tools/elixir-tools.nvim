@@ -1,4 +1,4 @@
-*elixir-tools.nvim.txt*      For NVIM v0.8.0      Last change: 2025 January 04
+*elixir-tools.nvim.txt*      For NVIM v0.8.0      Last change: 2025 January 12
 
 ==============================================================================
 Table of Contents                        *elixir-tools.nvim-table-of-contents*
@@ -146,6 +146,7 @@ some personal configuration.
         enable = false, -- defaults to false
         port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`. defaults to nil
         cmd = "path/to/next-ls", -- path to the executable. mutually exclusive with `port`
+        spitfire = true, -- defaults to false
         init_options = {
           mix_env = "dev",
           mix_target = "host",
