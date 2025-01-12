@@ -13,9 +13,9 @@ init: deps
   #!/usr/bin/env bash
   nvim-test/bin/nvim-test --init
 
-test nvim_version="v0.9.5": init
+test nvim_version="v0.10.3": init
   #!/usr/bin/env bash
-  nvim-test/bin/nvim-test --target_version {{nvim_version}} busted --lpath="$PWD/lua/?.lua"
+  nvim-test/bin/nvim-test --target_version {{nvim_version}}
 
 format:
   #!/usr/bin/env bash
