@@ -21,7 +21,7 @@ jobs:
           args: --check .
 
   tests:
-    name: tests
+    name: tests (${{ matrix.os }} - ${{ matrix.nvim-version }})
     runs-on: ${{ matrix.os }}
 
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true)
@@ -40,4 +40,4 @@ jobs:
           luaVersion: "5.1.5"
       - uses: leafo/gh-actions-luarocks@v4
       - name: Run nvim-test tests
-        run: nix shell nixpkgs#bash nixpkgs#just -c just test ${{ nvim-version }}
+        run: nix shell nixpkgs#bash nixpkgs#just -c just test ${{ matrix.nvim-version }}
