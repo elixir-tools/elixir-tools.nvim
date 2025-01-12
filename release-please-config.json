@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "packages": {
+    ".": {
+      "package-name": "elixir-tools.nvim",
+      "release-type": "simple",
+      "bump-minor-pre-major": true,
+      "include-component-in-tag": false
+    }
+  }
+}
