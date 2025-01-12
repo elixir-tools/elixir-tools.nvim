@@ -1,6 +1,14 @@
 local Path = require("plenary.path")
 local M = {}
 
+function M.cache_dir()
+  return vim.env.XDG_CACHE_HOME or vim.env.HOME .. "/.cache"
+end
+
+function M.data_dir()
+  return vim.env.XDG_DATA_HOME or vim.env.HOME .. "/.data"
+end
+
 ---@param path string
 function M.safe_path(path)
   return string.gsub(path, "/", "_")
@@ -37,7 +45,7 @@ local arch = {
 
 function M.download_nextls(opts)
   vim.notify("[elixir-tools] Downloading latest version of Next LS")
-  local default_cache_dir = vim.g.next_ls_cache_dir or vim.env.HOME .. "/.cache/elixir-tools/nextls/bin"
+  local default_cache_dir = vim.g.next_ls_cache_dir or M.cache_dir() .. "/elixir-tools/nextls/bin"
   opts = opts or {}
   local cache_dir = opts.cache_dir or default_cache_dir
   local os_name = string.lower(vim.uv.os_uname().sysname)
@@ -77,7 +85,7 @@ end
 function M.latest_release(owner, repo, opts)
   opts = opts or {}
   local github_host = opts.github_host or "api.github.com"
-  local cache_dir = opts.cache_dir or "~/.cache/nvim/elixir-tools.nvim/"
+  local cache_dir = opts.cache_dir or M.cache_dir() .. "/nvim/elixir-tools.nvim/"
   local curl_response = vim.fn.system {
     "curl",
     "--fail",

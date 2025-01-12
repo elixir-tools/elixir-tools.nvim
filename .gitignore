@@ -2,6 +2,7 @@ tmp
 node_modules
 nvim-test
 deps
-busted/fixtures/basic/bin
-busted/fixtures/basic/data
+spec/fixtures/basic/bin
+spec/fixtures/basic/cache
+spec/fixtures/basic/data
 

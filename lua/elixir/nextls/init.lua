@@ -5,8 +5,8 @@ if not vim.uv then
   vim.uv = vim.loop
 end
 
-M.default_bin = vim.g.next_ls_default_bin or (vim.env.HOME .. "/.cache/elixir-tools/nextls/bin/nextls")
-M.default_data = vim.g.next_ls_data_dir or (vim.env.HOME .. "/.data/elixir-tools/nextls")
+M.default_bin = vim.g.next_ls_default_bin or (utils.cache_dir() .. "/elixir-tools/nextls/bin/nextls")
+M.default_data = vim.g.next_ls_data_dir or (utils.data_dir() .. "/elixir-tools/nextls")
 
 local function bufname_valid(bufname)
   if

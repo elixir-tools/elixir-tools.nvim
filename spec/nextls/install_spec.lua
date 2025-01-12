@@ -4,6 +4,8 @@ local exec_lua = helpers.exec_lua
 local luv = vim.loop
 local eq = assert.equal
 
+helpers.options = { verbose = true }
+
 describe("install", function()
   before_each(function()
     helpers.clear()
@@ -11,6 +13,11 @@ describe("install", function()
     helpers.fn.delete("./spec/fixtures/basic/data", "rf")
     helpers.fn.mkdir("./spec/fixtures/basic/data", "p")
     helpers.fn.mkdir("./spec/fixtures/basic/bin", "p")
+    exec_lua([[
+    vim.g.next_ls_cache_dir = nil
+    vim.g.next_ls_data_dir = nil
+    vim.g.next_ls_default_bin = nil
+    ]])
     -- Make plugin available
     exec_lua([[vim.opt.rtp:append'.']])
     exec_lua([[vim.opt.rtp:append'./deps/plenary.nvim/']])
@@ -27,6 +34,20 @@ describe("install", function()
     ]])
 
     eq(luv.fs_stat("./spec/fixtures/basic/bin/nextls").mode, 33523)
+  end)
+
+  it("installs nextls into the xdg dirs when set", function()
+    helpers.fn.writefile({ "" }, "./spec/fixtures/basic/data/.next-ls-force-update-v1")
+    exec_lua([[
+    vim.env.XDG_CACHE_HOME = "./spec/fixtures/basic/cache"
+    vim.env.XDG_DATA_HOME = "./spec/fixtures/basic/data"
+    require("elixir.nextls").setup({auto_update = true, cmd = "./spec/fixtures/basic/cache/elixir-tools/nextls/bin/nextls" })
+    vim.cmd.edit("./spec/fixtures/basic/lib/basic.ex")
+    ]])
+
+    local file = luv.fs_stat("./spec/fixtures/basic/cache/elixir-tools/nextls/bin/nextls")
+    assert.Table(file)
+    eq(file.mode, 33523)
   end)
 
   it("forces an install if the flag is not set", function()
