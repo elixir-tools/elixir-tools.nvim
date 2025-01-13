@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.17.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.16.2...v0.17.0) (2025-01-13)
+
+
+### Features
+
+* support XDG_CACHE_HOME and XDG_DATA_HOME ([#236](https://github.com/elixir-tools/elixir-tools.nvim/issues/236)) ([f4bd15f](https://github.com/elixir-tools/elixir-tools.nvim/commit/f4bd15f0d79f10a4291ec5ac9d31d7725f7af88c))
+
 ## [0.16.2](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.16.1...v0.16.2) (2025-01-04)
 
 
