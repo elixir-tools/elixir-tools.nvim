@@ -20,101 +20,24 @@ jobs:
           version: latest
           args: --check .
 
-  legacy_tests:
-    name: legacy tests
-    runs-on: ${{ matrix.os }}
-
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true)
-
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-20.04
-            url: https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
-            manager: sudo apt-get
-            packages: -y fd-find esl-erlang elixir
-          - os: ubuntu-20.04
-            url: https://github.com/neovim/neovim/releases/download/v0.9.5/nvim-linux64.tar.gz
-            manager: sudo apt-get
-            packages: -y fd-find esl-erlang elixir
-          - os: ubuntu-20.04
-            url: https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-linux64.tar.gz
-            manager: sudo apt-get
-            packages: -y fd-find esl-erlang elixir
-          - os: macos-14
-            url: https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-x86_64.tar.gz
-            manager: brew
-            packages: fd elixir
-          - os: macos-14
-            url: https://github.com/neovim/neovim/releases/download/v0.9.5/nvim-macos.tar.gz
-            manager: brew
-            packages: fd elixir
-          - os: macos-14
-            url: https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-macos.tar.gz
-            manager: brew
-            packages: fd elixir
-    steps:
-      - uses: actions/checkout@v4
-      - run: date +%F > todays-date
-      - name: Restore from todays cache
-        uses: actions/cache@v4
-        with:
-          path: _neovim
-          key: ${{ runner.os }}-${{ matrix.url }}-${{ hashFiles('todays-date') }}
-
-      - name: Add Repository
-        if: matrix.os == 'ubuntu-20.04'
-        run: wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb && sudo dpkg -i erlang-solutions_2.0_all.deb
-
-      - name: Prepare
-        run: |
-          ${{ matrix.manager }} update
-          ${{ matrix.manager }} install ${{ matrix.packages }}
-          test -d _neovim || {
-            mkdir -p _neovim
-            curl -sL ${{ matrix.url }} | tar xzf - --strip-components=1 -C "${PWD}/_neovim"
-          }
-
-      - name: Run legacy tests
-        env:
-          BUSTED_TIMEOUT: 600000
-        run: |
-          export PATH="${PWD}/_neovim/bin:${PATH}"
-          export VIM="${PWD}/_neovim/share/nvim/runtime"
-          nvim --version
-          bin/test
-
   tests:
-    name: tests
+    name: tests (${{ matrix.os }} - ${{ matrix.nvim-version }})
     runs-on: ${{ matrix.os }}
 
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true)
 
     strategy:
       matrix:
-        include:
-          - os: ubuntu-20.04
-            manager: sudo apt-get
-            packages: -y fd-find esl-erlang elixir
-            nvim-version: v0.8.3
-          - os: ubuntu-20.04
-            manager: sudo apt-get
-            packages: -y fd-find esl-erlang elixir
-            nvim-version: v0.9.5
-          - os: macos-14
-            manager: brew
-            packages: fd elixir
-            nvim-version: v0.8.3
-          - os: macos-14
-            manager: brew
-            packages: fd elixir
-            nvim-version: v0.9.5
+        os: [ubuntu-latest, macos-14]
+        nvim-version: [v0.8.3, v0.9.5, v0.10.3]
+
     steps:
       - uses: actions/checkout@v4
-      - uses: extractions/setup-just@v2
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
       - uses: leafo/gh-actions-lua@v10
         with:
           luaVersion: "5.1.5"
       - uses: leafo/gh-actions-luarocks@v4
       - name: Run nvim-test tests
-        run: just test ${{ matrix.nvim-version }}
+        run: nix shell nixpkgs#bash nixpkgs#just -c just test ${{ matrix.nvim-version }}
