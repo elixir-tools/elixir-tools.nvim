@@ -1,6 +1,11 @@
 deps:
   #!/usr/bin/env bash
   set -euo pipefail
+  mkdir -p deps
+  if [ ! -d "deps/plenary.nvim" ]; then
+    git -C deps clone https://github.com/nvim-lua/plenary.nvim
+  fi
+
   if [ ! -d "nvim-test" ]; then
     git clone --depth 1 --branch v1.1.1 https://github.com/lewis6991/nvim-test
   fi

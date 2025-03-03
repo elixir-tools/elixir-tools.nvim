@@ -30,6 +30,7 @@
           pkgs.lua5_1
           pkgs.just
           pkgs.stylua
+          pkgs.wget
         ];
       };
       };
