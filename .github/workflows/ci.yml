@@ -38,6 +38,6 @@ jobs:
       - uses: leafo/gh-actions-lua@v10
         with:
           luaVersion: "5.1.5"
-      - uses: leafo/gh-actions-luarocks@v4
+      - uses: leafo/gh-actions-luarocks@v5
       - name: Run nvim-test tests
         run: nix shell nixpkgs#bash nixpkgs#just -c just test ${{ matrix.nvim-version }}
