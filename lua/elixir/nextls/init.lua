@@ -77,7 +77,6 @@ function M.setup(opts)
           workspace_folders = vim.g.workspace.folders
         end
       elseif bufname_valid(buf_name) then
-        local buf_uri = vim.uri_from_bufnr(0)
         lock_matches = vim.fs.find({ "mix.lock" }, {
           stop = vim.uv.os_homedir(),
           upward = true,
