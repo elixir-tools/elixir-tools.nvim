@@ -1,4 +1,4 @@
-*elixir-tools.nvim.txt*     For NVIM v0.8.0     Last change: 2025 September 29
+*elixir-tools.nvim.txt*      For NVIM v0.8.0      Last change: 2025 October 13
 
 ==============================================================================
 Table of Contents                        *elixir-tools.nvim-table-of-contents*
