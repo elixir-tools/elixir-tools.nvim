@@ -138,6 +138,16 @@ elixir.setup {
     -- not currently supported by elixirls, but can be a table if you wish to pass other args `{"path/to/elixirls", "--foo"}`
     cmd = "/usr/local/bin/elixir-ls.sh",
 
+	-- extension point to link in to server specific commands
+	-- by default, the codelens action below runs a default test runner in a terminal buffer 
+	-- replacing it as shown here will override default behavior, allow running a custom function instead
+	-- `args` are anything the lsp command passes back to the callback function
+	commands = {
+      ["elixir.lens.test.run"] = function(args)
+	    -- custom functionality here as needed
+	  end
+	},
+
     -- default settings, use the `settings` function to override settings
     settings = elixirls.settings {
       dialyzerEnabled = true,
