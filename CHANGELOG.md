@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## [0.18.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.17.0...v0.18.0) (2025-10-14)
+
+
+### Features
+
+* allowing extension point for lsp specific actions ([#250](https://github.com/elixir-tools/elixir-tools.nvim/issues/250)) ([96d9687](https://github.com/elixir-tools/elixir-tools.nvim/commit/96d9687c38b23d98d0f264167e18dbacb295cf34))
+
 ## [0.17.0](https://github.com/elixir-tools/elixir-tools.nvim/compare/v0.16.2...v0.17.0) (2025-01-13)
 
 
