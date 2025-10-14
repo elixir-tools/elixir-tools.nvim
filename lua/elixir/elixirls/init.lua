@@ -164,7 +164,7 @@ end
 
 function M.command(params)
   local install_path =
-      Path:new(params.path, params.repo, Utils.safe_path(params.ref), params.versions, "language_server.sh")
+    Path:new(params.path, params.repo, Utils.safe_path(params.ref), params.versions, "language_server.sh")
 
   return install_path
 end
@@ -260,7 +260,7 @@ local function repo_opts(opts)
   else
     if opts.repo then -- if we specified a repo in our conifg, then let's default to HEAD
       ref = "HEAD"
-    else              -- else, let's checkout the latest stable release
+    else -- else, let's checkout the latest stable release
       ref = default_install_tag
     end
   end
@@ -319,7 +319,7 @@ function M.setup(opts)
     if root_dir then
       local log_message = vim.lsp.handlers["window/logMessage"]
 
-      local commands = vim.tbl_extend('force', {
+      local commands = vim.tbl_extend("force", {
         ["elixir.lens.test.run"] = test,
       }, opts.commands or {})
 
@@ -335,7 +335,7 @@ function M.setup(opts)
             log_message(err, result, ...)
 
             local message =
-                vim.split("[" .. vim.lsp.protocol.MessageType[result.type] .. "] " .. result.message, "\n")
+              vim.split("[" .. vim.lsp.protocol.MessageType[result.type] .. "] " .. result.message, "\n")
 
             pcall(vim.api.nvim_buf_set_lines, elixir_nvim_output_bufnr, -1, -1, false, message)
           end,
