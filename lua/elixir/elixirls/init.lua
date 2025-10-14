@@ -318,12 +318,15 @@ function M.setup(opts)
 
     if root_dir then
       local log_message = vim.lsp.handlers["window/logMessage"]
+
+      local commands = vim.tbl_extend("force", {
+        ["elixir.lens.test.run"] = test,
+      }, opts.commands or {})
+
       vim.lsp.start(vim.tbl_extend("keep", {
         name = "ElixirLS",
         cmd = opts.cmd and wrap_in_table(opts.cmd) or { tostring(cmd) },
-        commands = {
-          ["elixir.lens.test.run"] = test,
-        },
+        commands = commands,
         settings = opts.settings or M.settings {},
         capabilities = opts.capabilities or capabilities,
         root_dir = root_dir,
