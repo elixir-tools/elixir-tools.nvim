@@ -71,8 +71,8 @@ use({ "elixir-tools/elixir-tools.nvim", tag = "stable", requires = { "nvim-lua/p
 ## vim-plug
 
 ```vimscript
-Plug "nvim-lua/plenary.nvim"
-Plug "elixir-tools/elixir-tools.nvim", { "tag": "stable" }
+Plug 'nvim-lua/plenary.nvim'
+Plug 'elixir-tools/elixir-tools.nvim', { 'tag': 'stable' }
 ```
 
 # Getting Started
