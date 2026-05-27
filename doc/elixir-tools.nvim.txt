@@ -1,5 +1,5 @@
 *elixir-tools.nvim.txt*
-                                 For NVIM v0.8.0    Last change: 2026 April 28
+                                   For NVIM v0.8.0    Last change: 2026 May 27
 
 ==============================================================================
 Table of Contents                        *elixir-tools.nvim-table-of-contents*
@@ -99,8 +99,8 @@ PACKER.NVIM                            *elixir-tools.nvim-install-packer.nvim*
 VIM-PLUG                                  *elixir-tools.nvim-install-vim-plug*
 
 >vimscript
-    Plug "nvim-lua/plenary.nvim"
-    Plug "elixir-tools/elixir-tools.nvim", { "tag": "stable" }
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'elixir-tools/elixir-tools.nvim', { 'tag': 'stable' }
 <
 
 
