@@ -18,7 +18,7 @@ jobs:
           token: ${{ secrets.PAT }}
 
       - name: panvimdoc
-        uses: kdheepak/panvimdoc@662fb20304d20c539fb48a0bda628f5165507de7 # v4.0.1
+        uses: kdheepak/panvimdoc@4c8eaecb80058694171627629c6ff59bcf41472d # v6.0.0
         with:
           vimdoc: elixir-tools.nvim
           version: "NVIM v0.8.0"
