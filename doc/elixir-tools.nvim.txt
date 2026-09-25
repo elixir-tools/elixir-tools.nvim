@@ -1,4 +1,5 @@
-*elixir-tools.nvim.txt*        For NVIM v0.8.0       Last change: 2026 July 28
+*elixir-tools.nvim.txt*
+                             For NVIM v0.8.0    Last change: 2026 September 25
 
 ==============================================================================
 Table of Contents                        *elixir-tools.nvim-table-of-contents*
@@ -61,7 +62,7 @@ LAZY.NVIM                                *elixir-tools.nvim-install-lazy.nvim*
       config = function()
         local elixir = require("elixir")
         local elixirls = require("elixir.elixirls")
-    
+
         elixir.setup {
           nextls = {enable = true},
           elixirls = {
@@ -140,7 +141,7 @@ some personal configuration.
 >lua
     local elixir = require("elixir")
     local elixirls = require("elixir.elixirls")
-    
+
     elixir.setup {
       nextls = {
         enable = false, -- defaults to false
@@ -166,13 +167,13 @@ some personal configuration.
         repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
         branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
         tag = "v0.14.6", -- defaults to nil, mutually exclusive with the `branch` option
-    
+
         -- alternatively, point to an existing elixir-ls installation (optional)
         -- not currently supported by elixirls, but can be a table if you wish to pass other args `{"path/to/elixirls", "--foo"}`
         cmd = "/usr/local/bin/elixir-ls.sh",
-    
+
         -- extension point to link in to server specific commands
-        -- by default, the codelens action below runs a default test runner in a terminal buffer 
+        -- by default, the codelens action below runs a default test runner in a terminal buffer
         -- replacing it as shown here will override default behavior, allow running a custom function instead
         -- `args` are anything the lsp command passes back to the callback function
         commands = {
@@ -180,7 +181,7 @@ some personal configuration.
             -- custom functionality here as needed
           end
         },
-    
+
         -- default settings, use the `settings` function to override settings
         settings = elixirls.settings {
           dialyzerEnabled = true,
@@ -476,14 +477,14 @@ NIX + JUST
 >bash
     # enter a nix shell, provides language deps and just
     $ nix develop
-    
+
     # install test runner and plugin dependencies
     $ just init
-    
+
     # run tests, optionally include the Neovim version to test
     $ just test
     $ just test 0.8.3
-    
+
     # format the code
     $ just format
 <
