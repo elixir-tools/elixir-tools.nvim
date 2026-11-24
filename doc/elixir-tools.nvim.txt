@@ -1,5 +1,5 @@
 *elixir-tools.nvim.txt*
-                             For NVIM v0.8.0    Last change: 2026 September 25
+                              For NVIM v0.8.0    Last change: 2026 November 24
 
 ==============================================================================
 Table of Contents                        *elixir-tools.nvim-table-of-contents*
@@ -210,8 +210,10 @@ COMMANDS                                 *elixir-tools.nvim-features-commands*
 
 
 :Elixir {command} [{subcommand}]       The main elixir-tools command
-                                       >vim
+                                       >
+                                           ```vim
                                            :Elixir nextls uninstall
+                                           ```
                                        <
                                        FULL LIST ~
 
@@ -242,7 +244,7 @@ NEXT LS                                   *elixir-tools.nvim-features-next-ls*
   it’s automatically ignored by git.
 The language server for Elixir that just works.
 
-Youcan read more about it at https://www.elixir-tools.dev/next-ls.
+You can read more about it at https://www.elixir-tools.dev/next-ls.
 
 
 AUTOMATIC INSTALLATION ~
